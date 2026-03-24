@@ -207,7 +207,7 @@ export default function AnthologyPage() {
                   <li style={{ marginBottom: '1rem' }}>완벽한 교사용 가이드 (발문)</li>
                   <li style={{ marginBottom: '1rem' }}>단원별 내신/수능 리뷰 테스트</li>
                   <li style={{ marginBottom: '1rem' }}>레벨 진단 테스트 제공</li>
-                  <li style={{ marginBottom: '1rem' }}>KATCH 플랫폼 자동 연동</li>
+                  <li style={{ marginBottom: '1rem' }}>KATCH 자동 연동</li>
                 </ul>
               </div>
             )}

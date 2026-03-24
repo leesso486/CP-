@@ -95,7 +95,7 @@ export default function KatchPage() {
           <span style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(56,189,248,0.1)', color: '#38bdf8', borderRadius: '20px', fontSize: '0.9rem', fontWeight: 600, marginBottom: '20px', border: '1px solid rgba(56,189,248,0.2)' }}>Platform Outline</span>
           <h1 style={{ fontSize: '3.5rem', fontWeight: 800, marginBottom: '20px', letterSpacing: '-1px' }}>
             압도적인 교육의 상위 1% 기술,<br/>
-            <strong style={{ background: 'linear-gradient(90deg, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>KATCH 플랫폼</strong>
+            <strong style={{ background: 'linear-gradient(90deg, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>KATCH</strong>
           </h1>
           <p style={{ fontSize: '1.25rem', color: '#94a3b8', maxWidth: '700px', margin: '0 auto', lineHeight: 1.6 }}>
             KNS EDU가 자랑하는 6대 프리미엄 통합 평가 및 리소스 관리 시스템입니다.<br/>
@@ -193,7 +193,7 @@ export default function KatchPage() {
       <section style={{ padding: '80px 0 120px', textAlign: 'center', background: 'linear-gradient(to top, rgba(30,58,138,0.2) 0%, transparent 100%)' }}>
         <div className="container reveal">
           <h2 style={{ fontSize: '2.2rem', fontWeight: 700, marginBottom: '20px' }}>진정한 교육의 차이는 데이터가 만듭니다.</h2>
-          <p style={{ color: '#94a3b8', fontSize: '1.1rem', marginBottom: '40px' }}>지금 KATCH 플랫폼을 도입하고 프리미엄 학원 관리의 신세계를 경험하세요.</p>
+          <p style={{ color: '#94a3b8', fontSize: '1.1rem', marginBottom: '40px' }}>지금 KATCH을 도입하고 프리미엄 학원 관리의 신세계를 경험하세요.</p>
           <a href="#contact" className="btn btn--primary btn--large" style={{ fontSize: '1.1rem', padding: '16px 40px', borderRadius: '30px' }}>KATCH 도입 상담하기</a>
         </div>
       </section>

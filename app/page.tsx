@@ -95,7 +95,7 @@ export default function HomePage() {
               <p style={{ color: 'rgba(255,255,255,0.8)' }}>데이터 기반 1등급 어휘집</p>
             </Link>
             <Link href="/katch" style={{ background: '#0f172a', border: '1px solid #334155' }}>
-              <h3 style={{ fontSize: '1.8rem', marginBottom: '1rem', color: '#38bdf8' }}>KATCH 플랫폼</h3>
+              <h3 style={{ fontSize: '1.8rem', marginBottom: '1rem', color: '#38bdf8' }}>KATCH</h3>
               <p style={{ color: 'rgba(255,255,255,0.8)' }}>문제은행 및 진단 LMS</p>
             </Link>
           </div>
