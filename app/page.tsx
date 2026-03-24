@@ -23,25 +23,36 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero__bg-element hero__bg-1"></div>
-        <div className="hero__bg-element hero__bg-2"></div>
-        <div className="container hero__content reveal">
-          <span className="hero__badge" style={{ letterSpacing: '1px' }}>KNS 프리미엄 파트너십</span>
-          <h2 className="hero__title" style={{ fontSize: '3.5rem', lineHeight: 1.3 }}>
-            대치동 1위 영어의 모든 것,<br/>
-            <strong className="text-highlight">하나의 플랫폼</strong>에 담았습니다.
-          </h2>
-          <p className="hero__desc" style={{ fontSize: '1.25rem', marginTop: '1.5rem', lineHeight: 1.6 }}>
-            압도적 콘텐츠 <span style={{ fontWeight: 700, color: '#1F6A56' }}>[수능 앤솔로지 &amp; 수단비]</span>부터<br/>
-            최상위권 데이터 기반 <span style={{ fontWeight: 700, color: '#1F6A56' }}>[KATCH 평가 플랫폼]</span>까지.<br/>
-            KNS의 20년 성공 DNA를 제휴 학원 원장님들과 공유합니다.
+      {/* PeachBeach Style Hero Section */}
+      <section style={{ backgroundColor: '#F8F6F0', overflow: 'hidden' }}>
+        {/* Horizontal Image Gallery */}
+        <div style={{ display: 'flex', width: '100%', height: '400px', gap: '4px', overflow: 'hidden', padding: '0 4px', paddingTop: '4px' }}>
+          <img src="/images/anthology_lv1.png" alt="Anthology 1" style={{ flex: 1, objectFit: 'cover', minWidth: 0, transition: 'flex 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)', cursor: 'pointer' }} onMouseOver={(e) => e.currentTarget.style.flex = '1.6'} onMouseOut={(e) => e.currentTarget.style.flex = '1'} />
+          <img src="/images/sudanbi_core.png" alt="Sudanbi Core" style={{ flex: 1, objectFit: 'cover', minWidth: 0, transition: 'flex 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)', cursor: 'pointer' }} onMouseOver={(e) => e.currentTarget.style.flex = '1.6'} onMouseOut={(e) => e.currentTarget.style.flex = '1'} />
+          <img src="/images/katch_diag.png" alt="Katch Diagnostic" style={{ flex: 1, objectFit: 'cover', minWidth: 0, transition: 'flex 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)', cursor: 'pointer' }} onMouseOver={(e) => e.currentTarget.style.flex = '1.6'} onMouseOut={(e) => e.currentTarget.style.flex = '1'} />
+          <img src="/images/anthology_lv6.png" alt="Anthology 6" style={{ flex: 1, objectFit: 'cover', minWidth: 0, transition: 'flex 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)', cursor: 'pointer' }} onMouseOver={(e) => e.currentTarget.style.flex = '1.6'} onMouseOut={(e) => e.currentTarget.style.flex = '1'} />
+          <img src="/images/katch_vod.png" alt="Katch VOD" style={{ flex: 1, objectFit: 'cover', minWidth: 0, transition: 'flex 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)', cursor: 'pointer' }} onMouseOver={(e) => e.currentTarget.style.flex = '1.6'} onMouseOut={(e) => e.currentTarget.style.flex = '1'} />
+          <img src="/images/sudanbi_advanced.png" alt="Sudanbi Advanced" style={{ flex: 1, objectFit: 'cover', minWidth: 0, transition: 'flex 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)', cursor: 'pointer' }} onMouseOver={(e) => e.currentTarget.style.flex = '1.6'} onMouseOut={(e) => e.currentTarget.style.flex = '1'} />
+        </div>
+
+        {/* Elegant Typography */}
+        <div style={{ textAlign: 'center', marginTop: '5rem', padding: '0 2rem' }} className="reveal">
+          <p style={{ fontSize: '0.95rem', color: '#64748b', letterSpacing: '0.05em', lineHeight: 1.6, marginBottom: '2rem' }}>
+            대치동 1위 영어의 모든 것, 하나의 플랫폼에 담았습니다.<br/>
+            수능 앤솔로지, 어휘 수단비, KATCH 플랫폼까지 압도적 성장을 경험하세요.
           </p>
-          <div className="hero__actions" style={{ marginTop: '2.5rem' }}>
-            <a href="#contact" className="btn btn--primary btn--large">제휴 상담 신청하기</a>
-            <a href="#about" className="btn btn--secondary btn--large">통합 시스템 알아보기</a>
-          </div>
+          <h1 style={{ 
+            fontSize: 'min(17vw, 160px)', 
+            fontWeight: 400, 
+            color: '#FA8072', 
+            letterSpacing: '-0.05em', 
+            fontFamily: '"Times New Roman", Times, serif',
+            margin: 0,
+            lineHeight: 0.9,
+            paddingBottom: '3rem'
+          }}>
+            KNSEdu
+          </h1>
         </div>
       </section>
 
