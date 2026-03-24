@@ -16,7 +16,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`header ${isScrolled || pathname === '/katch' ? 'scrolled' : ''}`}>
+    <header className={`header ${isScrolled || pathname === '/katch' || pathname === '/' ? 'scrolled' : ''}`}>
       <div className="container header__inner">
         <Link href="/" className="logo">
           Anthology <span style={{ color: "var(--color-primary-light)" }}>by KNS EDU</span>
