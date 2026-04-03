@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNS BOOKS | 프리미엄 B2B 교육 플랫폼</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #0a0f1c; color: white; min-height: 100vh; 
+            font-family: 'Pretendard', 'Inter', sans-serif; 
+            overflow-x: hidden; -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 4%; position: relative; z-index: 10; }
+        
+        /* Unified White Header (Light Mode) */
+        header { 
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; 
+            padding: 20px 4%; transition: all 0.4s ease; 
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); 
+            border-bottom: 1px solid rgba(0,0,0,0.05); 
+        }
+        header.scrolled { padding: 12px 4%; box-shadow: 0 4px 20px rgba(0,0,0,0.05); background: rgba(255,255,255,0.98); }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1400px; margin: 0 auto; }
+        .logo { font-size: 1.6rem; font-weight: 900; text-decoration: none; color: #0F172A; letter-spacing: -0.5px; font-family: 'Inter', sans-serif; }
+        .logo span { color: #3B82F6; }
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: #64748B; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #0F172A; }
+        .btn-partner { 
+            display: inline-block; padding: 10px 24px; background: #3B82F6; color: #FFFFFF !important; 
+            border-radius: 30px; font-weight: 700; font-size: 0.95rem; 
+            transition: all 0.3s; text-decoration: none; border: none; box-shadow: 0 4px 14px rgba(59,130,246,0.3);
+        }
+        .btn-partner:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(59,130,246,0.4); }
+
+        @keyframes pulse { 0% { transform: translate(-50%, -50%) scale(1); } 100% { transform: translate(-50%, -50%) scale(1.3); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        main a { text-decoration: none; color: inherit; }
+        @media (max-width: 900px) { .nav-links { display: none; } }
+    </style>
+</head>
+<body>
+    <header id="header" class="scrolled">
+        <div class="nav-wrapper">
+            <div class="logo"><a href="index.html" class="logo">KNS BOOKS<span>.</span></a></div>
+            <nav class="nav-links">
+                <a href="index.html#about" class="">ABOUT KNS</a>
+                <a href="anthology.html" class="">수능 앤솔로지</a>
+                <a href="sudanbi.html" class="">수단비</a>
+                <a href="katch.html" class="">KATCH 플랫폼</a>
+                <a href="#contact" class="btn-partner">도입 및 제휴</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div style="background-color:#FFFFFF;color:#0F172A;min-height:100vh;font-family:Pretendard, Inter, sans-serif"><style>
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .kns-hero { position: relative; width: 100%; background: #020617; padding: 180px 4% 160px; text-align: center; overflow: hidden; color: white; }
+        .kns-hero::before { content: ''; position: absolute; top: 50%; left: 50%; width: 1200px; height: 1200px; background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, rgba(2,6,23,0) 60%); transform: translate(-50%, -50%); pointer-events: none; }
+        .kns-hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(to top, #FFFFFF, transparent); pointer-events: none; }
+        .hero-title-massive { font-size: clamp(4rem, 8vw, 8rem); font-weight: 900; line-height: 1; letter-spacing: -3px; margin-bottom: 24px; color: #FFFFFF; font-family: 'Inter', sans-serif; text-transform: uppercase; background: linear-gradient(to right, #ffffff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-subtitle { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; color: #38BDF8; margin-bottom: 30px; letter-spacing: -1px; }
+        
+        .kns-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 60px auto 0; text-align: center; position: relative; z-index: 10; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 50px; }
+        .kns-stat-num { font-size: 3rem; font-weight: 900; color: #FFFFFF; font-family: 'Inter', sans-serif; margin-bottom: 8px; letter-spacing: -1px; }
+        .kns-stat-text { font-size: 1.1rem; color: #94A3B8; font-weight: 600; word-break: keep-all; }
+        
+        .g-card { background: #FFFFFF; border-radius: 16px; padding: 40px; display: flex; flex-direction: column; align-items: flex-start; text-decoration: none; border: 1px solid #E2E8F0; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); cursor: pointer; }
+        .g-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border-color: #93C5FD; }
+        .g-icon-wrap { width: 56px; height: 56px; border-radius: 12px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; }
+        
+        .g-card.anthology .g-icon-wrap { background: #DBEAFE; color: #1D4ED8; }
+        .g-card.sudanbi .g-icon-wrap { background: #D1FAE5; color: #047857; }
+        .g-card.katch .g-icon-wrap { background: #F3E8FF; color: #6D28D9; }
+        
+        .g-title { font-size: 1.4rem; font-weight: 800; color: #0F172A; margin-bottom: 12px; letter-spacing: -0.5px; }
+        .g-desc { font-size: 1rem; color: #475569; line-height: 1.6; margin-bottom: 30px; word-break: keep-all; flex-grow: 1; }
+        .g-link { font-weight: 700; font-size: 0.95rem; color: #2563EB; display: flex; align-items: center; gap: 8px; transition: gap 0.2s; }
+        .g-card:hover .g-link { gap: 12px; }
+        
+        @media (max-width: 900px) { .innovation-grid { grid-template-columns: 1fr; max-width: 400px; } }
+
+        /* Timeline SaaS */
+        .timeline-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-top: 40px; }
+        @media (max-width: 1000px) { .timeline-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+        @media (max-width: 600px) { .timeline-grid { grid-template-columns: repeat(2, 1fr); } }
+        
+        .tl-card { background: #FFFFFF; border: 1px solid #E2E8F0; padding: 24px; border-radius: 12px; transition: border-color 0.2s; position: relative; overflow: hidden; }
+        .tl-card:hover { border-color: #2563EB; }
+        .tl-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: #E2E8F0; transition: background 0.2s; }
+        .tl-card:hover::before { background: #2563EB; }
+        .tl-year { font-size: 1.5rem; font-weight: 900; color: #0F172A; margin-bottom: 8px; font-family: 'Inter', sans-serif; letter-spacing: -0.5px; }
+        .tl-desc { font-size: 0.9rem; color: #475569; line-height: 1.5; font-weight: 500; word-break: keep-all; }
+
+        /* Infrastructure Grid */
+        .beautiful-quad-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1300px; margin: 60px auto 0; }
+        @media (max-width: 1000px) { .beautiful-quad-grid { grid-template-columns: repeat(2, 1fr); } }
+        .bq-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 40px 30px; text-align: left; transition: all 0.2s; }
+        .bq-card:hover { background: #FFFFFF; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); transform: translateY(-4px); }
+        .bq-icon { width: 48px; height: 48px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E2E8F0; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; color: #475569; }
+        .bq-card:hover .bq-icon { border-color: var(--base-color); color: var(--base-color); }
+        .bq-icon svg { width: 24px; height: 24px; stroke-width: 2; fill: none; stroke: currentColor; }
+        .bq-title { font-size: 1.25rem; font-weight: 800; color: #0F172A; margin-bottom: 12px; letter-spacing: -0.5px; }
+        .bq-desc { font-size: 1rem; color: #475569; line-height: 1.6; font-weight: 500; word-break: keep-all; }
+
+        /* Curriculum Tracks (Pixel-Perfect Grid matching user image) */
+        .curriculum-tracks { max-width: 1000px; margin: 0 auto; background: #FFFFFF; padding: 40px; }
+        @media (max-width: 768px) { .curriculum-tracks { padding: 20px; overflow-x: auto; } }
+        .ct-header { display: grid; grid-template-columns: 80px repeat(7, 1fr); gap: 4px; padding-bottom: 8px; min-width: 800px; }
+        .ct-h-col { font-weight: 700; font-size: 0.95rem; color: #64748B; text-align: center; display: flex; align-items: center; justify-content: center; }
+        .ct-track { display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: center; padding: 8px 0; min-width: 800px; }
+        .ct-label-wrapper { position: relative; cursor: pointer; display: flex; align-items: center; justify-content: flex-end; }
+        .ct-label-title { font-size: 1.15rem; font-weight: 800; color: #0F172A; transition: all 0.2s; padding: 6px 12px; border-radius: 8px; font-family: 'Pretendard', sans-serif; letter-spacing: -0.5px; }
+        .ct-label-wrapper:hover .ct-label-title { background: #F8FAFC; color: var(--track-color); transform: translateX(-4px); }
+        
+        .ct-tooltip { position: absolute; right: 100%; top: 50%; transform: translate(-10px, -50%); width: 320px; background: white; border: 3px solid var(--track-color); border-radius: 12px; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 100; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; pointer-events: none; }
+        .ct-label-wrapper:hover .ct-tooltip { opacity: 1; visibility: visible; transform: translate(-20px, -50%); }
+        .ct-tooltip::after { content: ''; position: absolute; right: -9px; top: 50%; transform: translateY(-50%); border-width: 8px 0 8px 8px; border-style: solid; border-color: transparent transparent transparent var(--track-color); }
+        .ct-tooltip-head { background: var(--track-color); color: white; padding: 14px; text-align: center; font-weight: 900; font-size: 1.3rem; letter-spacing: 4px; }
+        .ct-tooltip-body { padding: 20px; font-size: 1.05rem; color: #334155; line-height: 1.6; font-weight: 600; text-align: center; word-break: keep-all; }
+
+        .ct-cells { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; align-items: stretch; width: 100%; border-radius: 4px; padding: 0 4px; min-height: 52px; }
+        .ct-pill { padding: 0 6px; font-weight: 700; font-size: 0.9rem; text-align: center; word-break: keep-all; display: flex; align-items: center; justify-content: center; position: relative; letter-spacing: -0.5px; transition: transform 0.2s; }
+        .ct-pill:hover { transform: scale(1.02); z-index: 10; cursor: default; }
+        .ct-pill.filled { background: var(--track-color); color: white; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .ct-span-2 { grid-column: span 2; }
+        .ct-span-3 { grid-column: span 3; }
+        .ct-span-4 { grid-column: span 4; }
+        .ct-span-5 { grid-column: span 5; }
+        .ct-span-7 { grid-column: span 7; }
+        .ct-bottom-axis { display: grid; grid-template-columns: 120px repeat(7, 1fr); gap: 6px; padding-top: 20px; min-width: 800px; margin-top: 24px; border-top: 1px solid #F1F5F9; }
+      </style><section style="position:relative;width:100%;height:100vh;min-height:800px;background:#040B16;overflow:hidden;display:flex;align-items:center"><div id="mouseOrb" style="position:absolute;width:600px;height:600px;background:radial-gradient(circle, rgba(96,165,250,0.15) 0%, rgba(139,92,246,0.1) 40%, transparent 70%);border-radius:50%;pointer-events:none;transform:translate(-50%, -50%);transition:opacity 0.2s;z-index:1;opacity:0.8"></div><div style="position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);background-size:4rem 4rem;z-index:0"></div><div style="max-width:1400px;margin:0 auto;width:100%;padding:0 4%;position:relative;z-index:10;display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center" class="reveal"><div><div style="display:inline-block;padding:6px 20px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#E2E8F0;border-radius:30px;font-size:0.85rem;font-weight:600;letter-spacing:2px;margin-bottom:30px;backdrop-filter:blur(10px)">THE NEXT STANDARD</div><h1 style="font-size:clamp(3.5rem, 5vw, 5rem);font-weight:900;color:#FFFFFF;line-height:1.1;letter-spacing:-2px;margin-bottom:24px">상위 1%를 치밀하게,<br/><span style="background:linear-gradient(to right, #60A5FA, #A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent">KNS BOOKS</span></h1><p style="font-size:1.25rem;color:#94A3B8;max-width:600px;line-height:1.6;word-break:keep-all;font-weight:400;margin-bottom:40px">어둠 속에서 길을 밝히는 압도적 데이터베이스.<br/>가장 완벽한 초·중·고 연계 커리큘럼으로 당신의 학원을 지역 최상위권의 중심으로 견인합니다.</p></div><style>
+.premium-book-showcase {
+    position: relative; width: 100%; height: 500px;
+    display: flex; justify-content: center; align-items: center;
+    perspective: 1200px;
+}
+.book-wrap {
+    position: absolute; width: 190px; height: 270px;
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: pointer; transform-style: preserve-3d; border-radius: 6px;
+}
+.book-wrap img {
+    width: 100%; height: 100%; object-fit: contain; border-radius: 6px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08) inset;
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.book-wrap::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.2) 25%, transparent 30%);
+    background-size: 200% 200%; background-position: 100% 100%;
+    opacity: 0; transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); border-radius: 6px; pointer-events: none;
+}
+.book-wrap:hover::after { opacity: 1; animation: shine 1.5s infinite; }
+.book-wrap:nth-child(1) { transform: translateX(-160px) translateZ(-60px) rotateY(15deg) rotateX(4deg); z-index: 10; animation: floatB1 5s ease-in-out infinite; --tx: -200px; }
+.book-wrap:nth-child(2) { transform: translateX(-50px) translateZ(10px) rotateY(5deg) rotateX(2deg); z-index: 20; animation: floatB2 4.5s ease-in-out infinite 0.5s; --tx: -100px; }
+.book-wrap:nth-child(3) { transform: translateX(50px) translateZ(20px) rotateY(-5deg) rotateX(2deg); z-index: 30; animation: floatB3 6s ease-in-out infinite 1s; --tx: 100px; }
+.book-wrap:nth-child(4) { transform: translateX(160px) translateZ(-40px) rotateY(-15deg) rotateX(4deg); z-index: 15; animation: floatB4 5.5s ease-in-out infinite 1.5s; --tx: 200px; }
+.premium-book-showcase:hover .book-wrap { filter: brightness(0.5) blur(3px); transform: translateX(var(--tx)) translateZ(-150px) rotateY(0deg) rotateX(0deg); }
+.premium-book-showcase .book-wrap:hover { filter: brightness(1.1) blur(0px); transform: translateX(0) translateZ(130px) translateY(-30px) rotateY(0deg) scale(1.15); z-index: 60; }
+.premium-book-showcase .book-wrap:hover img { box-shadow: 0 40px 80px rgba(0,0,0,0.9), 0 0 60px rgba(56, 189, 248, 0.4), 0 0 0 1px rgba(255,255,255,0.4) inset; }
+@keyframes floatB1 { 0%, 100% { margin-top: 0; } 50% { margin-top: -12px; } }
+@keyframes floatB2 { 0%, 100% { margin-top: 0; } 50% { margin-top: -8px; } }
+@keyframes floatB3 { 0%, 100% { margin-top: 0; } 50% { margin-top: -15px; } }
+@keyframes floatB4 { 0%, 100% { margin-top: 0; } 50% { margin-top: -10px; } }
+@keyframes shine { 0% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
+</style>
+<div class="premium-book-showcase">
+    <div class="book-wrap"><img src="images/anthology_L6.png" alt="Anthology L6" /></div>
+    <div class="book-wrap"><img src="images/sudanbi_purple.png" alt="Sudanbi Purple" /></div>
+    <div class="book-wrap"><img src="images/sudanbi_green.png" alt="Sudanbi Green" /></div>
+    <div class="book-wrap"><img src="images/anthology_L0.png" alt="Anthology L0" /></div>
+</div></div><script>
+          const orb = document.getElementById('mouseOrb');
+          if (orb) {
+            document.addEventListener('mousemove', (e) => {
+              orb.style.left = e.clientX + 'px';
+              orb.style.top = e.clientY + 'px';
+            });
+          }
+        </script></section><section style="padding:120px 4%;background:#FFFFFF" class="reveal" id="about"><div style="max-width:1200px;margin:0 auto"><div style="text-align:center;margin-bottom:60px"><span style="font-size:0.85rem;font-weight:700;color:#64748B;letter-spacing:2px;margin-bottom:12px;display:block">ABOUT KNS</span><h2 style="font-size:2.2rem;font-weight:800;color:#0F172A;letter-spacing:-1px;margin-bottom:1rem">대치동 20년 노하우가 증명하는 최상위 솔루션</h2><p style="font-size:1.1rem;color:#475569;max-width:650px;margin:0 auto;line-height:1.6;word-break:keep-all">빠르게 변화하는 입시 제도 안에서도 최상위권 학생과 학부모님의 니즈를 파악하고, 그 압도적인 해결책을 현장에서 증명해 왔습니다.</p></div><div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:24px"><div style="background:#F8FAFC;padding:40px 30px;border-radius:12px;border:1px solid #E2E8F0"><div style="width:40px;height:40px;background:#DBEAFE;color:#2563EB;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;margin-bottom:20px">1</div><h3 style="font-size:1.2rem;font-weight:800;color:#0F172A;margin-bottom:12px;letter-spacing:-0.5px">대치동 현장 20년</h3><p style="color:#475569;line-height:1.6;font-size:0.95rem;word-break:keep-all">강남, 서초, 송파 등 최상위권 교육의 중심지에서 오랜 기간 검증된 교육 로드맵입니다.</p></div><div style="background:#F8FAFC;padding:40px 30px;border-radius:12px;border:1px solid #E2E8F0"><div style="width:40px;height:40px;background:#DBEAFE;color:#2563EB;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;margin-bottom:20px">2</div><h3 style="font-size:1.2rem;font-weight:800;color:#0F172A;margin-bottom:12px;letter-spacing:-0.5px">최상위권 데이터 확보</h3><p style="color:#475569;line-height:1.6;font-size:0.95rem;word-break:keep-all">자사고 및 특목고 최상위권 학생들의 내신과 수능 점수 분포를 기반으로 한 정밀한 DB입니다.</p></div><div style="background:#F8FAFC;padding:40px 30px;border-radius:12px;border:1px solid #E2E8F0"><div style="width:40px;height:40px;background:#DBEAFE;color:#2563EB;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;margin-bottom:20px">3</div><h3 style="font-size:1.2rem;font-weight:800;color:#0F172A;margin-bottom:12px;letter-spacing:-0.5px">초·중·고 완벽 연계성</h3><p style="color:#475569;line-height:1.6;font-size:0.95rem;word-break:keep-all">상위 호환 커리큘럼을 역으로 디코딩하여, 초중등 단계에서 반드시 채워야 할 필수 뼈대를 구축합니다.</p></div></div></div></section><section style="padding:120px 4%;background:#F8FAFC;border-top:1px solid #E2E8F0;border-bottom:1px solid #E2E8F0"><div class="container reveal"><div style="text-align:center;margin-bottom:40px"><span style="font-size:0.85rem;font-weight:700;color:#64748B;letter-spacing:2px;margin:0 auto 12px;display:block">KNS INFRASTRUCTURE</span><h2 style="font-size:2.2rem;font-weight:800;color:#0F172A;letter-spacing:-1px">체계적인 본사 R&amp;D 및 에듀테크 시스템</h2></div><div class="timeline-grid reveal" style="transition-delay:0.1s"><div class="tl-card"><div class="tl-year">2005</div><div class="tl-desc">KNS어학원 설립, 대치 최상위 선도</div></div><div class="tl-card"><div class="tl-year">2013</div><div class="tl-desc">고입전략연구소 개설 및 실적 달성</div></div><div class="tl-card"><div class="tl-year">2016</div><div class="tl-desc">국제학부 론칭 (국제계열 석권)</div></div><div class="tl-card"><div class="tl-year">2021</div><div class="tl-desc">확장 이전 및 프리미엄 라인업 다각화</div></div><div class="tl-card"><div class="tl-year">2025</div><div class="tl-desc">AI KATCH 플랫폼 고도화 완료</div></div><div class="tl-card"><div class="tl-year">2026</div><div class="tl-desc">전국 파트너십 확장 및 모의제휴</div></div></div><div class="beautiful-quad-grid"><div class="bq-card reveal" style="--base-color:#2563EB"><div class="bq-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><div class="bq-title">거점 학원 관리본부</div><div class="bq-desc">현장 중심의 원생 밀착 관리와 전문 입시 컨설팅 등 대치동 1등 오프라인 운영체제</div></div><div class="bq-card reveal" style="--base-color:#8B5CF6"><div class="bq-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div><div class="bq-title">교재 출판 &amp; 퍼블리싱</div><div class="bq-desc">초정밀 콘텐츠 기획 및 조판. 매년 수능과 내신의 최신 기출 트렌드를 즉각 담아냅니다.</div></div><div class="bq-card reveal" style="--base-color:#10B981"><div class="bq-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></div><div class="bq-title">영어 R&amp;D 전문 센터</div><div class="bq-desc">누적된 백만 건의 오답률 데이터를 분석하여 치명적 오개념을 방어하는 교재 모듈 개발</div></div><div class="bq-card reveal" style="--base-color:#F59E0B"><div class="bq-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div><div class="bq-title">디지털 SaaS 전환</div><div class="bq-desc">기존 종이 시험의 한계를 탈피한, AI 기반의 에듀테크 KATCH 플랫폼 파트너 허브 제공</div></div></div></div></section><section style="padding:60px 4% 120px;background:#FFFFFF"><div class="container reveal"><div style="text-align:center;margin-bottom:50px"><span style="font-size:0.85rem;font-weight:700;color:#64748B;letter-spacing:2px;margin:0 auto 12px;display:block">CURRICULUM ARCHITECTURE</span><h2 style="font-size:2.2rem;font-weight:800;color:#0F172A;letter-spacing:-1px">정밀하게 타겟팅된 KNS Premium Lineup</h2><p style="color:#475569;font-size:1.05rem;margin-top:16px">각 영역 명칭에 마우스를 올리면 다각화된 훈련 목표를 확인할 수 있습니다.</p></div><div class="curriculum-tracks"><div class="ct-track" style="--track-color:#1E3A8A"><div class="ct-label-wrapper"><div class="ct-label-title">독해</div><div class="ct-tooltip"><div class="ct-tooltip-head">독해</div><div class="ct-tooltip-body">수능 원전과 수준별 텍스트를 활용한 깊이 있는 훈련을 통해 핵심을 꿰뚫는 독해력을 기르고 고난도 유형을 완벽히 정복할 수 있습니다.</div></div></div><div class="ct-cells"><div class="ct-pill filled ct-span-7" style="display:grid;grid-template-columns:repeat(7, 1fr);gap:6px;padding:0"><div class="ct-pill filled" style="min-height:52px">Lv.0</div><div class="ct-pill filled" style="min-height:52px">Lv.1</div><div class="ct-pill filled" style="min-height:52px">Lv.2</div><div class="ct-pill filled" style="min-height:52px">Lv.3</div><div class="ct-pill filled" style="min-height:52px">Lv.4</div><div class="ct-pill filled" style="min-height:52px">Lv.5</div><div class="ct-pill filled" style="min-height:52px">Lv.6</div></div></div></div><div class="ct-track" style="--track-color:#7C3AED"><div class="ct-label-wrapper"><div class="ct-label-title">문법</div><div class="ct-tooltip"><div class="ct-tooltip-head">문법</div><div class="ct-tooltip-body">해석을 위한 실용 문법부터 내신 고득점에 필요한 문법 능력을 키우고 나아가 특목고나 최상위권을 위한 TEPS 기반의 최고 수준 문법 실력까지 완성시켜 줍니다.</div></div></div><div class="ct-cells"><div class="ct-pill filled ct-span-2">기본문법</div><div class="ct-pill filled">중등내신문법</div><div class="ct-pill filled ct-span-2">고등내신문법</div><div class="ct-pill filled ct-span-2">TEPS 문법</div></div></div><div class="ct-track" style="--track-color:#E11D48"><div class="ct-label-wrapper"><div class="ct-label-title">논리</div><div class="ct-tooltip"><div class="ct-tooltip-head">논리</div><div class="ct-tooltip-body">수능 고난도 빈칸 추론 문제 정복을 위해 GRE 문제 유형을 활용하여 문맥의 논리적 흐름 파악과 추론 능력을 극대화하고 문제의 핵심을 파악하는 사고력을 기릅니다.</div></div></div><div class="ct-cells"><div class="ct-span-3"></div><div class="ct-pill filled ct-span-4" style="width:105%;z-index:10"></div></div></div><div class="ct-track" style="--track-color:#059669"><div class="ct-label-wrapper"><div class="ct-label-title">구문</div><div class="ct-tooltip"><div class="ct-tooltip-head">구문</div><div class="ct-tooltip-body">복잡한 문장 구조를 집중적으로 학습하여 단어의 의미만으로는 파악하기 어려운 문장의 의미를 명확하게 이해하고 해석의 정확도를 높입니다.</div></div></div><div class="ct-cells"><div class="ct-span-1"></div><div class="ct-pill filled ct-span-5"></div><div class="ct-span-1"></div></div></div><div class="ct-track" style="--track-color:#D97706"><div class="ct-label-wrapper"><div class="ct-label-title">어휘</div><div class="ct-tooltip"><div class="ct-tooltip-head">어휘</div><div class="ct-tooltip-body">단순 암기를 넘어 수능, 교과서, 평가원 데이터를 기반으로 빈출 최우선 어휘를 학습하여 빈틈없는 어휘력과 탄탄한 기본기를 완성합니다.</div></div></div><div class="ct-cells"><div class="ct-span-2"></div><div class="ct-pill filled ct-span-1" style="color:#0F172A;font-weight:800">기본</div><div class="ct-pill filled ct-span-1" style="color:#0F172A;font-weight:800">필수</div><div class="ct-pill filled ct-span-1" style="color:#0F172A;font-weight:800">핵심</div><div class="ct-pill filled ct-span-1" style="color:#0F172A;font-weight:800">실력</div><div class="ct-pill filled ct-span-1" style="color:#0F172A;font-weight:800">특목고</div></div></div><div class="ct-bottom-axis"><div></div><div class="ct-h-col ct-span-2" style="color:#0F172A;font-size:1.05rem;font-weight:800">Lv.하 (초등)</div><div class="ct-h-col ct-span-2" style="color:#0F172A;font-size:1.05rem;font-weight:800">Lv.중 (중등)</div><div class="ct-h-col ct-span-3" style="color:#0F172A;font-size:1.05rem;font-weight:800">Lv.상 (특목)</div></div></div></div></section><section style="padding:120px 4%;background:#F8FAFC;border-top:1px solid #E2E8F0"><div style="text-align:center;margin-bottom:80px" class="reveal"><span style="font-size:0.85rem;font-weight:700;color:#64748B;letter-spacing:2px;margin-bottom:12px;display:block;text-transform:uppercase">Products</span><h2 style="font-size:2.2rem;font-weight:800;color:#0F172A;letter-spacing:-1px">성공적인 학원 운영을 위한 솔루션 뷰</h2></div><div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:30px"><a class="g-card anthology reveal" style="transition-delay:0.1s" href="/anthology"><div style="display:flex;justify-content:center;margin-bottom:24px"><img src="images/anthology_L6.png" alt="Anthology" style="width:80px;height:115px;object-fit:contain;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1)"/></div><h3 class="g-title">Anthology (독해)</h3><p class="g-desc">원서부터 수능 기출까지, 가장 완벽한 논리 전개 훈련. 학년이 아닌 철저한 평가 레벨 중심의 7단계 도약 프로그램입니다.</p><div class="g-link">제품 소개서 보기 <span style="font-family:Inter;font-size:1.2rem">→</span></div></a><a class="g-card sudanbi reveal" style="transition-delay:0.2s" href="/sudanbi"><div style="display:flex;justify-content:center;margin-bottom:24px"><img src="images/sudanbi_purple.png" alt="Sudanbi" style="width:80px;height:115px;object-fit:contain;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1)"/></div><h3 class="g-title">Sudanbi (어휘)</h3><p class="g-desc">단순 텍스트 암기를 넘어선 문맥 추론과 어원 학습. 내신 1등급과 수능 만점을 위한 압도적 강도의 어휘 마스터 클래스를 제공합니다.</p><div class="g-link">제품 소개서 보기 <span style="font-family:Inter;font-size:1.2rem">→</span></div></a><a class="g-card katch reveal" style="transition-delay:0.3s" href="/katch"><div style="display:flex;justify-content:center;margin-bottom:24px;align-items:center;height:115px"><div style="width:64px;height:64px;background:linear-gradient(135deg, #2563EB, #1D4ED8);border-radius:16px;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:900;box-shadow:0 10px 15px -3px rgba(37, 99, 235, 0.3)">K</div></div><h3 class="g-title">KATCH Platform</h3><p class="g-desc">파트너 학원을 위한 차세대 B2B 솔루션. 레벨테스트 관리부터 수강생 오답률 취합, 문제은행 생성 및 원장 전용 경영 리포트를 담당합니다.</p><div class="g-link">플랫폼 기능 보기 <span style="font-family:Inter;font-size:1.2rem">→</span></div></a></div></section></div><!--$--><!--/$-->
+    </main>
+
+    <footer id="contact" style="background: #0a0f1c; color: #94a3b8; padding: 100px 4% 60px; border-top: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; margin-top: 80px;">
+        <div style="position: absolute; bottom: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 60%); border-radius: 50%; pointer-events: none;"></div>
+        <div class="container" style="max-width: 1400px; margin: 0 auto; position: relative; z-index: 10;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 60px; margin-bottom: 80px;">
+                <div>
+                    <h2 style="color: #fff; font-size: 1.8rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -0.5px; font-family: 'Inter', sans-serif;">
+                        KNS BOOKS<span style="color: #3B82F6;">.</span>
+                    </h2>
+                    <p style="line-height: 1.8; margin-bottom: 30px; word-break: keep-all; color: #64748b;">
+                        대한민국 1% 최상위권 교육의 기준. 대치동 20년의 압도적 노하우를 집대성한 B2B 프리미엄 평가 및 리소스 플랫폼입니다.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 25px;">Brand Portfolio</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 16px;"><a href="anthology.html" style="color: #94a3b8; text-decoration: none; transition: color 0.3s;">수능 앤솔로지 (7단계 독해)</a></li>
+                        <li style="margin-bottom: 16px;"><a href="sudanbi.html" style="color: #94a3b8; text-decoration: none; transition: color 0.3s;">수단비 (프리미엄 어휘)</a></li>
+                        <li style="margin-bottom: 16px;"><a href="katch.html" style="color: #94a3b8; text-decoration: none; transition: color 0.3s;">KATCH (통합 평가 시스템)</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 25px;">Partnership</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 16px; color: #64748b;">제휴 문의 <br/><span style="color: #e2e8f0; font-weight: 600;">02-555-5555</span></li>
+                        <li style="margin-bottom: 16px; color: #64748b;">이메일 상담 <br/><span style="color: #3B82F6;">b2b@knsbooks.co.kr</span></li>
+                        <li style="color: #64748b;">본사 주소 <br/>서울특별시 강남구 대치동</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; font-size: 0.9rem; color: #64748b;">
+                <div><p>&copy; 2026 KNS BOOKS. All Rights Reserved.</p></div>
+                <div style="display: flex; gap: 30px;"><span style="cursor: pointer;">이용약관</span><span style="cursor: pointer;">개인정보처리방침</span></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                
+            }
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                reveals.forEach(reveal => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 80) reveal.style.opacity = '1'; reveal.style.transform = 'translateY(0)';
+                });
+            };
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>
