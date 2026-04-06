@@ -1,0 +1,42 @@
+const fs = require('fs');
+
+let path = '../apply_sudanbi.js';
+let txt = fs.readFileSync(path, 'utf8');
+
+const oldBlock = `          if(sdMagMode === 'crop5') {
+              sdMagContainer.style.aspectRatio = "4/3";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 8%"; // E번까지만 보이도록 위로 끌어올림
+              sdMagImg.style.transform = "scale(1.2)"; // 좀 더 크게 확대해서 아래쪽(F)이 잘리도록
+          } else if (sdMagMode === 'crop6') {
+              sdMagContainer.style.aspectRatio = "4/3";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 80%"; // F번부터 보이도록 확 내림
+              sdMagImg.style.transform = "scale(1.2)"; // 확대해서 위쪽(E)이 잘리도록
+          }`;
+
+const newBlock = `          if(sdMagMode === 'crop5') {
+              sdMagContainer.style.aspectRatio = "16/11";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 0%"; // 맨 위로
+              sdMagImg.style.transformOrigin = "top center";
+              sdMagImg.style.transform = "scale(1.4) translateY(2%)"; // 더 확대하고 비율을 납작하게 만들어 F를 완전히 자름
+          } else if (sdMagMode === 'crop6') {
+              sdMagContainer.style.aspectRatio = "16/11";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 100%"; // 맨 아래로
+              sdMagImg.style.transformOrigin = "bottom center";
+              sdMagImg.style.transform = "scale(1.4) translateY(-2%)"; // E를 완전히 자름
+          }`;
+
+if(txt.includes(oldBlock)) {
+    txt = txt.replace(oldBlock, newBlock);
+    fs.writeFileSync(path, txt, 'utf8');
+    console.log('Replaced successfully');
+} else {
+    console.log('Block not found');
+}

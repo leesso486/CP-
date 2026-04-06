@@ -1,0 +1,100 @@
+﻿
+      // Zoom area transform
+      const zoomArea = document.getElementById('sd-zoomed-area');
+      zoomArea.style.transformOrigin = `${steps[activeStep].position.x}% ${steps[activeStep].position.y}%`;
+
+      // Content Overlay
+      const overlay = document.getElementById('sd-content-overlay');
+      overlay.style.animation = 'none';
+      void overlay.offsetWidth;
+      overlay.style.animation = 'fadeInUp 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+
+      overlay.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+          <div style="width: 50px; height: 50px; background: #F1F5F9; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #0F172A; font-weight: 900;">
+            ${activeStep+1}
+          </div>
+          <h3 style="font-size: 2rem; font-weight: 900; color: #0F172A; margin: 0;">${steps[activeStep].title}</h3>
+        </div>
+        <p style="font-size: 1.15rem; color: #475569; line-height: 1.8; word-break: keep-all; margin: 0;">
+          ${steps[activeStep].desc}
+        </p>
+        ${activeStep === 1 ? `
+           <div style="margin-top: 20px; padding: 15px; background: #F8FAFC; border-radius: 12px; border-left: 4px solid #3B82F6; font-size: 0.95rem; color: #64748B;">
+             * 蹂꾩콉 遺濡? 留덉씠?덉뒪 ?댄쐶(遺?뺤쟻 ?섎?), ?뚮쭏蹂??댄쐶, 蹂꾩궗???댄쐶 ?묒옱濡?洹밴컯???댄쐶 踰붿쐞 ?뺤옣.
+           </div>
+        ` : ''}
+      `;
+    }
+
+    function setActiveStep(idx) {
+      activeStep = idx;
+      renderSudanbiSteps();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderSudanbiSteps();
+    });
+</script>
+
+
+    <footer id="contact" style="background: #0a0f1c; color: #94a3b8; padding: 100px 4% 60px; border-top: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; margin-top: 80px;">
+        <div style="position: absolute; bottom: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 60%); border-radius: 50%; pointer-events: none;"></div>
+        <div class="container" style="max-width: 1400px; margin: 0 auto; position: relative; z-index: 10;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 60px; margin-bottom: 80px;">
+                <div>
+                    <h2 style="color: #fff; font-size: 1.8rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -0.5px; font-family: 'Inter', sans-serif;">
+                        KNS BOOKS<span style="color: #3B82F6;">.</span>
+                    </h2>
+                    <p style="line-height: 1.8; margin-bottom: 30px; word-break: keep-all; color: #64748b;">
+                        ??쒕?援?1% 理쒖긽?꾧텒 援먯쑁??湲곗?. ?移섎룞 20?꾩쓽 ?뺣룄???명븯?곕? 吏묐??깊븳 B2B ?꾨━誘몄뾼 ?됯? 諛?由ъ냼???뚮옯?쇱엯?덈떎.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 25px;">Brand Portfolio</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 16px;"><a href="anthology.html" style="color: #94a3b8; text-decoration: none; transition: color 0.3s;">?섎뒫 ?ㅼ넄濡쒖? (7?④퀎 ?낇빐)</a></li>
+                        <li style="margin-bottom: 16px;"><a href="sudanbi.html" style="color: #94a3b8; text-decoration: none; transition: color 0.3s;">?섎떒鍮?(?꾨━誘몄뾼 ?댄쐶)</a></li>
+                        <li style="margin-bottom: 16px;"><a href="katch.html" style="color: #94a3b8; text-decoration: none; transition: color 0.3s;">KATCH (?듯빀 ?됯? ?쒖뒪??</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 25px;">Partnership</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 16px; color: #64748b;">?쒗쑕 臾몄쓽 <br/><span style="color: #e2e8f0; font-weight: 600;">02-555-5555</span></li>
+                        <li style="margin-bottom: 16px; color: #64748b;">?대찓???곷떞 <br/><span style="color: #3B82F6;">b2b@knsbooks.co.kr</span></li>
+                        <li style="color: #64748b;">蹂몄궗 二쇱냼 <br/>?쒖슱?밸퀎??媛뺣궓援??移섎룞</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; font-size: 0.9rem; color: #64748b;">
+                <div><p>&copy; 2026 KNS BOOKS. All Rights Reserved.</p></div>
+                <div style="display: flex; gap: 30px;"><span style="cursor: pointer;">?댁슜?쎄?</span><span style="cursor: pointer;">媛쒖씤?뺣낫泥섎━諛⑹묠</span></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                
+            }
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                reveals.forEach(reveal => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 80) reveal.style.opacity = '1'; reveal.style.transform = 'translateY(0)';
+                });
+            };
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>

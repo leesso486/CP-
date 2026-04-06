@@ -81,6 +81,11 @@
 
 
 
+
+
+
+
+
 <main>
     <div style="background: #F8FAFC; min-height: 100vh; padding-top: 80px; padding-bottom: 0;">
       
@@ -287,6 +292,352 @@
         </div>
       </section>
 
+
+
+      
+<!-- Level Test Minigame Section (Enhanced & Relocated) -->
+<section id="level-test-minigame" style="padding: 100px 4%; background: radial-gradient(circle at 50% 0%, rgba(16,185,129,0.05) 0%, rgba(59,130,246,0.03) 50%, transparent 100%); display: flex; justify-content: center; font-family: 'Pretendard', sans-serif; position: relative; overflow: hidden; margin-bottom: 80px;">
+    <!-- Decorative Orbs -->
+    <div style="position: absolute; top: -100px; left: -100px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%); border-radius: 50%; filter: blur(40px);"></div>
+    <div style="position: absolute; bottom: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%); border-radius: 50%; filter: blur(50px);"></div>
+    
+    <div id="sd-game-container" style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 40px; padding: 60px 50px; max-width: 850px; width: 100%; text-align: center; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(255,255,255,0.5); border: 1px solid rgba(226, 232, 240, 0.8); position: relative; z-index: 10;">
+        <!-- Inject Views Here via JS -->
+    </div>
+</section>
+
+<style>
+.sd-game-btn { background: #FFFFFF; border: 2px solid #E2E8F0; padding: 24px; border-radius: 20px; font-size: 1.3rem; font-weight: 700; color: #334155; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); text-align: center; width: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+.sd-game-btn:hover { border-color: #3B82F6 !important; color: #1E293B !important; background: #F0F9FF !important; transform: translateY(-5px); box-shadow: 0 15px 25px -5px rgba(59,130,246,0.15); }
+.sd-game-btn:active { transform: translateY(0px); box-shadow: none; }
+.sd-game-start-btn:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 25px 50px -12px rgba(16,185,129,0.5) !important; filter: brightness(1.1); }
+@keyframes sdTimerPulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.05); } 100% { opacity: 1; transform: scale(1); } }
+.sd-timer-warning { color: #EF4444 !important; animation: sdTimerPulse 1s infinite; }
+</style>
+
+<script>
+(function() {
+    const ALL_WORDS = [
+      { en: 'effect', ko: '효과, 영향' }, { en: 'process', ko: '과정, 처리하다' }, { en: 'response', ko: '응답, 반응' },
+      { en: 'various', ko: '다양한, 여러 가지의' }, { en: 'attitude', ko: '태도, 사고방식' }, { en: 'observe', ko: '관찰하다, 준수하다' },
+      { en: 'issue', ko: '문제, 쟁점' }, { en: 'reveal', ko: '드러내다' }, { en: 'current', ko: '현재의, 흐름' },
+      { en: 'feature', ko: '특징' }, { en: 'interaction', ko: '상호작용' }, { en: 'moral', ko: '도덕적인' },
+      { en: 'concept', ko: '개념' }, { en: 'perspective', ko: '관점, 전망' }, { en: 'consequence', ko: '결과, 중요성' },
+      { en: 'accurate', ko: '정확한, 정밀한' }, { en: 'consistent', ko: '일관된, 변함없는' }, { en: 'diversity', ko: '다양성' },
+      { en: 'permanent', ko: '영구적인' }, { en: 'ingredient', ko: '재료, 구성요소' }, { en: 'devote', ko: '헌신하다' },
+      { en: 'resistance', ko: '저항, 반대' }, { en: 'excessive', ko: '지나친' }, { en: 'composition', ko: '구성, 작품' },
+      { en: 'admire', ko: '감탄하다' }, { en: 'reputation', ko: '평판, 명성' }, { en: 'acknowledge', ko: '인정하다' },
+      { en: 'deliberate', ko: '심사숙고하다, 고의적인' }, { en: 'hypothesis', ko: '가설, 추정' }, { en: 'reservation', ko: '예약, 의구심' },
+      { en: 'endure', ko: '견디다' }, { en: 'isolation', ko: '고립' }, { en: 'genuine', ko: '진짜의, 진실한' },
+      { en: 'manipulate', ko: '조작하다' }, { en: 'subtle', ko: '미묘한' }, { en: 'declare', ko: '선언하다' },
+      { en: 'consciousness', ko: '의식' }, { en: 'molecule', ko: '분자' }, { en: 'submission', ko: '항복, 제출' }
+    ];
+
+    let gameState = 'start';
+    let questions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let userEmail = '';
+    
+    // Timer Variables
+    let timeLeft = 60;
+    let timerInterval = null;
+
+    const container = document.getElementById('sd-game-container');
+
+    function shuffle(array) { return array.sort(() => 0.5 - Math.random()); }
+
+    function formatTime(seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return '0' + m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function startTimer() {
+        timeLeft = 60;
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            const timeEl = document.getElementById('sd-time-display');
+            if(timeEl) {
+                timeEl.innerText = formatTime(timeLeft);
+                if(timeLeft <= 10) timeEl.classList.add('sd-timer-warning');
+            }
+            if(timeLeft <= 0) {
+                clearInterval(timerInterval);
+                setGameState('result');
+            }
+        }, 1000);
+    }
+
+    window.sdStartGame = function() {
+        const shuffled = shuffle([...ALL_WORDS]);
+        const selected = shuffled.slice(0, 10);
+        questions = selected.map(word => {
+            const wrong = shuffle(ALL_WORDS.filter(w => w.en !== word.en).map(w => w.ko)).slice(0, 3);
+            return { word: word.en, correct: word.ko, options: shuffle([word.ko, ...wrong]) };
+        });
+        score = 0;
+        currentIndex = 0;
+        setGameState('playing');
+        startTimer();
+    };
+
+    window.sdHandleAnswer = function(selectedOptionStr) {
+        if(timeLeft <= 0) return;
+        const currentQ = questions[currentIndex];
+        if(selectedOptionStr === currentQ.correct) score++;
+        
+        if(currentIndex < 9) {
+            currentIndex++;
+            renderPlaying();
+        } else {
+            clearInterval(timerInterval);
+            setGameState('result');
+        }
+    };
+
+    window.sdHandleEmailSubmit = function(e) {
+        e.preventDefault();
+        const input = document.getElementById('sd-email-input').value;
+        if(!input) return;
+        userEmail = input;
+        const btn = document.getElementById('sd-email-submit');
+        btn.innerText = '등록 중...';
+        btn.disabled = true;
+        setTimeout(() => setGameState('leaderboard'), 800);
+    };
+
+    window.sdSetGameState = function(state) { setGameState(state); }
+
+    function setGameState(state) {
+        gameState = state;
+        if(state === 'start') renderStart();
+        else if(state === 'playing') renderPlaying();
+        else if(state === 'result') renderResult();
+        else if(state === 'leaderboard') renderLeaderboard();
+    }
+
+    function renderStart() {
+        container.innerHTML = `
+            <div style="position: relative; z-index: 10; padding: 20px 0;">
+                <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 25px;">
+                    <span style="display: inline-block; color: #3B82F6; font-weight: 800; background: rgba(59,130,246,0.1); padding: 8px 20px; border-radius: 40px; font-size: 0.95rem; letter-spacing: 1px;">MINI GAME</span>
+                    <span style="display: inline-block; color: #EF4444; font-weight: 800; background: rgba(239,68,68,0.1); padding: 8px 20px; border-radius: 40px; font-size: 0.95rem; letter-spacing: 1px;">⏱ 1분 제약구간</span>
+                </div>
+                <h2 style="font-size: 2.8rem; font-weight: 900; color: #0F172A; margin-bottom: 20px; letter-spacing: -1px; text-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                    나의 수능 어휘력은 전국 몇 등일까?
+                </h2>
+                <p style="font-size: 1.25rem; color: #475569; margin-bottom: 50px; line-height: 1.7; font-weight: 500;">
+                    과거 수능 모의고사에 출제되었던 <b style="color: #0F172A;">Pre-Test 프리미엄 데이터</b>를 기반으로 한<br/>
+                    10개의 단어를 1분 안에 맞추고, 나의 <strong style="color: #10B981;">정확한 수준</strong>을 진단해보세요.
+                </p>
+                <div style="display: flex; justify-content: center; position: relative;">
+                    <button class="sd-game-start-btn" onclick="sdStartGame()" style="background: linear-gradient(135deg, #10B981, #047857); color: white; padding: 22px 70px; border-radius: 50px; font-size: 1.4rem; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 15px 35px rgba(16,185,129,0.35); transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); display: flex; align-items: center; gap: 15px;">
+                        <span>진단 시작히기</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                    <!-- Highlight Ping -->
+                    <div style="position: absolute; top:0; bottom:0; left:50%; width: 300px; transform: translateX(-50%); border-radius: 50px; box-shadow: 0 0 0 0 rgba(16,185,129, 0.7); animation: pulse 2s infinite; pointer-events: none; z-index: -1;"></div>
+                </div>
+                <style>@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16,185,129, 0.4); } 70% { box-shadow: 0 0 0 20px rgba(16,185,129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16,185,129, 0); } }</style>
+            </div>
+        `;
+    }
+
+    function renderPlaying() {
+        const q = questions[currentIndex];
+        const progress = (currentIndex / 10) * 100;
+        
+        let optionsHtml = '';
+        q.options.forEach((opt) => {
+            const safeOpt = opt.replace(/'/g, "\\'").replace(/"/g, '\\"');
+            // FIX: Don't use unescaped backslashes and double quotes properly
+            optionsHtml += `
+                <button class="sd-game-btn" onclick="sdHandleAnswer('${safeOpt}')">
+                    ${opt}
+                </button>
+            `;
+        });
+
+        container.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+                <div style="text-align: left;">
+                    <div style="font-size: 0.9rem; font-weight: 800; color: #94A3B8; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">Progress</div>
+                    <div style="font-size: 1.5rem; font-weight: 900; color: #0F172A;">${currentIndex + 1}&nbsp;<span style="font-size: 1.1rem; color: #94A3B8; font-weight: 700;">/ 10</span></div>
+                </div>
+                
+                <div style="background: #F8FAFC; border: 2px solid #E2E8F0; padding: 10px 25px; border-radius: 100px; display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.2rem;">⏱</span>
+                    <span id="sd-time-display" style="font-size: 1.5rem; font-weight: 900; color: #0F172A; font-variant-numeric: tabular-nums;">
+                        ${formatTime(timeLeft)}
+                    </span>
+                </div>
+
+                <div style="text-align: right;">
+                    <div style="font-size: 0.9rem; font-weight: 800; color: #94A3B8; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">Score</div>
+                    <div style="font-size: 1.5rem; font-weight: 900; color: #10B981;">${score}&nbsp;<span style="font-size: 1.1rem; color: #94A3B8; font-weight: 700;">pts</span></div>
+                </div>
+            </div>
+
+            <div style="width: 100%; height: 6px; background: #E2E8F0; border-radius: 10px; margin-bottom: 60px; overflow: hidden;">
+                <div style="width: ${progress}%; height: 100%; background: linear-gradient(90deg, #3B82F6, #10B981); transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);"></div>
+            </div>
+            
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h3 style="font-size: 4.5rem; font-weight: 900; color: #0F172A; letter-spacing: -1px; text-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 0; line-height: 1;">
+                    ${q.word}
+                </h3>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                ${optionsHtml}
+            </div>
+        `;
+    }
+
+    function renderResult() {
+        let badge = { 
+            level: '수단비 필수편', 
+            color: '#10B981', 
+            glow: 'rgba(16, 185, 129, 0.2)',
+            gradient: 'linear-gradient(135deg, #10B981, #059669)',
+            icon: '🌱',
+            text: '수능 영어의 첫 단추! 흔들림 없는 기본기를 위한 필수 어휘부터 시작하세요.' 
+        };
+        if(score >= 8) badge = { 
+            level: '수단비 실력편', 
+            color: '#8B5CF6', 
+            glow: 'rgba(139, 92, 246, 0.2)',
+            gradient: 'linear-gradient(135deg, #8B5CF6, #6D28D9)',
+            icon: '🔥',
+            text: '상위 10% 최상위권의 정점! 만점을 향한 어휘 학습이 필요합니다.' 
+        };
+        else if (score >= 6) badge = { 
+            level: '수단비 핵심편', 
+            color: '#3B82F6', 
+            glow: 'rgba(59, 130, 246, 0.2)',
+            gradient: 'linear-gradient(135deg, #3B82F6, #1D4ED8)',
+            icon: '🚀',
+            text: '꾸준한 1등급의 뼈대를 세워야 할 때! 고빈출 핵심 어휘에 집중하세요.' 
+        };
+
+        const scorePercent = (score / 10) * 100;
+
+        container.innerHTML = `
+            <!-- Dynamic Glow Background behind the card -->
+            <div style="position: absolute; top: -50%; left: 50%; width: 600px; height: 600px; transform: translateX(-50%); background: radial-gradient(circle, ${badge.glow} 0%, transparent 60%); z-index: -1; pointer-events: none;"></div>
+            
+            <!-- 3D Emoji Badge -->
+            <div style="width: 120px; height: 120px; margin: -100px auto 30px; background: linear-gradient(145deg, #ffffff, #f8fafc); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.08), inset 0 -10px 20px rgba(0,0,0,0.03); border: 5px solid white; position: relative; animation: sdFloat 3s ease-in-out infinite;">
+                <div style="filter: drop-shadow(0 10px 10px rgba(0,0,0,0.15));">${timeLeft <= 0 ? '⏳' : '🎯'}</div>
+            </div>
+
+            <h2 style="font-size: 2.2rem; font-weight: 900; color: #0F172A; margin-bottom: 5px; letter-spacing: -1px; position: relative;">
+                ${timeLeft <= 0 ? 'TIME OUT!' : '레벨 진단 완료!'}
+            </h2>
+            <p style="color: #64748B; font-weight: 600; font-size: 1.1rem; margin-bottom: 30px;">당신의 최종 수능 어휘력 점수는?</p>
+            
+            <div style="position: relative; display: inline-block; margin-bottom: 50px;">
+                <div style="font-size: 6rem; font-weight: 900; background: ${badge.gradient}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; letter-spacing: -2px; padding: 0 20px; filter: drop-shadow(0 15px 25px ${badge.glow});">
+                    ${score * 10}<span style="font-size: 2.5rem; font-weight: 800; margin-left: 5px;">점</span>
+                </div>
+            </div>
+            
+            <!-- Premium Recommendation Card -->
+            <div style="background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 20px 40px -15px ${badge.glow}; border-radius: 28px; padding: 40px; margin-bottom: 60px; text-align: left; display: flex; gap: 25px; align-items: center; position: relative; overflow: hidden;">
+                <!-- Decorative side line -->
+                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: ${badge.gradient};"></div>
+                
+                <div style="width: 80px; height: 80px; background: ${badge.gradient}; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 3rem; flex-shrink: 0; box-shadow: 0 10px 20px ${badge.glow};">
+                    ${badge.icon}
+                </div>
+                
+                <div>
+                    <div style="display: inline-block; color: ${badge.color}; font-weight: 800; font-size: 0.95rem; letter-spacing: 1px; background: white; padding: 6px 16px; border-radius: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 12px; border: 1px solid rgba(226, 232, 240, 0.5);">
+                        KNS DATA 맞춤 추천
+                    </div>
+                    <h3 style="font-size: 1.8rem; font-weight: 900; color: #0F172A; margin: 0 0 10px 0; letter-spacing: -1px;">
+                        ${badge.level}
+                    </h3>
+                    <p style="font-size: 1.15rem; color: #475569; font-weight: 500; line-height: 1.6; margin: 0; word-break: keep-all;">
+                        ${badge.text}
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Unified Form Layout -->
+            <div style="background: #F8FAFC; margin: 0 -50px -60px; padding: 50px; border-top: 1px solid #E2E8F0;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #F59E0B, #FCD34D); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(245,158,11,0.3);">🏆</div>
+                    <h3 style="font-size: 1.6rem; font-weight: 900; color: #0F172A; margin: 0; letter-spacing: -0.5px;">전국 상위 1% 명예의 전당 등록</h3>
+                </div>
+                <p style="color: #64748B; font-size: 1.1rem; margin-bottom: 30px;">이메일을 입력하고 실시간 전국 랭킹 순위를 확인하세요!</p>
+                
+                <form onsubmit="sdHandleEmailSubmit(event)" style="display: flex; background: white; padding: 8px; border-radius: 50px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); border: 1px solid #E2E8F0; max-width: 550px; margin: 0 auto; transition: all 0.3s;" id="sd-form-wrapper">
+                    <input id="sd-email-input" type="email" required placeholder="수험생님의 이메일 주소 입력" style="flex: 1; padding: 15px 30px; border: none; background: transparent; font-size: 1.15rem; font-weight: 600; outline: none; color: #0F172A; border-radius: 50px;" onfocus="document.getElementById('sd-form-wrapper').style.boxShadow='0 15px 35px rgba(16,185,129,0.15)'; document.getElementById('sd-form-wrapper').style.borderColor='#10B981'" onblur="document.getElementById('sd-form-wrapper').style.boxShadow='0 15px 35px rgba(0,0,0,0.06)'; document.getElementById('sd-form-wrapper').style.borderColor='#E2E8F0'">
+                    <button id="sd-email-submit" type="submit" style="background: linear-gradient(135deg, #0F172A, #1E293B); color: white; font-weight: 800; padding: 0 35px; border-radius: 50px; border: none; cursor: pointer; font-size: 1.15rem; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 10px 20px rgba(15,23,42,0.3)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">결과 확인</button>
+                </form>
+            </div>
+        `;
+    }
+
+
+    function renderLeaderboard() {
+        const mockRankings = [
+            { rank: 1, email: 'sky***@gmail.com', score: 100, badge: '🥇', bg: '#FEF3C7' },
+            { rank: 2, email: 'kns_***@naver.com', score: 100, badge: '🥈', bg: '#F1F5F9' },
+            { rank: 3, email: 'jh9***@daum.net', score: 90, badge: '🥉', bg: '#FFEDD5' },
+            { rank: 142, email: userEmail, score: score * 10, badge: '⭐', bg: 'transparent' }
+        ];
+
+        let rowsHtml = '';
+        mockRankings.forEach((u, i) => {
+            const isMe = u.email === userEmail;
+            rowsHtml += `
+                <div style="display: flex; padding: 22px; border-bottom: ${i !== mockRankings.length -1 ? '1px solid #E2E8F0' : 'none'}; align-items: center; background: ${isMe ? '#ECFDF5' : u.bg}; font-weight: ${isMe ? 800 : 700}; transition: all 0.2s; border-radius: ${isMe ? '12px' : '0'}; transform: ${isMe ? 'scale(1.02)' : 'none'}; box-shadow: ${isMe ? '0 10px 20px -5px rgba(16,185,129,0.1)' : 'none'}; z-index: ${isMe ? 10 : 1}; position: relative;">
+                    <div style="width: 80px; text-align: center; font-size: 1.3rem; color: ${isMe ? '#10B981' : '#475569'};">
+                        ${u.badge} ${u.rank}
+                    </div>
+                    <div style="flex: 1; color: ${isMe ? '#065F46' : '#1E293B'}; font-size: 1.15rem; text-align: left; padding-left: 20px;">
+                        ${u.email}
+                        ${isMe ? '<span style="margin-left: 12px; font-size: 0.8rem; background: #10B981; color: white; padding: 4px 10px; border-radius: 20px; vertical-align: middle; font-weight: 900; letter-spacing: 1px;">MY RANK</span>' : ''}
+                    </div>
+                    <div style="width: 100px; text-align: center; font-size: 1.4rem; color: ${isMe ? '#10B981' : '#0F172A'}; font-weight: 900;">
+                        ${u.score}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = `
+            <div style="text-align: center; margin-bottom: 40px;">
+                <span style="display: inline-block; color: #B45309; font-weight: 800; background: #FEF3C7; padding: 10px 24px; border-radius: 40px; margin-bottom: 20px; font-size: 0.95rem; letter-spacing: 1px;">
+                    🏆 주간 명예의 전당
+                </span>
+                <h2 style="font-size: 2.8rem; font-weight: 900; color: #0F172A; margin: 0; letter-spacing: -1px;">실시간 전국 랭킹 보드</h2>
+            </div>
+            <div style="background: #FFFFFF; border-radius: 24px; padding: 10px; border: 2px solid #E2E8F0; margin-bottom: 40px;">
+                <div style="background: #F8FAFC; border-radius: 16px; overflow: hidden;">
+                    <div style="display: flex; padding: 20px; background: #0F172A; color: white; font-weight: 800; font-size: 1.1rem; border-radius: 16px 16px 0 0;">
+                        <div style="width: 80px; text-align: center;">순위</div>
+                        <div style="flex: 1; text-align: left; padding-left: 20px;">참여자</div>
+                        <div style="width: 100px; text-align: center;">점수</div>
+                    </div>
+                    ${rowsHtml}
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <button onclick="sdSetGameState('start')" style="background: transparent; color: #64748B; font-weight: 800; padding: 16px 40px; border-radius: 16px; border: 2px solid #CBD5E1; cursor: pointer; transition: all 0.3s; font-size: 1.1rem;" onmouseover="this.style.borderColor='#10B981'; this.style.color='#10B981'; this.style.background='#F0FDF4'" onmouseout="this.style.borderColor='#CBD5E1'; this.style.color='#64748B'; this.style.background='transparent'">
+                    다시 진단하기
+                </button>
+            </div>
+        `;
+    }
+
+    if(container) setGameState('start');
+})();
+</script>
 
 
       <!-- NEW: Sudanbi Vertical Stack Roadmap -->
@@ -526,6 +877,1765 @@
 
     </div>
 </main>
+<script>
+    // Unified Sudanbi Levels Data
+    const sdData = [
+      {
+        level: 'STEP 01', color: '#10B981', 
+        shortTarget: '중3~고1',
+        target: '필수편 고등 첫 단추 · 권장: 중3~고1', 
+        title: '필수편',
+        desc: '중학 어휘의 완성, 고1 3월 모의고사 1등급을 향한 가장 확실한 연결고리. 중3 필수 어휘부터 고1 첫 모의고사의 성패를 결정짓는 핵심 어휘까지, 고교 영어의 진입장벽을 낮추는 필수 관문입니다.',
+        cover: 'images/sudanbi_essential.png',
+        inner: 'images/sudanbi_real_1.png'
+      },
+      {
+        level: 'STEP 02', color: '#3B82F6', 
+        shortTarget: '고1~고2',
+        target: '꾸준한 1등급의 핵심 · 권장: 고1~고2', 
+        title: '핵심편',
+        desc: '고1 6월 모의고사 이후, 수능까지 흔들림 없는 1등급의 뼈대를 세웁니다. 고등학교 1학년 6월 이후 처음 나오는 빈출 어휘를 선별했습니다. 수능까지 1등급을 받기 위한 핵심 어휘입니다.',
+        cover: 'images/sudanbi_core.png',
+        inner: 'images/sudanbi_real_3.png' 
+      },
+      {
+        level: 'STEP 03', color: '#8B5CF6', 
+        shortTarget: '고2~고3',
+        target: '수능 만점의 정점 · 권장: 고2~고3', 
+        title: '실력편',
+        desc: '안정적인 최상위권을 위한 수능 기출 최고급 어휘. 만점으로 가는 수능 기출 최고난도 어휘의 묶음입니다.',
+        cover: 'images/sudanbi_advanced.png',
+        inner: 'images/sudanbi_real_4.jpg'
+      }
+    ];
+
+    let sdActiveLevel = 0;
+    
+    window.setSActiveLevel = function(idx) {
+       sdActiveLevel = idx;
+       renderSDLevelTheatre();
+    };
+
+    function renderSDLevelTheatre() {
+      const dataInfo = sdData[sdActiveLevel];
+      
+      // Update Backgrounds & Colors
+      document.getElementById('sd-level-theatre-bg').style.background = `radial-gradient(circle at 75% 50%, ${dataInfo.color}15 0%, #F8FAFC 60%)`;
+      document.getElementById('sd-level-theatre-title-color').style.color = dataInfo.color;
+      document.getElementById('sd-level-accent-line').style.background = dataInfo.color;
+
+      // Update Badges & Text
+      const targetStr = dataInfo.target;
+      let badgeHtml = '';
+      if(targetStr.includes(' · 권장: ')) {
+        const parts = targetStr.split(' · 권장: ');
+        badgeHtml = `
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(15,23,42,0.2);">
+            <span style="opacity: 0.5; margin-right: 12px; font-weight: 600; font-size: 1rem;">학습 타겟</span> ${parts[0]}
+          </span>
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: ${dataInfo.color}15; color: ${dataInfo.color}; font-weight: 800; font-size: 1.15rem; border: 1px solid ${dataInfo.color}40;">
+            ${parts[1]}
+          </span>
+        `;
+      } else {
+        badgeHtml = `<span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem;">${targetStr}</span>`;
+      }
+
+      document.getElementById('sd-level-target-badge-container').innerHTML = badgeHtml;
+      document.getElementById('sd-level-title').innerText = dataInfo.title;
+      document.getElementById('sd-level-desc').innerText = dataInfo.desc;
+
+      // Restart Content Animation
+      const cb = document.getElementById('sd-level-content-box');
+      cb.style.animation = 'none';
+      void cb.offsetWidth;
+      cb.style.animation = 'fadeInUp 0.5s ease-out';
+
+      // Update Image Showcase (Using the new Anti-Aliased Box-Shadow fix logic)
+      const imgBox = document.getElementById('sd-level-image-box');
+      if(dataInfo.inner) {
+          imgBox.innerHTML = `
+            <div style="position: absolute; width: 275px; z-index: 1; transform-origin: center; transform: translateX(-100px) translateY(-20px) perspective(1200px) rotateY(15deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.inner}" style="width: 100%; border-radius: 12px; border: 1px solid #E2E8F0; object-fit: contain; pointer-events: none; box-shadow: -15px 25px 35px rgba(0,0,0,0.15); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+            <div style="position: absolute; width: 235px; z-index: 2; transform-origin: center; transform: translateX(100px) translateY(20px) perspective(1200px) rotateY(-10deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; border: 1px solid #E2E8F0; box-shadow: 20px 30px 50px rgba(0,0,0,0.25); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      } else {
+         imgBox.innerHTML = `
+            <div style="width: 270px; z-index: 2; transform: perspective(1200px) rotateY(-5deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; box-shadow: 10px 40px 60px rgba(0,0,0,0.2); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      }
+
+      // Update Timeline Nodes
+      const btnHtml = sdData.map((data, idx) => {
+        const isActive = sdActiveLevel === idx;
+        const isPassed = idx < sdActiveLevel;
+        
+        return `
+          <div style="display: flex; gap: 24px; min-height: 120px; position: relative;">
+             <!-- Connector Line -->
+             ${idx !== sdData.length - 1 ? 
+               `<div style="position: absolute; left: 19px; top: 40px; bottom: -20px; width: 3px; background: ${isPassed ? '#E2E8F0' : '#F1F5F9'}; z-index: 0;"></div>` 
+               : ''}
+             
+             <!-- Node Marker -->
+             <div style="position: relative; z-index: 2; margin-top: 5px;">
+               <div style="width: 40px; height: 40px; border-radius: 50%; background: ${isActive ? data.color : (isPassed ? '#cbd5e1' : '#FFFFFF')}; border: 4px solid ${isActive ? '#FFFFFF' : (isPassed ? '#cbd5e1' : '#E2E8F0')}; box-shadow: ${isActive ? '0 0 0 5px ' + data.color : 'none'}; display: flex; align-items: center; justify-content: center; transition: all 0.3s;">
+                  ${isActive ? '<div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>' : ''}
+               </div>
+             </div>
+
+             <!-- Button Content -->
+             <div style="flex: 1; padding-bottom: 50px; position: relative; z-index: 50;">
+                <button onclick="setSActiveLevel(${idx})" style="pointer-events: auto; width: 100%; text-align: left; background: ${isActive ? '#FFFFFF' : 'transparent'}; border: ${isActive ? '2px solid ' + data.color + '40' : '2px solid transparent'}; border-radius: 20px; padding: 18px 24px; cursor: pointer; transition: all 0.3s; box-shadow: ${isActive ? '0 15px 30px -5px ' + data.color + '20' : 'none'}; transform: ${isActive ? 'translateX(8px)' : 'none'};">
+                   <div style="font-size: 1rem; font-weight: 800; color: ${isActive ? data.color : '#94A3B8'}; margin-bottom: 6px; letter-spacing: 1px;">
+                     ${data.level}
+                   </div>
+                   <div style="font-size: 1.45rem; font-weight: 900; color: ${isActive ? '#0F172A' : '#64748B'}; margin-bottom: 4px;">
+                     ${data.title}
+                   </div>
+                   <div style="font-size: 1.05rem; font-weight: 600; color: #94A3B8;">
+                     ${data.shortTarget}
+                   </div>
+                </button>
+             </div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('sd-level-buttons').innerHTML = btnHtml;
+    }
+
+    // --- Magnifier JS Native Logic ---
+    let sdMagImg;
+    let sdMagLens;
+    let sdMagRadar;
+    let sdMagContainer;
+    let sdMagMode = 'normal';
+    
+    // Zoom factor
+    const zoomRatio = 2.5;
+
+    function initMagnifier() {
+       sdMagImg = document.querySelector('#sd-mag-img-container img');
+       sdMagLens = document.getElementById('sd-mag-lens');
+       sdMagRadar = document.getElementById('sd-mag-radar');
+       sdMagContainer = document.getElementById('sd-mag-img-container');
+       
+       if(!sdMagImg) return;
+
+       // Set lens background size
+       const setLensSize = () => {
+          sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+       };
+
+       if(sdMagImg.complete) {
+          setLensSize();
+       } else {
+          sdMagImg.onload = setLensSize;
+       }
+       // Window resize listener
+       window.addEventListener('resize', setLensSize);
+
+       // Mouse move over base image
+       sdMagContainer.addEventListener('mousemove', (e) => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.opacity = '1';
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+          sdMagRadar.style.opacity = '0'; // Hide radar on manual move
+          
+          const rect = sdMagContainer.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          moveLens(x, y);
+       });
+
+       // Mouse leave base image
+       sdMagContainer.addEventListener('mouseleave', () => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(0)';
+          sdMagLens.style.opacity = '0';
+       });
+    }
+
+    function moveLens(x, y) {
+        if(!sdMagImg || !sdMagLens) return;
+        
+        // Boundaries
+        const w = sdMagContainer.offsetWidth;
+        const h = sdMagContainer.offsetHeight;
+        
+        let cx = x;
+        let cy = y;
+        if(cx > w) cx = w;
+        if(cx < 0) cx = 0;
+        if(cy > h) cy = h;
+        if(cy < 0) cy = 0;
+
+        // Position lens
+        sdMagLens.style.left = cx + 'px';
+        sdMagLens.style.top = cy + 'px';
+
+        // Background calculation
+        // The background position needs to move exactly the opposite way, scaled by zoomRatio.
+        // We know top-left is 0,0. Center of lens must show cx, cy.
+        const lw = sdMagLens.offsetWidth / 2;
+        const lh = sdMagLens.offsetHeight / 2;
+        
+        const bgX = -(cx * zoomRatio - lw);
+        const bgY = -(cy * zoomRatio - lh);
+
+        sdMagLens.style.backgroundPosition = `${bgX}px ${bgY}px`;
+    }
+
+    window.sdFocusMagnifier = function(percentX, percentY, targetImgSrc, targetMode) {
+       if(!sdMagImg || !sdMagLens) return;
+       
+       sdMagMode = targetMode || 'normal';
+       sdMagImg.style.transition = "transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)";
+       
+       if (sdMagMode !== 'normal') {
+          sdMagLens.style.display = 'none';
+          sdMagRadar.style.display = 'none';
+          sdMagLens.style.opacity = '0';
+          sdMagRadar.style.opacity = '0';
+          
+          if(sdMagMode === 'crop5') {
+              sdMagContainer.style.aspectRatio = "1.6/1"; // 박스 높이를 정확히 E영역만큼만
+              sdMagImg.style.width = "100%";
+              sdMagImg.style.height = "auto";
+              sdMagImg.style.objectFit = "unset";
+              sdMagImg.style.objectPosition = "unset";
+              sdMagImg.style.transform = "translateY(-6%)"; // E영역 위로 끌어올리기 (F는 박스 밖으로 짤림)
+          } else if (sdMagMode === 'crop6') {
+              sdMagContainer.style.aspectRatio = "1.5/1"; // F영역 높이 (27번 보임)
+              sdMagImg.style.width = "100%";
+              sdMagImg.style.height = "auto";
+              sdMagImg.style.objectFit = "unset";
+              sdMagImg.style.objectPosition = "unset";
+              sdMagImg.style.transform = "translateY(-50%)"; // 정확히 F 시작점까지 끌어올리기 (E는 박스 위로 짤림)
+          } else if (sdMagMode === 'theme7') {
+              sdMagContainer.style.aspectRatio = "auto";
+              sdMagImg.style.height = "auto";
+              sdMagImg.style.objectFit = "contain";
+              sdMagImg.style.objectPosition = "initial";
+              sdMagImg.style.transform = "none";
+          }
+       } else {
+          sdMagLens.style.display = 'block';
+          sdMagRadar.style.display = 'block';
+          sdMagContainer.style.aspectRatio = "auto";
+          sdMagImg.style.height = "auto";
+          sdMagImg.style.objectFit = "contain";
+          sdMagImg.style.objectPosition = "initial";
+          sdMagImg.style.transformOrigin = "center center";
+          sdMagImg.style.transform = "scale(1)";
+       }
+
+       // Change image if different, wait for load to adjust lens
+       if(targetImgSrc && sdMagImg.getAttribute('src') !== targetImgSrc) {
+           sdMagLens.style.opacity = '0';
+           sdMagRadar.style.opacity = '0';
+           
+           sdMagImg.onload = function() {
+              if (sdMagMode === 'normal') {
+                  sdMagLens.style.backgroundImage = `url('${targetImgSrc}')`;
+                  const setLensSize = () => {
+                     sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+                  };
+                  setLensSize();
+                  
+                  const w = sdMagContainer.offsetWidth;
+                  const h = sdMagContainer.offsetHeight;
+                  
+                  const targetX = w * (percentX / 100);
+                  const targetY = h * (percentY / 100);
+                  
+                  sdMagLens.style.opacity = '1';
+                  sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+                  
+                  sdMagRadar.style.left = targetX + 'px';
+                  sdMagRadar.style.top = targetY + 'px';
+                  sdMagRadar.style.opacity = '1';
+                  
+                  moveLens(targetX, targetY);
+              }
+           };
+           sdMagImg.src = targetImgSrc;
+       } else if (sdMagMode === 'normal') {
+           const w = sdMagContainer.offsetWidth;
+           const h = sdMagContainer.offsetHeight;
+           
+           const targetX = w * (percentX / 100);
+           const targetY = h * (percentY / 100);
+           
+           // Show lens automatically
+           sdMagLens.style.opacity = '1';
+           sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+           
+           // Show radar to draw attention
+           sdMagRadar.style.left = targetX + 'px';
+           sdMagRadar.style.top = targetY + 'px';
+           sdMagRadar.style.opacity = '1';
+           
+           moveLens(targetX, targetY);
+       }
+    };
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+       if(document.getElementById('sd-level-buttons')) {
+          renderSDLevelTheatre();
+       }
+       if(document.getElementById('sd-mag-img-container')) {
+          setTimeout(initMagnifier, 100); // slight delay to ensure layout painted
+       }
+
+       // Gallery drag to scroll logic
+       const slider = document.querySelector('.sd-gallery-track');
+       if(slider) {
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+
+          slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+          });
+          slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // scroll-fast
+            slider.scrollLeft = scrollLeft - walk;
+          });
+       }
+    });
+</script>
+
+<script>
+    // Unified Sudanbi Levels Data
+    const sdData = [
+      {
+        level: 'STEP 01', color: '#10B981', 
+        shortTarget: '중3~고1',
+        target: '필수편 고등 첫 단추 · 권장: 중3~고1', 
+        title: '필수편',
+        desc: '중학 어휘의 완성, 고1 3월 모의고사 1등급을 향한 가장 확실한 연결고리. 중3 필수 어휘부터 고1 첫 모의고사의 성패를 결정짓는 핵심 어휘까지, 고교 영어의 진입장벽을 낮추는 필수 관문입니다.',
+        cover: 'images/sudanbi_essential.png',
+        inner: 'images/sudanbi_real_1.png'
+      },
+      {
+        level: 'STEP 02', color: '#3B82F6', 
+        shortTarget: '고1~고2',
+        target: '꾸준한 1등급의 핵심 · 권장: 고1~고2', 
+        title: '핵심편',
+        desc: '고1 6월 모의고사 이후, 수능까지 흔들림 없는 1등급의 뼈대를 세웁니다. 고등학교 1학년 6월 이후 처음 나오는 빈출 어휘를 선별했습니다. 수능까지 1등급을 받기 위한 핵심 어휘입니다.',
+        cover: 'images/sudanbi_core.png',
+        inner: 'images/sudanbi_real_3.png' 
+      },
+      {
+        level: 'STEP 03', color: '#8B5CF6', 
+        shortTarget: '고2~고3',
+        target: '수능 만점의 정점 · 권장: 고2~고3', 
+        title: '실력편',
+        desc: '안정적인 최상위권을 위한 수능 기출 최고급 어휘. 만점으로 가는 수능 기출 최고난도 어휘의 묶음입니다.',
+        cover: 'images/sudanbi_advanced.png',
+        inner: 'images/sudanbi_real_4.jpg'
+      }
+    ];
+
+    let sdActiveLevel = 0;
+    
+    window.setSActiveLevel = function(idx) {
+       sdActiveLevel = idx;
+       renderSDLevelTheatre();
+    };
+
+    function renderSDLevelTheatre() {
+      const dataInfo = sdData[sdActiveLevel];
+      
+      // Update Backgrounds & Colors
+      document.getElementById('sd-level-theatre-bg').style.background = `radial-gradient(circle at 75% 50%, ${dataInfo.color}15 0%, #F8FAFC 60%)`;
+      document.getElementById('sd-level-theatre-title-color').style.color = dataInfo.color;
+      document.getElementById('sd-level-accent-line').style.background = dataInfo.color;
+
+      // Update Badges & Text
+      const targetStr = dataInfo.target;
+      let badgeHtml = '';
+      if(targetStr.includes(' · 권장: ')) {
+        const parts = targetStr.split(' · 권장: ');
+        badgeHtml = `
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(15,23,42,0.2);">
+            <span style="opacity: 0.5; margin-right: 12px; font-weight: 600; font-size: 1rem;">학습 타겟</span> ${parts[0]}
+          </span>
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: ${dataInfo.color}15; color: ${dataInfo.color}; font-weight: 800; font-size: 1.15rem; border: 1px solid ${dataInfo.color}40;">
+            ${parts[1]}
+          </span>
+        `;
+      } else {
+        badgeHtml = `<span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem;">${targetStr}</span>`;
+      }
+
+      document.getElementById('sd-level-target-badge-container').innerHTML = badgeHtml;
+      document.getElementById('sd-level-title').innerText = dataInfo.title;
+      document.getElementById('sd-level-desc').innerText = dataInfo.desc;
+
+      // Restart Content Animation
+      const cb = document.getElementById('sd-level-content-box');
+      cb.style.animation = 'none';
+      void cb.offsetWidth;
+      cb.style.animation = 'fadeInUp 0.5s ease-out';
+
+      // Update Image Showcase (Using the new Anti-Aliased Box-Shadow fix logic)
+      const imgBox = document.getElementById('sd-level-image-box');
+      if(dataInfo.inner) {
+          imgBox.innerHTML = `
+            <div style="position: absolute; width: 275px; z-index: 1; transform-origin: center; transform: translateX(-100px) translateY(-20px) perspective(1200px) rotateY(15deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.inner}" style="width: 100%; border-radius: 12px; border: 1px solid #E2E8F0; object-fit: contain; pointer-events: none; box-shadow: -15px 25px 35px rgba(0,0,0,0.15); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+            <div style="position: absolute; width: 235px; z-index: 2; transform-origin: center; transform: translateX(100px) translateY(20px) perspective(1200px) rotateY(-10deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; border: 1px solid #E2E8F0; box-shadow: 20px 30px 50px rgba(0,0,0,0.25); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      } else {
+         imgBox.innerHTML = `
+            <div style="width: 270px; z-index: 2; transform: perspective(1200px) rotateY(-5deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; box-shadow: 10px 40px 60px rgba(0,0,0,0.2); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      }
+
+      // Update Timeline Nodes
+      const btnHtml = sdData.map((data, idx) => {
+        const isActive = sdActiveLevel === idx;
+        const isPassed = idx < sdActiveLevel;
+        
+        return `
+          <div style="display: flex; gap: 24px; min-height: 120px; position: relative;">
+             <!-- Connector Line -->
+             ${idx !== sdData.length - 1 ? 
+               `<div style="position: absolute; left: 19px; top: 40px; bottom: -20px; width: 3px; background: ${isPassed ? '#E2E8F0' : '#F1F5F9'}; z-index: 0;"></div>` 
+               : ''}
+             
+             <!-- Node Marker -->
+             <div style="position: relative; z-index: 2; margin-top: 5px;">
+               <div style="width: 40px; height: 40px; border-radius: 50%; background: ${isActive ? data.color : (isPassed ? '#cbd5e1' : '#FFFFFF')}; border: 4px solid ${isActive ? '#FFFFFF' : (isPassed ? '#cbd5e1' : '#E2E8F0')}; box-shadow: ${isActive ? '0 0 0 5px ' + data.color : 'none'}; display: flex; align-items: center; justify-content: center; transition: all 0.3s;">
+                  ${isActive ? '<div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>' : ''}
+               </div>
+             </div>
+
+             <!-- Button Content -->
+             <div style="flex: 1; padding-bottom: 50px; position: relative; z-index: 50;">
+                <button onclick="setSActiveLevel(${idx})" style="pointer-events: auto; width: 100%; text-align: left; background: ${isActive ? '#FFFFFF' : 'transparent'}; border: ${isActive ? '2px solid ' + data.color + '40' : '2px solid transparent'}; border-radius: 20px; padding: 18px 24px; cursor: pointer; transition: all 0.3s; box-shadow: ${isActive ? '0 15px 30px -5px ' + data.color + '20' : 'none'}; transform: ${isActive ? 'translateX(8px)' : 'none'};">
+                   <div style="font-size: 1rem; font-weight: 800; color: ${isActive ? data.color : '#94A3B8'}; margin-bottom: 6px; letter-spacing: 1px;">
+                     ${data.level}
+                   </div>
+                   <div style="font-size: 1.45rem; font-weight: 900; color: ${isActive ? '#0F172A' : '#64748B'}; margin-bottom: 4px;">
+                     ${data.title}
+                   </div>
+                   <div style="font-size: 1.05rem; font-weight: 600; color: #94A3B8;">
+                     ${data.shortTarget}
+                   </div>
+                </button>
+             </div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('sd-level-buttons').innerHTML = btnHtml;
+    }
+
+    // --- Magnifier JS Native Logic ---
+    let sdMagImg;
+    let sdMagLens;
+    let sdMagRadar;
+    let sdMagContainer;
+    let sdMagMode = 'normal';
+    
+    // Zoom factor
+    const zoomRatio = 2.5;
+
+    function initMagnifier() {
+       sdMagImg = document.querySelector('#sd-mag-img-container img');
+       sdMagLens = document.getElementById('sd-mag-lens');
+       sdMagRadar = document.getElementById('sd-mag-radar');
+       sdMagContainer = document.getElementById('sd-mag-img-container');
+       
+       if(!sdMagImg) return;
+
+       // Set lens background size
+       const setLensSize = () => {
+          sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+       };
+
+       if(sdMagImg.complete) {
+          setLensSize();
+       } else {
+          sdMagImg.onload = setLensSize;
+       }
+       // Window resize listener
+       window.addEventListener('resize', setLensSize);
+
+       // Mouse move over base image
+       sdMagContainer.addEventListener('mousemove', (e) => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.opacity = '1';
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+          sdMagRadar.style.opacity = '0'; // Hide radar on manual move
+          
+          const rect = sdMagContainer.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          moveLens(x, y);
+       });
+
+       // Mouse leave base image
+       sdMagContainer.addEventListener('mouseleave', () => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(0)';
+          sdMagLens.style.opacity = '0';
+       });
+    }
+
+    function moveLens(x, y) {
+        if(!sdMagImg || !sdMagLens) return;
+        
+        // Boundaries
+        const w = sdMagContainer.offsetWidth;
+        const h = sdMagContainer.offsetHeight;
+        
+        let cx = x;
+        let cy = y;
+        if(cx > w) cx = w;
+        if(cx < 0) cx = 0;
+        if(cy > h) cy = h;
+        if(cy < 0) cy = 0;
+
+        // Position lens
+        sdMagLens.style.left = cx + 'px';
+        sdMagLens.style.top = cy + 'px';
+
+        // Background calculation
+        // The background position needs to move exactly the opposite way, scaled by zoomRatio.
+        // We know top-left is 0,0. Center of lens must show cx, cy.
+        const lw = sdMagLens.offsetWidth / 2;
+        const lh = sdMagLens.offsetHeight / 2;
+        
+        const bgX = -(cx * zoomRatio - lw);
+        const bgY = -(cy * zoomRatio - lh);
+
+        sdMagLens.style.backgroundPosition = `${bgX}px ${bgY}px`;
+    }
+
+    window.sdFocusMagnifier = function(percentX, percentY, targetImgSrc, targetMode) {
+       if(!sdMagImg || !sdMagLens) return;
+       
+       sdMagMode = targetMode || 'normal';
+       sdMagImg.style.transition = "transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)";
+       
+       if (sdMagMode !== 'normal') {
+          sdMagLens.style.display = 'none';
+          sdMagRadar.style.display = 'none';
+          sdMagLens.style.opacity = '0';
+          sdMagRadar.style.opacity = '0';
+          
+          if(sdMagMode === 'crop5') {
+              sdMagContainer.style.aspectRatio = "1/1";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 2%"; 
+              sdMagImg.style.transform = "none";
+          } else if (sdMagMode === 'crop6') {
+              sdMagContainer.style.aspectRatio = "1.1/1";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 88%"; 
+              sdMagImg.style.transform = "none";
+          } else if (sdMagMode === 'theme7') {
+              sdMagContainer.style.aspectRatio = "auto";
+              sdMagImg.style.height = "auto";
+              sdMagImg.style.objectFit = "contain";
+              sdMagImg.style.objectPosition = "initial";
+              sdMagImg.style.transform = "none";
+          }
+       } else {
+          sdMagLens.style.display = 'block';
+          sdMagRadar.style.display = 'block';
+          sdMagContainer.style.aspectRatio = "auto";
+          sdMagImg.style.height = "auto";
+          sdMagImg.style.objectFit = "contain";
+          sdMagImg.style.objectPosition = "initial";
+          sdMagImg.style.transformOrigin = "center center";
+          sdMagImg.style.transform = "scale(1)";
+       }
+
+       // Change image if different, wait for load to adjust lens
+       if(targetImgSrc && sdMagImg.getAttribute('src') !== targetImgSrc) {
+           sdMagLens.style.opacity = '0';
+           sdMagRadar.style.opacity = '0';
+           
+           sdMagImg.onload = function() {
+              if (sdMagMode === 'normal') {
+                  sdMagLens.style.backgroundImage = `url('${targetImgSrc}')`;
+                  const setLensSize = () => {
+                     sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+                  };
+                  setLensSize();
+                  
+                  const w = sdMagContainer.offsetWidth;
+                  const h = sdMagContainer.offsetHeight;
+                  
+                  const targetX = w * (percentX / 100);
+                  const targetY = h * (percentY / 100);
+                  
+                  sdMagLens.style.opacity = '1';
+                  sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+                  
+                  sdMagRadar.style.left = targetX + 'px';
+                  sdMagRadar.style.top = targetY + 'px';
+                  sdMagRadar.style.opacity = '1';
+                  
+                  moveLens(targetX, targetY);
+              }
+           };
+           sdMagImg.src = targetImgSrc;
+       } else if (sdMagMode === 'normal') {
+           const w = sdMagContainer.offsetWidth;
+           const h = sdMagContainer.offsetHeight;
+           
+           const targetX = w * (percentX / 100);
+           const targetY = h * (percentY / 100);
+           
+           // Show lens automatically
+           sdMagLens.style.opacity = '1';
+           sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+           
+           // Show radar to draw attention
+           sdMagRadar.style.left = targetX + 'px';
+           sdMagRadar.style.top = targetY + 'px';
+           sdMagRadar.style.opacity = '1';
+           
+           moveLens(targetX, targetY);
+       }
+    };
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+       if(document.getElementById('sd-level-buttons')) {
+          renderSDLevelTheatre();
+       }
+       if(document.getElementById('sd-mag-img-container')) {
+          setTimeout(initMagnifier, 100); // slight delay to ensure layout painted
+       }
+
+       // Gallery drag to scroll logic
+       const slider = document.querySelector('.sd-gallery-track');
+       if(slider) {
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+
+          slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+          });
+          slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // scroll-fast
+            slider.scrollLeft = scrollLeft - walk;
+          });
+       }
+    });
+</script>
+
+<script>
+    // Unified Sudanbi Levels Data
+    const sdData = [
+      {
+        level: 'STEP 01', color: '#10B981', 
+        shortTarget: '중3~고1',
+        target: '필수편 고등 첫 단추 · 권장: 중3~고1', 
+        title: '필수편',
+        desc: '중학 어휘의 완성, 고1 3월 모의고사 1등급을 향한 가장 확실한 연결고리. 중3 필수 어휘부터 고1 첫 모의고사의 성패를 결정짓는 핵심 어휘까지, 고교 영어의 진입장벽을 낮추는 필수 관문입니다.',
+        cover: 'images/sudanbi_essential.png',
+        inner: 'images/sudanbi_real_1.png'
+      },
+      {
+        level: 'STEP 02', color: '#3B82F6', 
+        shortTarget: '고1~고2',
+        target: '꾸준한 1등급의 핵심 · 권장: 고1~고2', 
+        title: '핵심편',
+        desc: '고1 6월 모의고사 이후, 수능까지 흔들림 없는 1등급의 뼈대를 세웁니다. 고등학교 1학년 6월 이후 처음 나오는 빈출 어휘를 선별했습니다. 수능까지 1등급을 받기 위한 핵심 어휘입니다.',
+        cover: 'images/sudanbi_core.png',
+        inner: 'images/sudanbi_real_3.png' 
+      },
+      {
+        level: 'STEP 03', color: '#8B5CF6', 
+        shortTarget: '고2~고3',
+        target: '수능 만점의 정점 · 권장: 고2~고3', 
+        title: '실력편',
+        desc: '안정적인 최상위권을 위한 수능 기출 최고급 어휘. 만점으로 가는 수능 기출 최고난도 어휘의 묶음입니다.',
+        cover: 'images/sudanbi_advanced.png',
+        inner: 'images/sudanbi_real_4.jpg'
+      }
+    ];
+
+    let sdActiveLevel = 0;
+    
+    window.setSActiveLevel = function(idx) {
+       sdActiveLevel = idx;
+       renderSDLevelTheatre();
+    };
+
+    function renderSDLevelTheatre() {
+      const dataInfo = sdData[sdActiveLevel];
+      
+      // Update Backgrounds & Colors
+      document.getElementById('sd-level-theatre-bg').style.background = `radial-gradient(circle at 75% 50%, ${dataInfo.color}15 0%, #F8FAFC 60%)`;
+      document.getElementById('sd-level-theatre-title-color').style.color = dataInfo.color;
+      document.getElementById('sd-level-accent-line').style.background = dataInfo.color;
+
+      // Update Badges & Text
+      const targetStr = dataInfo.target;
+      let badgeHtml = '';
+      if(targetStr.includes(' · 권장: ')) {
+        const parts = targetStr.split(' · 권장: ');
+        badgeHtml = `
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(15,23,42,0.2);">
+            <span style="opacity: 0.5; margin-right: 12px; font-weight: 600; font-size: 1rem;">학습 타겟</span> ${parts[0]}
+          </span>
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: ${dataInfo.color}15; color: ${dataInfo.color}; font-weight: 800; font-size: 1.15rem; border: 1px solid ${dataInfo.color}40;">
+            ${parts[1]}
+          </span>
+        `;
+      } else {
+        badgeHtml = `<span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem;">${targetStr}</span>`;
+      }
+
+      document.getElementById('sd-level-target-badge-container').innerHTML = badgeHtml;
+      document.getElementById('sd-level-title').innerText = dataInfo.title;
+      document.getElementById('sd-level-desc').innerText = dataInfo.desc;
+
+      // Restart Content Animation
+      const cb = document.getElementById('sd-level-content-box');
+      cb.style.animation = 'none';
+      void cb.offsetWidth;
+      cb.style.animation = 'fadeInUp 0.5s ease-out';
+
+      // Update Image Showcase (Using the new Anti-Aliased Box-Shadow fix logic)
+      const imgBox = document.getElementById('sd-level-image-box');
+      if(dataInfo.inner) {
+          imgBox.innerHTML = `
+            <div style="position: absolute; width: 275px; z-index: 1; transform-origin: center; transform: translateX(-100px) translateY(-20px) perspective(1200px) rotateY(15deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.inner}" style="width: 100%; border-radius: 12px; border: 1px solid #E2E8F0; object-fit: contain; pointer-events: none; box-shadow: -15px 25px 35px rgba(0,0,0,0.15); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+            <div style="position: absolute; width: 235px; z-index: 2; transform-origin: center; transform: translateX(100px) translateY(20px) perspective(1200px) rotateY(-10deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; border: 1px solid #E2E8F0; box-shadow: 20px 30px 50px rgba(0,0,0,0.25); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      } else {
+         imgBox.innerHTML = `
+            <div style="width: 270px; z-index: 2; transform: perspective(1200px) rotateY(-5deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; box-shadow: 10px 40px 60px rgba(0,0,0,0.2); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      }
+
+      // Update Timeline Nodes
+      const btnHtml = sdData.map((data, idx) => {
+        const isActive = sdActiveLevel === idx;
+        const isPassed = idx < sdActiveLevel;
+        
+        return `
+          <div style="display: flex; gap: 24px; min-height: 120px; position: relative;">
+             <!-- Connector Line -->
+             ${idx !== sdData.length - 1 ? 
+               `<div style="position: absolute; left: 19px; top: 40px; bottom: -20px; width: 3px; background: ${isPassed ? '#E2E8F0' : '#F1F5F9'}; z-index: 0;"></div>` 
+               : ''}
+             
+             <!-- Node Marker -->
+             <div style="position: relative; z-index: 2; margin-top: 5px;">
+               <div style="width: 40px; height: 40px; border-radius: 50%; background: ${isActive ? data.color : (isPassed ? '#cbd5e1' : '#FFFFFF')}; border: 4px solid ${isActive ? '#FFFFFF' : (isPassed ? '#cbd5e1' : '#E2E8F0')}; box-shadow: ${isActive ? '0 0 0 5px ' + data.color : 'none'}; display: flex; align-items: center; justify-content: center; transition: all 0.3s;">
+                  ${isActive ? '<div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>' : ''}
+               </div>
+             </div>
+
+             <!-- Button Content -->
+             <div style="flex: 1; padding-bottom: 50px; position: relative; z-index: 50;">
+                <button onclick="setSActiveLevel(${idx})" style="pointer-events: auto; width: 100%; text-align: left; background: ${isActive ? '#FFFFFF' : 'transparent'}; border: ${isActive ? '2px solid ' + data.color + '40' : '2px solid transparent'}; border-radius: 20px; padding: 18px 24px; cursor: pointer; transition: all 0.3s; box-shadow: ${isActive ? '0 15px 30px -5px ' + data.color + '20' : 'none'}; transform: ${isActive ? 'translateX(8px)' : 'none'};">
+                   <div style="font-size: 1rem; font-weight: 800; color: ${isActive ? data.color : '#94A3B8'}; margin-bottom: 6px; letter-spacing: 1px;">
+                     ${data.level}
+                   </div>
+                   <div style="font-size: 1.45rem; font-weight: 900; color: ${isActive ? '#0F172A' : '#64748B'}; margin-bottom: 4px;">
+                     ${data.title}
+                   </div>
+                   <div style="font-size: 1.05rem; font-weight: 600; color: #94A3B8;">
+                     ${data.shortTarget}
+                   </div>
+                </button>
+             </div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('sd-level-buttons').innerHTML = btnHtml;
+    }
+
+    // --- Magnifier JS Native Logic ---
+    let sdMagImg;
+    let sdMagLens;
+    let sdMagRadar;
+    let sdMagContainer;
+    let sdMagMode = 'normal';
+    
+    // Zoom factor
+    const zoomRatio = 2.5;
+
+    function initMagnifier() {
+       sdMagImg = document.querySelector('#sd-mag-img-container img');
+       sdMagLens = document.getElementById('sd-mag-lens');
+       sdMagRadar = document.getElementById('sd-mag-radar');
+       sdMagContainer = document.getElementById('sd-mag-img-container');
+       
+       if(!sdMagImg) return;
+
+       // Set lens background size
+       const setLensSize = () => {
+          sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+       };
+
+       if(sdMagImg.complete) {
+          setLensSize();
+       } else {
+          sdMagImg.onload = setLensSize;
+       }
+       // Window resize listener
+       window.addEventListener('resize', setLensSize);
+
+       // Mouse move over base image
+       sdMagContainer.addEventListener('mousemove', (e) => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.opacity = '1';
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+          sdMagRadar.style.opacity = '0'; // Hide radar on manual move
+          
+          const rect = sdMagContainer.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          moveLens(x, y);
+       });
+
+       // Mouse leave base image
+       sdMagContainer.addEventListener('mouseleave', () => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(0)';
+          sdMagLens.style.opacity = '0';
+       });
+    }
+
+    function moveLens(x, y) {
+        if(!sdMagImg || !sdMagLens) return;
+        
+        // Boundaries
+        const w = sdMagContainer.offsetWidth;
+        const h = sdMagContainer.offsetHeight;
+        
+        let cx = x;
+        let cy = y;
+        if(cx > w) cx = w;
+        if(cx < 0) cx = 0;
+        if(cy > h) cy = h;
+        if(cy < 0) cy = 0;
+
+        // Position lens
+        sdMagLens.style.left = cx + 'px';
+        sdMagLens.style.top = cy + 'px';
+
+        // Background calculation
+        // The background position needs to move exactly the opposite way, scaled by zoomRatio.
+        // We know top-left is 0,0. Center of lens must show cx, cy.
+        const lw = sdMagLens.offsetWidth / 2;
+        const lh = sdMagLens.offsetHeight / 2;
+        
+        const bgX = -(cx * zoomRatio - lw);
+        const bgY = -(cy * zoomRatio - lh);
+
+        sdMagLens.style.backgroundPosition = `${bgX}px ${bgY}px`;
+    }
+
+    window.sdFocusMagnifier = function(percentX, percentY, targetImgSrc, targetMode) {
+       if(!sdMagImg || !sdMagLens) return;
+       
+       sdMagMode = targetMode || 'normal';
+       sdMagImg.style.transition = "transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)";
+       
+       if (sdMagMode !== 'normal') {
+          sdMagLens.style.display = 'none';
+          sdMagRadar.style.display = 'none';
+          sdMagLens.style.opacity = '0';
+          sdMagRadar.style.opacity = '0';
+          
+          if(sdMagMode === 'crop5') {
+              sdMagContainer.style.aspectRatio = "16/10";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 5%"; 
+              sdMagImg.style.transform = "none";
+          } else if (sdMagMode === 'crop6') {
+              sdMagContainer.style.aspectRatio = "16/10";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 77%"; 
+              sdMagImg.style.transform = "none";
+          } else if (sdMagMode === 'theme7') {
+              sdMagContainer.style.aspectRatio = "auto";
+              sdMagImg.style.height = "auto";
+              sdMagImg.style.objectFit = "contain";
+              sdMagImg.style.objectPosition = "initial";
+              sdMagImg.style.transform = "none";
+          }
+       } else {
+          sdMagLens.style.display = 'block';
+          sdMagRadar.style.display = 'block';
+          sdMagContainer.style.aspectRatio = "auto";
+          sdMagImg.style.height = "auto";
+          sdMagImg.style.objectFit = "contain";
+          sdMagImg.style.objectPosition = "initial";
+          sdMagImg.style.transformOrigin = "center center";
+          sdMagImg.style.transform = "scale(1)";
+       }
+
+       // Change image if different, wait for load to adjust lens
+       if(targetImgSrc && sdMagImg.getAttribute('src') !== targetImgSrc) {
+           sdMagLens.style.opacity = '0';
+           sdMagRadar.style.opacity = '0';
+           
+           sdMagImg.onload = function() {
+              if (sdMagMode === 'normal') {
+                  sdMagLens.style.backgroundImage = `url('${targetImgSrc}')`;
+                  const setLensSize = () => {
+                     sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+                  };
+                  setLensSize();
+                  
+                  const w = sdMagContainer.offsetWidth;
+                  const h = sdMagContainer.offsetHeight;
+                  
+                  const targetX = w * (percentX / 100);
+                  const targetY = h * (percentY / 100);
+                  
+                  sdMagLens.style.opacity = '1';
+                  sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+                  
+                  sdMagRadar.style.left = targetX + 'px';
+                  sdMagRadar.style.top = targetY + 'px';
+                  sdMagRadar.style.opacity = '1';
+                  
+                  moveLens(targetX, targetY);
+              }
+           };
+           sdMagImg.src = targetImgSrc;
+       } else if (sdMagMode === 'normal') {
+           const w = sdMagContainer.offsetWidth;
+           const h = sdMagContainer.offsetHeight;
+           
+           const targetX = w * (percentX / 100);
+           const targetY = h * (percentY / 100);
+           
+           // Show lens automatically
+           sdMagLens.style.opacity = '1';
+           sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+           
+           // Show radar to draw attention
+           sdMagRadar.style.left = targetX + 'px';
+           sdMagRadar.style.top = targetY + 'px';
+           sdMagRadar.style.opacity = '1';
+           
+           moveLens(targetX, targetY);
+       }
+    };
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+       if(document.getElementById('sd-level-buttons')) {
+          renderSDLevelTheatre();
+       }
+       if(document.getElementById('sd-mag-img-container')) {
+          setTimeout(initMagnifier, 100); // slight delay to ensure layout painted
+       }
+
+       // Gallery drag to scroll logic
+       const slider = document.querySelector('.sd-gallery-track');
+       if(slider) {
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+
+          slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+          });
+          slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // scroll-fast
+            slider.scrollLeft = scrollLeft - walk;
+          });
+       }
+    });
+</script>
+
+<script>
+    // Unified Sudanbi Levels Data
+    const sdData = [
+      {
+        level: 'STEP 01', color: '#10B981', 
+        shortTarget: '중3~고1',
+        target: '필수편 고등 첫 단추 · 권장: 중3~고1', 
+        title: '필수편',
+        desc: '중학 어휘의 완성, 고1 3월 모의고사 1등급을 향한 가장 확실한 연결고리. 중3 필수 어휘부터 고1 첫 모의고사의 성패를 결정짓는 핵심 어휘까지, 고교 영어의 진입장벽을 낮추는 필수 관문입니다.',
+        cover: 'images/sudanbi_essential.png',
+        inner: 'images/sudanbi_real_1.png'
+      },
+      {
+        level: 'STEP 02', color: '#3B82F6', 
+        shortTarget: '고1~고2',
+        target: '꾸준한 1등급의 핵심 · 권장: 고1~고2', 
+        title: '핵심편',
+        desc: '고1 6월 모의고사 이후, 수능까지 흔들림 없는 1등급의 뼈대를 세웁니다. 고등학교 1학년 6월 이후 처음 나오는 빈출 어휘를 선별했습니다. 수능까지 1등급을 받기 위한 핵심 어휘입니다.',
+        cover: 'images/sudanbi_core.png',
+        inner: 'images/sudanbi_real_3.png' 
+      },
+      {
+        level: 'STEP 03', color: '#8B5CF6', 
+        shortTarget: '고2~고3',
+        target: '수능 만점의 정점 · 권장: 고2~고3', 
+        title: '실력편',
+        desc: '안정적인 최상위권을 위한 수능 기출 최고급 어휘. 만점으로 가는 수능 기출 최고난도 어휘의 묶음입니다.',
+        cover: 'images/sudanbi_advanced.png',
+        inner: 'images/sudanbi_real_4.jpg'
+      }
+    ];
+
+    let sdActiveLevel = 0;
+    
+    window.setSActiveLevel = function(idx) {
+       sdActiveLevel = idx;
+       renderSDLevelTheatre();
+    };
+
+    function renderSDLevelTheatre() {
+      const dataInfo = sdData[sdActiveLevel];
+      
+      // Update Backgrounds & Colors
+      document.getElementById('sd-level-theatre-bg').style.background = `radial-gradient(circle at 75% 50%, ${dataInfo.color}15 0%, #F8FAFC 60%)`;
+      document.getElementById('sd-level-theatre-title-color').style.color = dataInfo.color;
+      document.getElementById('sd-level-accent-line').style.background = dataInfo.color;
+
+      // Update Badges & Text
+      const targetStr = dataInfo.target;
+      let badgeHtml = '';
+      if(targetStr.includes(' · 권장: ')) {
+        const parts = targetStr.split(' · 권장: ');
+        badgeHtml = `
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(15,23,42,0.2);">
+            <span style="opacity: 0.5; margin-right: 12px; font-weight: 600; font-size: 1rem;">학습 타겟</span> ${parts[0]}
+          </span>
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: ${dataInfo.color}15; color: ${dataInfo.color}; font-weight: 800; font-size: 1.15rem; border: 1px solid ${dataInfo.color}40;">
+            ${parts[1]}
+          </span>
+        `;
+      } else {
+        badgeHtml = `<span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem;">${targetStr}</span>`;
+      }
+
+      document.getElementById('sd-level-target-badge-container').innerHTML = badgeHtml;
+      document.getElementById('sd-level-title').innerText = dataInfo.title;
+      document.getElementById('sd-level-desc').innerText = dataInfo.desc;
+
+      // Restart Content Animation
+      const cb = document.getElementById('sd-level-content-box');
+      cb.style.animation = 'none';
+      void cb.offsetWidth;
+      cb.style.animation = 'fadeInUp 0.5s ease-out';
+
+      // Update Image Showcase (Using the new Anti-Aliased Box-Shadow fix logic)
+      const imgBox = document.getElementById('sd-level-image-box');
+      if(dataInfo.inner) {
+          imgBox.innerHTML = `
+            <div style="position: absolute; width: 275px; z-index: 1; transform-origin: center; transform: translateX(-100px) translateY(-20px) perspective(1200px) rotateY(15deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.inner}" style="width: 100%; border-radius: 12px; border: 1px solid #E2E8F0; object-fit: contain; pointer-events: none; box-shadow: -15px 25px 35px rgba(0,0,0,0.15); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+            <div style="position: absolute; width: 235px; z-index: 2; transform-origin: center; transform: translateX(100px) translateY(20px) perspective(1200px) rotateY(-10deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; border: 1px solid #E2E8F0; box-shadow: 20px 30px 50px rgba(0,0,0,0.25); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      } else {
+         imgBox.innerHTML = `
+            <div style="width: 270px; z-index: 2; transform: perspective(1200px) rotateY(-5deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; box-shadow: 10px 40px 60px rgba(0,0,0,0.2); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      }
+
+      // Update Timeline Nodes
+      const btnHtml = sdData.map((data, idx) => {
+        const isActive = sdActiveLevel === idx;
+        const isPassed = idx < sdActiveLevel;
+        
+        return `
+          <div style="display: flex; gap: 24px; min-height: 120px; position: relative;">
+             <!-- Connector Line -->
+             ${idx !== sdData.length - 1 ? 
+               `<div style="position: absolute; left: 19px; top: 40px; bottom: -20px; width: 3px; background: ${isPassed ? '#E2E8F0' : '#F1F5F9'}; z-index: 0;"></div>` 
+               : ''}
+             
+             <!-- Node Marker -->
+             <div style="position: relative; z-index: 2; margin-top: 5px;">
+               <div style="width: 40px; height: 40px; border-radius: 50%; background: ${isActive ? data.color : (isPassed ? '#cbd5e1' : '#FFFFFF')}; border: 4px solid ${isActive ? '#FFFFFF' : (isPassed ? '#cbd5e1' : '#E2E8F0')}; box-shadow: ${isActive ? '0 0 0 5px ' + data.color : 'none'}; display: flex; align-items: center; justify-content: center; transition: all 0.3s;">
+                  ${isActive ? '<div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>' : ''}
+               </div>
+             </div>
+
+             <!-- Button Content -->
+             <div style="flex: 1; padding-bottom: 50px; position: relative; z-index: 50;">
+                <button onclick="setSActiveLevel(${idx})" style="pointer-events: auto; width: 100%; text-align: left; background: ${isActive ? '#FFFFFF' : 'transparent'}; border: ${isActive ? '2px solid ' + data.color + '40' : '2px solid transparent'}; border-radius: 20px; padding: 18px 24px; cursor: pointer; transition: all 0.3s; box-shadow: ${isActive ? '0 15px 30px -5px ' + data.color + '20' : 'none'}; transform: ${isActive ? 'translateX(8px)' : 'none'};">
+                   <div style="font-size: 1rem; font-weight: 800; color: ${isActive ? data.color : '#94A3B8'}; margin-bottom: 6px; letter-spacing: 1px;">
+                     ${data.level}
+                   </div>
+                   <div style="font-size: 1.45rem; font-weight: 900; color: ${isActive ? '#0F172A' : '#64748B'}; margin-bottom: 4px;">
+                     ${data.title}
+                   </div>
+                   <div style="font-size: 1.05rem; font-weight: 600; color: #94A3B8;">
+                     ${data.shortTarget}
+                   </div>
+                </button>
+             </div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('sd-level-buttons').innerHTML = btnHtml;
+    }
+
+    // --- Magnifier JS Native Logic ---
+    let sdMagImg;
+    let sdMagLens;
+    let sdMagRadar;
+    let sdMagContainer;
+    let sdMagMode = 'normal';
+    
+    // Zoom factor
+    const zoomRatio = 2.5;
+
+    function initMagnifier() {
+       sdMagImg = document.querySelector('#sd-mag-img-container img');
+       sdMagLens = document.getElementById('sd-mag-lens');
+       sdMagRadar = document.getElementById('sd-mag-radar');
+       sdMagContainer = document.getElementById('sd-mag-img-container');
+       
+       if(!sdMagImg) return;
+
+       // Set lens background size
+       const setLensSize = () => {
+          sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+       };
+
+       if(sdMagImg.complete) {
+          setLensSize();
+       } else {
+          sdMagImg.onload = setLensSize;
+       }
+       // Window resize listener
+       window.addEventListener('resize', setLensSize);
+
+       // Mouse move over base image
+       sdMagContainer.addEventListener('mousemove', (e) => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.opacity = '1';
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+          sdMagRadar.style.opacity = '0'; // Hide radar on manual move
+          
+          const rect = sdMagContainer.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          moveLens(x, y);
+       });
+
+       // Mouse leave base image
+       sdMagContainer.addEventListener('mouseleave', () => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(0)';
+          sdMagLens.style.opacity = '0';
+       });
+    }
+
+    function moveLens(x, y) {
+        if(!sdMagImg || !sdMagLens) return;
+        
+        // Boundaries
+        const w = sdMagContainer.offsetWidth;
+        const h = sdMagContainer.offsetHeight;
+        
+        let cx = x;
+        let cy = y;
+        if(cx > w) cx = w;
+        if(cx < 0) cx = 0;
+        if(cy > h) cy = h;
+        if(cy < 0) cy = 0;
+
+        // Position lens
+        sdMagLens.style.left = cx + 'px';
+        sdMagLens.style.top = cy + 'px';
+
+        // Background calculation
+        // The background position needs to move exactly the opposite way, scaled by zoomRatio.
+        // We know top-left is 0,0. Center of lens must show cx, cy.
+        const lw = sdMagLens.offsetWidth / 2;
+        const lh = sdMagLens.offsetHeight / 2;
+        
+        const bgX = -(cx * zoomRatio - lw);
+        const bgY = -(cy * zoomRatio - lh);
+
+        sdMagLens.style.backgroundPosition = `${bgX}px ${bgY}px`;
+    }
+
+    window.sdFocusMagnifier = function(percentX, percentY, targetImgSrc, targetMode) {
+       if(!sdMagImg || !sdMagLens) return;
+       
+       sdMagMode = targetMode || 'normal';
+       sdMagImg.style.transition = "transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)";
+       
+       if (sdMagMode !== 'normal') {
+          sdMagLens.style.display = 'none';
+          sdMagRadar.style.display = 'none';
+          sdMagLens.style.opacity = '0';
+          sdMagRadar.style.opacity = '0';
+          
+          if(sdMagMode === 'crop5') {
+              sdMagContainer.style.aspectRatio = "16/11";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 0%"; // 맨 위로
+              sdMagImg.style.transformOrigin = "top center";
+              sdMagImg.style.transform = "scale(1.4) translateY(2%)"; // 더 확대하고 비율을 납작하게 만들어 F를 완전히 자름
+          } else if (sdMagMode === 'crop6') {
+              sdMagContainer.style.aspectRatio = "16/11";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 100%"; // 맨 아래로
+              sdMagImg.style.transformOrigin = "bottom center";
+              sdMagImg.style.transform = "scale(1.4) translateY(-2%)"; // E를 완전히 자름
+          } else if (sdMagMode === 'theme7') {
+              sdMagContainer.style.aspectRatio = "auto";
+              sdMagImg.style.height = "auto";
+              sdMagImg.style.objectFit = "contain";
+              sdMagImg.style.objectPosition = "initial";
+              sdMagImg.style.transform = "none";
+          }
+       } else {
+          sdMagLens.style.display = 'block';
+          sdMagRadar.style.display = 'block';
+          sdMagContainer.style.aspectRatio = "auto";
+          sdMagImg.style.height = "auto";
+          sdMagImg.style.objectFit = "contain";
+          sdMagImg.style.objectPosition = "initial";
+          sdMagImg.style.transformOrigin = "center center";
+          sdMagImg.style.transform = "scale(1)";
+       }
+
+       // Change image if different, wait for load to adjust lens
+       if(targetImgSrc && sdMagImg.getAttribute('src') !== targetImgSrc) {
+           sdMagLens.style.opacity = '0';
+           sdMagRadar.style.opacity = '0';
+           
+           sdMagImg.onload = function() {
+              if (sdMagMode === 'normal') {
+                  sdMagLens.style.backgroundImage = `url('${targetImgSrc}')`;
+                  const setLensSize = () => {
+                     sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+                  };
+                  setLensSize();
+                  
+                  const w = sdMagContainer.offsetWidth;
+                  const h = sdMagContainer.offsetHeight;
+                  
+                  const targetX = w * (percentX / 100);
+                  const targetY = h * (percentY / 100);
+                  
+                  sdMagLens.style.opacity = '1';
+                  sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+                  
+                  sdMagRadar.style.left = targetX + 'px';
+                  sdMagRadar.style.top = targetY + 'px';
+                  sdMagRadar.style.opacity = '1';
+                  
+                  moveLens(targetX, targetY);
+              }
+           };
+           sdMagImg.src = targetImgSrc;
+       } else if (sdMagMode === 'normal') {
+           const w = sdMagContainer.offsetWidth;
+           const h = sdMagContainer.offsetHeight;
+           
+           const targetX = w * (percentX / 100);
+           const targetY = h * (percentY / 100);
+           
+           // Show lens automatically
+           sdMagLens.style.opacity = '1';
+           sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+           
+           // Show radar to draw attention
+           sdMagRadar.style.left = targetX + 'px';
+           sdMagRadar.style.top = targetY + 'px';
+           sdMagRadar.style.opacity = '1';
+           
+           moveLens(targetX, targetY);
+       }
+    };
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+       if(document.getElementById('sd-level-buttons')) {
+          renderSDLevelTheatre();
+       }
+       if(document.getElementById('sd-mag-img-container')) {
+          setTimeout(initMagnifier, 100); // slight delay to ensure layout painted
+       }
+
+       // Gallery drag to scroll logic
+       const slider = document.querySelector('.sd-gallery-track');
+       if(slider) {
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+
+          slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+          });
+          slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // scroll-fast
+            slider.scrollLeft = scrollLeft - walk;
+          });
+       }
+    });
+</script>
+
+<script>
+    // Unified Sudanbi Levels Data
+    const sdData = [
+      {
+        level: 'STEP 01', color: '#10B981', 
+        shortTarget: '중3~고1',
+        target: '필수편 고등 첫 단추 · 권장: 중3~고1', 
+        title: '필수편',
+        desc: '중학 어휘의 완성, 고1 3월 모의고사 1등급을 향한 가장 확실한 연결고리. 중3 필수 어휘부터 고1 첫 모의고사의 성패를 결정짓는 핵심 어휘까지, 고교 영어의 진입장벽을 낮추는 필수 관문입니다.',
+        cover: 'images/sudanbi_essential.png',
+        inner: 'images/sudanbi_real_1.png'
+      },
+      {
+        level: 'STEP 02', color: '#3B82F6', 
+        shortTarget: '고1~고2',
+        target: '꾸준한 1등급의 핵심 · 권장: 고1~고2', 
+        title: '핵심편',
+        desc: '고1 6월 모의고사 이후, 수능까지 흔들림 없는 1등급의 뼈대를 세웁니다. 고등학교 1학년 6월 이후 처음 나오는 빈출 어휘를 선별했습니다. 수능까지 1등급을 받기 위한 핵심 어휘입니다.',
+        cover: 'images/sudanbi_core.png',
+        inner: 'images/sudanbi_real_3.png' 
+      },
+      {
+        level: 'STEP 03', color: '#8B5CF6', 
+        shortTarget: '고2~고3',
+        target: '수능 만점의 정점 · 권장: 고2~고3', 
+        title: '실력편',
+        desc: '안정적인 최상위권을 위한 수능 기출 최고급 어휘. 만점으로 가는 수능 기출 최고난도 어휘의 묶음입니다.',
+        cover: 'images/sudanbi_advanced.png',
+        inner: 'images/sudanbi_real_4.jpg'
+      }
+    ];
+
+    let sdActiveLevel = 0;
+    
+    window.setSActiveLevel = function(idx) {
+       sdActiveLevel = idx;
+       renderSDLevelTheatre();
+    };
+
+    function renderSDLevelTheatre() {
+      const dataInfo = sdData[sdActiveLevel];
+      
+      // Update Backgrounds & Colors
+      document.getElementById('sd-level-theatre-bg').style.background = `radial-gradient(circle at 75% 50%, ${dataInfo.color}15 0%, #F8FAFC 60%)`;
+      document.getElementById('sd-level-theatre-title-color').style.color = dataInfo.color;
+      document.getElementById('sd-level-accent-line').style.background = dataInfo.color;
+
+      // Update Badges & Text
+      const targetStr = dataInfo.target;
+      let badgeHtml = '';
+      if(targetStr.includes(' · 권장: ')) {
+        const parts = targetStr.split(' · 권장: ');
+        badgeHtml = `
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(15,23,42,0.2);">
+            <span style="opacity: 0.5; margin-right: 12px; font-weight: 600; font-size: 1rem;">학습 타겟</span> ${parts[0]}
+          </span>
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: ${dataInfo.color}15; color: ${dataInfo.color}; font-weight: 800; font-size: 1.15rem; border: 1px solid ${dataInfo.color}40;">
+            ${parts[1]}
+          </span>
+        `;
+      } else {
+        badgeHtml = `<span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem;">${targetStr}</span>`;
+      }
+
+      document.getElementById('sd-level-target-badge-container').innerHTML = badgeHtml;
+      document.getElementById('sd-level-title').innerText = dataInfo.title;
+      document.getElementById('sd-level-desc').innerText = dataInfo.desc;
+
+      // Restart Content Animation
+      const cb = document.getElementById('sd-level-content-box');
+      cb.style.animation = 'none';
+      void cb.offsetWidth;
+      cb.style.animation = 'fadeInUp 0.5s ease-out';
+
+      // Update Image Showcase (Using the new Anti-Aliased Box-Shadow fix logic)
+      const imgBox = document.getElementById('sd-level-image-box');
+      if(dataInfo.inner) {
+          imgBox.innerHTML = `
+            <div style="position: absolute; width: 275px; z-index: 1; transform-origin: center; transform: translateX(-100px) translateY(-20px) perspective(1200px) rotateY(15deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.inner}" style="width: 100%; border-radius: 12px; border: 1px solid #E2E8F0; object-fit: contain; pointer-events: none; box-shadow: -15px 25px 35px rgba(0,0,0,0.15); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+            <div style="position: absolute; width: 235px; z-index: 2; transform-origin: center; transform: translateX(100px) translateY(20px) perspective(1200px) rotateY(-10deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; border: 1px solid #E2E8F0; box-shadow: 20px 30px 50px rgba(0,0,0,0.25); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      } else {
+         imgBox.innerHTML = `
+            <div style="width: 270px; z-index: 2; transform: perspective(1200px) rotateY(-5deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; box-shadow: 10px 40px 60px rgba(0,0,0,0.2); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      }
+
+      // Update Timeline Nodes
+      const btnHtml = sdData.map((data, idx) => {
+        const isActive = sdActiveLevel === idx;
+        const isPassed = idx < sdActiveLevel;
+        
+        return `
+          <div style="display: flex; gap: 24px; min-height: 120px; position: relative;">
+             <!-- Connector Line -->
+             ${idx !== sdData.length - 1 ? 
+               `<div style="position: absolute; left: 19px; top: 40px; bottom: -20px; width: 3px; background: ${isPassed ? '#E2E8F0' : '#F1F5F9'}; z-index: 0;"></div>` 
+               : ''}
+             
+             <!-- Node Marker -->
+             <div style="position: relative; z-index: 2; margin-top: 5px;">
+               <div style="width: 40px; height: 40px; border-radius: 50%; background: ${isActive ? data.color : (isPassed ? '#cbd5e1' : '#FFFFFF')}; border: 4px solid ${isActive ? '#FFFFFF' : (isPassed ? '#cbd5e1' : '#E2E8F0')}; box-shadow: ${isActive ? '0 0 0 5px ' + data.color : 'none'}; display: flex; align-items: center; justify-content: center; transition: all 0.3s;">
+                  ${isActive ? '<div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>' : ''}
+               </div>
+             </div>
+
+             <!-- Button Content -->
+             <div style="flex: 1; padding-bottom: 50px; position: relative; z-index: 50;">
+                <button onclick="setSActiveLevel(${idx})" style="pointer-events: auto; width: 100%; text-align: left; background: ${isActive ? '#FFFFFF' : 'transparent'}; border: ${isActive ? '2px solid ' + data.color + '40' : '2px solid transparent'}; border-radius: 20px; padding: 18px 24px; cursor: pointer; transition: all 0.3s; box-shadow: ${isActive ? '0 15px 30px -5px ' + data.color + '20' : 'none'}; transform: ${isActive ? 'translateX(8px)' : 'none'};">
+                   <div style="font-size: 1rem; font-weight: 800; color: ${isActive ? data.color : '#94A3B8'}; margin-bottom: 6px; letter-spacing: 1px;">
+                     ${data.level}
+                   </div>
+                   <div style="font-size: 1.45rem; font-weight: 900; color: ${isActive ? '#0F172A' : '#64748B'}; margin-bottom: 4px;">
+                     ${data.title}
+                   </div>
+                   <div style="font-size: 1.05rem; font-weight: 600; color: #94A3B8;">
+                     ${data.shortTarget}
+                   </div>
+                </button>
+             </div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('sd-level-buttons').innerHTML = btnHtml;
+    }
+
+    // --- Magnifier JS Native Logic ---
+    let sdMagImg;
+    let sdMagLens;
+    let sdMagRadar;
+    let sdMagContainer;
+    let sdMagMode = 'normal';
+    
+    // Zoom factor
+    const zoomRatio = 2.5;
+
+    function initMagnifier() {
+       sdMagImg = document.querySelector('#sd-mag-img-container img');
+       sdMagLens = document.getElementById('sd-mag-lens');
+       sdMagRadar = document.getElementById('sd-mag-radar');
+       sdMagContainer = document.getElementById('sd-mag-img-container');
+       
+       if(!sdMagImg) return;
+
+       // Set lens background size
+       const setLensSize = () => {
+          sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+       };
+
+       if(sdMagImg.complete) {
+          setLensSize();
+       } else {
+          sdMagImg.onload = setLensSize;
+       }
+       // Window resize listener
+       window.addEventListener('resize', setLensSize);
+
+       // Mouse move over base image
+       sdMagContainer.addEventListener('mousemove', (e) => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.opacity = '1';
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+          sdMagRadar.style.opacity = '0'; // Hide radar on manual move
+          
+          const rect = sdMagContainer.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          moveLens(x, y);
+       });
+
+       // Mouse leave base image
+       sdMagContainer.addEventListener('mouseleave', () => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(0)';
+          sdMagLens.style.opacity = '0';
+       });
+    }
+
+    function moveLens(x, y) {
+        if(!sdMagImg || !sdMagLens) return;
+        
+        // Boundaries
+        const w = sdMagContainer.offsetWidth;
+        const h = sdMagContainer.offsetHeight;
+        
+        let cx = x;
+        let cy = y;
+        if(cx > w) cx = w;
+        if(cx < 0) cx = 0;
+        if(cy > h) cy = h;
+        if(cy < 0) cy = 0;
+
+        // Position lens
+        sdMagLens.style.left = cx + 'px';
+        sdMagLens.style.top = cy + 'px';
+
+        // Background calculation
+        // The background position needs to move exactly the opposite way, scaled by zoomRatio.
+        // We know top-left is 0,0. Center of lens must show cx, cy.
+        const lw = sdMagLens.offsetWidth / 2;
+        const lh = sdMagLens.offsetHeight / 2;
+        
+        const bgX = -(cx * zoomRatio - lw);
+        const bgY = -(cy * zoomRatio - lh);
+
+        sdMagLens.style.backgroundPosition = `${bgX}px ${bgY}px`;
+    }
+
+    window.sdFocusMagnifier = function(percentX, percentY, targetImgSrc, targetMode) {
+       if(!sdMagImg || !sdMagLens) return;
+       
+       sdMagMode = targetMode || 'normal';
+       sdMagImg.style.transition = "transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)";
+       
+       if (sdMagMode !== 'normal') {
+          sdMagLens.style.display = 'none';
+          sdMagRadar.style.display = 'none';
+          sdMagLens.style.opacity = '0';
+          sdMagRadar.style.opacity = '0';
+          
+          if(sdMagMode === 'crop5') {
+              sdMagContainer.style.aspectRatio = "4/3";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 8%"; // E번까지만 보이도록 위로 끌어올림
+              sdMagImg.style.transform = "scale(1.2)"; // 좀 더 크게 확대해서 아래쪽(F)이 잘리도록
+          } else if (sdMagMode === 'crop6') {
+              sdMagContainer.style.aspectRatio = "4/3";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 80%"; // F번부터 보이도록 확 내림
+              sdMagImg.style.transform = "scale(1.2)"; // 확대해서 위쪽(E)이 잘리도록
+          } else if (sdMagMode === 'theme7') {
+              sdMagContainer.style.aspectRatio = "auto";
+              sdMagImg.style.height = "auto";
+              sdMagImg.style.objectFit = "contain";
+              sdMagImg.style.objectPosition = "initial";
+              sdMagImg.style.transform = "none";
+          }
+       } else {
+          sdMagLens.style.display = 'block';
+          sdMagRadar.style.display = 'block';
+          sdMagContainer.style.aspectRatio = "auto";
+          sdMagImg.style.height = "auto";
+          sdMagImg.style.objectFit = "contain";
+          sdMagImg.style.objectPosition = "initial";
+          sdMagImg.style.transformOrigin = "center center";
+          sdMagImg.style.transform = "scale(1)";
+       }
+
+       // Change image if different, wait for load to adjust lens
+       if(targetImgSrc && sdMagImg.getAttribute('src') !== targetImgSrc) {
+           sdMagLens.style.opacity = '0';
+           sdMagRadar.style.opacity = '0';
+           
+           sdMagImg.onload = function() {
+              if (sdMagMode === 'normal') {
+                  sdMagLens.style.backgroundImage = `url('${targetImgSrc}')`;
+                  const setLensSize = () => {
+                     sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+                  };
+                  setLensSize();
+                  
+                  const w = sdMagContainer.offsetWidth;
+                  const h = sdMagContainer.offsetHeight;
+                  
+                  const targetX = w * (percentX / 100);
+                  const targetY = h * (percentY / 100);
+                  
+                  sdMagLens.style.opacity = '1';
+                  sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+                  
+                  sdMagRadar.style.left = targetX + 'px';
+                  sdMagRadar.style.top = targetY + 'px';
+                  sdMagRadar.style.opacity = '1';
+                  
+                  moveLens(targetX, targetY);
+              }
+           };
+           sdMagImg.src = targetImgSrc;
+       } else if (sdMagMode === 'normal') {
+           const w = sdMagContainer.offsetWidth;
+           const h = sdMagContainer.offsetHeight;
+           
+           const targetX = w * (percentX / 100);
+           const targetY = h * (percentY / 100);
+           
+           // Show lens automatically
+           sdMagLens.style.opacity = '1';
+           sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+           
+           // Show radar to draw attention
+           sdMagRadar.style.left = targetX + 'px';
+           sdMagRadar.style.top = targetY + 'px';
+           sdMagRadar.style.opacity = '1';
+           
+           moveLens(targetX, targetY);
+       }
+    };
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+       if(document.getElementById('sd-level-buttons')) {
+          renderSDLevelTheatre();
+       }
+       if(document.getElementById('sd-mag-img-container')) {
+          setTimeout(initMagnifier, 100); // slight delay to ensure layout painted
+       }
+
+       // Gallery drag to scroll logic
+       const slider = document.querySelector('.sd-gallery-track');
+       if(slider) {
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+
+          slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+          });
+          slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // scroll-fast
+            slider.scrollLeft = scrollLeft - walk;
+          });
+       }
+    });
+</script>
+
 <script>
     // Unified Sudanbi Levels Data
     const sdData = [
@@ -1443,11 +3553,11 @@
           sdMagRadar.style.opacity = '0';
           
           if(sdMagMode === 'crop5') {
-              sdMagImg.style.transformOrigin = "50% 12%";
-              sdMagImg.style.transform = "scale(2.2)";
+              sdMagImg.style.transformOrigin = "50% 9%";
+              sdMagImg.style.transform = "scale(2.4)";
           } else if (sdMagMode === 'crop6') {
-              sdMagImg.style.transformOrigin = "50% 55%";
-              sdMagImg.style.transform = "scale(2.2)";
+              sdMagImg.style.transformOrigin = "50% 67%";
+              sdMagImg.style.transform = "scale(2.4)";
           } else if (sdMagMode === 'theme7') {
               sdMagImg.style.transformOrigin = "center center";
               sdMagImg.style.transform = "scale(1)";
@@ -6155,6 +8265,8 @@
       renderSudanbiSteps();
     });
 </script>
+
+
 
 
     <footer id="contact" style="background: #0a0f1c; color: #94a3b8; padding: 100px 4% 60px; border-top: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; margin-top: 80px;">

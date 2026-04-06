@@ -1,0 +1,20 @@
+{
+  "../anthology.html": [
+    "<section id=\"anthology-philosophy-and-proof\" style=\"padding: 80px 4% 60px; background: #FFFFFF; position: relative; overflow: hidden; color: #0F172A; font-family: 'Pretendard', sans-serif;\">",
+    "<section style=\"padding: 120px 4%; background: #F8FAFC; position: relative; overflow: hidden;\">",
+    "<section style=\"padding: 120px 4%; background: #FFFFFF; position: relative;\">",
+    "<section style=\"background: #0F172A; color: white; padding: 100px 4%; text-align: center;\">"
+  ],
+  "../sudanbi.html": [
+    "<section style=\"padding: 100px 4% 80px; background: #FFFFFF; position: relative; overflow: hidden; color: #0F172A; font-family: 'Pretendard', sans-serif;\">",
+    "<section id=\"level-test-minigame\" style=\"padding: 100px 4%; background: radial-gradient(circle at 50% 0%, rgba(16,185,129,0.05) 0%, rgba(59,130,246,0.03) 50%, transparent 100%); display: flex; justify-content: center; font-family: 'Pretendard', sans-serif; position: relative; overflow: hidden; margin-bottom: 80px;\">",
+    "<section id=\"sudanbi-timeline\" style=\"padding: 120px 0; background: #FFFFFF; font-family: 'Pretendard', sans-serif;\">",
+    "<section style=\"padding: 120px 0; background: radial-gradient(circle at top left, #F0FDF4 0%, #FFFFFF 100%); border-top: 1px solid #E2E8F0; position: relative;\">",
+    "<section style=\"background: #0F172A; color: white; padding: 100px 4%; text-align: center;\">"
+  ],
+  "../katch.html": [
+    "<section style=\"padding:160px 4% 120px;text-align:center;background:#F8FAFC;border-bottom:1px solid #E2E8F0;position:relative\">",
+    "<section id=\"features\" style=\"padding:120px 4%;background:#FFFFFF\">",
+    "<section style=\"padding:120px 4%;text-align:center;background:#F8FAFC;border-top:1px solid #E2E8F0\">"
+  ]
+}

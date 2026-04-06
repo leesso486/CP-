@@ -1519,7 +1519,7 @@ img {
         .ct-bottom-axis { display: grid; grid-template-columns: 120px repeat(7, 1fr); gap: 6px; padding-top: 20px; min-width: 800px; margin-top: 24px; border-top: 1px solid #F1F5F9; }
       
 
-.premium-book-showcase {
+.light-book-showcase {
     position: relative; width: 100%; height: 500px;
     display: flex; justify-content: center; align-items: center;
     perspective: 1200px;
@@ -1528,29 +1528,125 @@ img {
     position: absolute; width: 190px; height: 270px;
     transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     cursor: pointer; transform-style: preserve-3d; border-radius: 6px;
+    box-shadow: 0 30px 60px rgba(15,23,42,0.15), 0 0 0 1px rgba(15,23,42,0.05) inset;
+    background: white; /* to ensure clean edges */
 }
 .book-wrap img {
     width: 100%; height: 100%; object-fit: contain; border-radius: 6px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08) inset;
     transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .book-wrap::after {
     content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.2) 25%, transparent 30%);
+    background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.7) 25%, transparent 30%);
     background-size: 200% 200%; background-position: 100% 100%;
     opacity: 0; transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); border-radius: 6px; pointer-events: none;
 }
-.book-wrap:hover::after { opacity: 1; animation: shine 1.5s infinite; }
+.book-wrap:hover::after { opacity: 1; animation: shineLight 1.5s infinite; }
 .book-wrap:nth-child(1) { transform: translateX(-160px) translateZ(-60px) rotateY(15deg) rotateX(4deg); z-index: 10; animation: floatB1 5s ease-in-out infinite; --tx: -200px; }
 .book-wrap:nth-child(2) { transform: translateX(-50px) translateZ(10px) rotateY(5deg) rotateX(2deg); z-index: 20; animation: floatB2 4.5s ease-in-out infinite 0.5s; --tx: -100px; }
 .book-wrap:nth-child(3) { transform: translateX(50px) translateZ(20px) rotateY(-5deg) rotateX(2deg); z-index: 30; animation: floatB3 6s ease-in-out infinite 1s; --tx: 100px; }
 .book-wrap:nth-child(4) { transform: translateX(160px) translateZ(-40px) rotateY(-15deg) rotateX(4deg); z-index: 15; animation: floatB4 5.5s ease-in-out infinite 1.5s; --tx: 200px; }
-.premium-book-showcase:hover .book-wrap { filter: brightness(0.5) blur(3px); transform: translateX(var(--tx)) translateZ(-150px) rotateY(0deg) rotateX(0deg); }
-.premium-book-showcase .book-wrap:hover { filter: brightness(1.1) blur(0px); transform: translateX(0) translateZ(130px) translateY(-30px) rotateY(0deg) scale(1.15); z-index: 60; }
-.premium-book-showcase .book-wrap:hover img { box-shadow: 0 40px 80px rgba(0,0,0,0.9), 0 0 60px rgba(56, 189, 248, 0.4), 0 0 0 1px rgba(255,255,255,0.4) inset; }
+.light-book-showcase:hover .book-wrap { filter: blur(3px) opacity(0.6); transform: translateX(var(--tx)) translateZ(-150px) rotateY(0deg) rotateX(0deg); }
+.light-book-showcase .book-wrap:hover { filter: blur(0px) opacity(1); transform: translateX(0) translateZ(130px) translateY(-30px) rotateY(0deg) scale(1.15); z-index: 60; box-shadow: 0 40px 80px rgba(37,99,235,0.25), 0 0 0 1px rgba(37,99,235,0.1) inset; }
 @keyframes floatB1 { 0%, 100% { margin-top: 0; } 50% { margin-top: -12px; } }
 @keyframes floatB2 { 0%, 100% { margin-top: 0; } 50% { margin-top: -8px; } }
 @keyframes floatB3 { 0%, 100% { margin-top: 0; } 50% { margin-top: -15px; } }
 @keyframes floatB4 { 0%, 100% { margin-top: 0; } 50% { margin-top: -10px; } }
-@keyframes shine { 0% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
+@keyframes shineLight { 0% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
+
+
+/* Santa Toeic Style About KNS */
+.santa-about-section {
+    padding: 140px 4%;
+    background: #090E17; /* Deep midnight blue */
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+.santa-orb-1 {
+    position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw;
+    background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+    border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 1;
+}
+.santa-orb-2 {
+    position: absolute; bottom: -20%; right: -10%; width: 60vw; height: 60vw;
+    background: radial-gradient(circle, rgba(147,51,234,0.12) 0%, transparent 70%);
+    border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 1;
+}
+.santa-title-badge {
+    display: inline-block; padding: 8px 24px; border-radius: 100px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    color: #60A5FA; font-weight: 800; font-size: 0.9rem; letter-spacing: 2px;
+    margin-bottom: 24px; text-transform: uppercase;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.santa-main-title {
+    font-size: 3rem; font-weight: 900; line-height: 1.25; letter-spacing: -1.5px; margin-bottom: 24px;
+}
+.santa-gradient-text {
+    background: linear-gradient(135deg, #60A5FA 0%, #A855F7 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.santa-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;
+    position: relative; z-index: 10; margin-top: 80px; text-align: left;
+}
+.santa-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px; padding: 40px;
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.santa-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 100%);
+    opacity: 0; transition: opacity 0.4s; z-index: 0; pointer-events: none;
+}
+.santa-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(96,165,250,0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(96,165,250,0.15);
+}
+.santa-card:hover::before { opacity: 1; }
+.santa-card > * { position: relative; z-index: 1; }
+.santa-icon-wrapper {
+    width: 60px; height: 60px; border-radius: 16px; margin-bottom: 24px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(147,51,234,0.15));
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.santa-icon { font-size: 1.4rem; font-weight: 900; background: linear-gradient(135deg, #93C5FD, #D8B4FE); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.santa-card h3 { font-size: 1.45rem; font-weight: 800; color: #FFFFFF; margin-bottom: 16px; letter-spacing: -0.5px; }
+.santa-card p { color: #94A3B8; line-height: 1.7; font-size: 1.05rem; word-break: keep-all; font-weight: 500; }
+.santa-number-bg {
+    position: absolute; bottom: -10px; right: 10px; font-size: 9rem; font-weight: 900;
+    color: rgba(255,255,255,0.02); line-height: 1; z-index: 0; pointer-events: none;
+    transition: color 0.4s, transform 0.4s; letter-spacing: -5px; font-style: italic;
+}
+.santa-card:hover .santa-number-bg { color: rgba(255,255,255,0.04); transform: scale(1.05) translateX(-10px); }
+@media (max-width: 768px) {
+    .santa-main-title { font-size: 2.2rem; }
+    .santa-about-section { padding: 80px 4%; }
+}
+
+
+.tech-hover { border-radius: 20px; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); }
+.tech-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(37,99,235,0.1); border-color: rgba(37,99,235,0.2) !important; }
+.dark-glass {
+    background: rgba(255,255,255,0.02) !important;
+    border: 1px solid rgba(255,255,255,0.05) !important;
+    border-radius: 24px !important;
+    backdrop-filter: blur(20px);
+    transition: all 0.4s;
+}
+.dark-glass:hover {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(96,165,250,0.3) !important;
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(96,165,250,0.1);
+}
+.dark-glass .g-desc { color: #94A3B8 !important; }
+.dark-glass .g-link { color: #60A5FA !important; }
 

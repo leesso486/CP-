@@ -1,0 +1,13 @@
+if(sdMagMode === 'crop5') {
+              sdMagContainer.style.aspectRatio = "4/3";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 13%";
+              sdMagImg.style.transform = "none";
+          } else if (sdMagMode === 'crop6') {
+              sdMagContainer.style.aspectRatio = "4/3";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 63%";
+              sdMagImg.style.transform = "none";
+          } else if (sdMagMode === 'theme7')

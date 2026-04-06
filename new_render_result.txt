@@ -1,0 +1,85 @@
+    function renderResult() {
+        let badge = { 
+            level: '수단비 필수편', 
+            color: '#10B981', 
+            glow: 'rgba(16, 185, 129, 0.2)',
+            gradient: 'linear-gradient(135deg, #10B981, #059669)',
+            icon: '🌱',
+            text: '수능 영어의 첫 단추! 흔들림 없는 기본기를 위한 필수 어휘부터 시작하세요.' 
+        };
+        if(score >= 8) badge = { 
+            level: '수단비 실력편', 
+            color: '#8B5CF6', 
+            glow: 'rgba(139, 92, 246, 0.2)',
+            gradient: 'linear-gradient(135deg, #8B5CF6, #6D28D9)',
+            icon: '🔥',
+            text: '상위 10% 최상위권의 정점! 만점을 향한 어휘 학습이 필요합니다.' 
+        };
+        else if (score >= 6) badge = { 
+            level: '수단비 핵심편', 
+            color: '#3B82F6', 
+            glow: 'rgba(59, 130, 246, 0.2)',
+            gradient: 'linear-gradient(135deg, #3B82F6, #1D4ED8)',
+            icon: '🚀',
+            text: '꾸준한 1등급의 뼈대를 세워야 할 때! 고빈출 핵심 어휘에 집중하세요.' 
+        };
+
+        const scorePercent = (score / 10) * 100;
+
+        container.innerHTML = `
+            <!-- Dynamic Glow Background behind the card -->
+            <div style="position: absolute; top: -50%; left: 50%; width: 600px; height: 600px; transform: translateX(-50%); background: radial-gradient(circle, ${badge.glow} 0%, transparent 60%); z-index: -1; pointer-events: none;"></div>
+            
+            <!-- 3D Emoji Badge -->
+            <div style="width: 120px; height: 120px; margin: -100px auto 30px; background: linear-gradient(145deg, #ffffff, #f8fafc); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.08), inset 0 -10px 20px rgba(0,0,0,0.03); border: 5px solid white; position: relative; animation: sdFloat 3s ease-in-out infinite;">
+                <div style="filter: drop-shadow(0 10px 10px rgba(0,0,0,0.15));">${timeLeft <= 0 ? '⏳' : '🎯'}</div>
+            </div>
+
+            <h2 style="font-size: 2.2rem; font-weight: 900; color: #0F172A; margin-bottom: 5px; letter-spacing: -1px; position: relative;">
+                ${timeLeft <= 0 ? 'TIME OUT!' : '레벨 진단 완료!'}
+            </h2>
+            <p style="color: #64748B; font-weight: 600; font-size: 1.1rem; margin-bottom: 30px;">당신의 최종 수능 어휘력 점수는?</p>
+            
+            <div style="position: relative; display: inline-block; margin-bottom: 50px;">
+                <div style="font-size: 6rem; font-weight: 900; background: ${badge.gradient}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; letter-spacing: -2px; padding: 0 20px; filter: drop-shadow(0 15px 25px ${badge.glow});">
+                    ${score * 10}<span style="font-size: 2.5rem; font-weight: 800; margin-left: 5px;">점</span>
+                </div>
+            </div>
+            
+            <!-- Premium Recommendation Card -->
+            <div style="background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 20px 40px -15px ${badge.glow}; border-radius: 28px; padding: 40px; margin-bottom: 60px; text-align: left; display: flex; gap: 25px; align-items: center; position: relative; overflow: hidden;">
+                <!-- Decorative side line -->
+                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: ${badge.gradient};"></div>
+                
+                <div style="width: 80px; height: 80px; background: ${badge.gradient}; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 3rem; flex-shrink: 0; box-shadow: 0 10px 20px ${badge.glow};">
+                    ${badge.icon}
+                </div>
+                
+                <div>
+                    <div style="display: inline-block; color: ${badge.color}; font-weight: 800; font-size: 0.95rem; letter-spacing: 1px; background: white; padding: 6px 16px; border-radius: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 12px; border: 1px solid rgba(226, 232, 240, 0.5);">
+                        KNS DATA 맞춤 추천
+                    </div>
+                    <h3 style="font-size: 1.8rem; font-weight: 900; color: #0F172A; margin: 0 0 10px 0; letter-spacing: -1px;">
+                        ${badge.level}
+                    </h3>
+                    <p style="font-size: 1.15rem; color: #475569; font-weight: 500; line-height: 1.6; margin: 0; word-break: keep-all;">
+                        ${badge.text}
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Unified Form Layout -->
+            <div style="background: #F8FAFC; margin: 0 -50px -60px; padding: 50px; border-top: 1px solid #E2E8F0;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #F59E0B, #FCD34D); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(245,158,11,0.3);">🏆</div>
+                    <h3 style="font-size: 1.6rem; font-weight: 900; color: #0F172A; margin: 0; letter-spacing: -0.5px;">전국 상위 1% 명예의 전당 등록</h3>
+                </div>
+                <p style="color: #64748B; font-size: 1.1rem; margin-bottom: 30px;">이메일을 입력하고 실시간 전국 랭킹 순위를 확인하세요!</p>
+                
+                <form onsubmit="sdHandleEmailSubmit(event)" style="display: flex; background: white; padding: 8px; border-radius: 50px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); border: 1px solid #E2E8F0; max-width: 550px; margin: 0 auto; transition: all 0.3s;" id="sd-form-wrapper">
+                    <input id="sd-email-input" type="email" required placeholder="수험생님의 이메일 주소 입력" style="flex: 1; padding: 15px 30px; border: none; background: transparent; font-size: 1.15rem; font-weight: 600; outline: none; color: #0F172A; border-radius: 50px;" onfocus="document.getElementById('sd-form-wrapper').style.boxShadow='0 15px 35px rgba(16,185,129,0.15)'; document.getElementById('sd-form-wrapper').style.borderColor='#10B981'" onblur="document.getElementById('sd-form-wrapper').style.boxShadow='0 15px 35px rgba(0,0,0,0.06)'; document.getElementById('sd-form-wrapper').style.borderColor='#E2E8F0'">
+                    <button id="sd-email-submit" type="submit" style="background: linear-gradient(135deg, #0F172A, #1E293B); color: white; font-weight: 800; padding: 0 35px; border-radius: 50px; border: none; cursor: pointer; font-size: 1.15rem; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 10px 20px rgba(15,23,42,0.3)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">결과 확인</button>
+                </form>
+            </div>
+        `;
+    }

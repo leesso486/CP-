@@ -1,0 +1,25 @@
+       if (sdMagMode !== 'normal') {
+          sdMagLens.style.display = 'none';
+          sdMagRadar.style.display = 'none';
+          sdMagLens.style.opacity = '0';
+          sdMagRadar.style.opacity = '0';
+          
+          if(sdMagMode === 'crop5') {
+              sdMagImg.style.transformOrigin = "50% 12%";
+              sdMagImg.style.transform = "scale(2.2)";
+          } else if (sdMagMode === 'crop6') {
+              sdMagImg.style.transformOrigin = "50% 55%";
+              sdMagImg.style.transform = "scale(2.2)";
+          } else if (sdMagMode === 'theme7') {
+              sdMagImg.style.transformOrigin = "center center";
+              sdMagImg.style.transform = "scale(1)";
+          }
+       } else {
+          sdMagLens.style.display = 'block';
+          sdMagRadar.style.display = 'block';
+          sdMagImg.style.transformOrigin = "center center";
+          sdMagImg.style.transform = "scale(1)";
+       }
+
+       // Change image if different, wait for load to adjust lens
+       if(targetImgSrc && sdMagImg.getAttribute('src') !== targetImgSrc) {

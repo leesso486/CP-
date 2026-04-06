@@ -1,0 +1,49 @@
+<section id="sudanbi-timeline" style="padding: 120px 0; background: #F8FAFC; font-family: 'Pretendard', sans-serif;">
+        <div class="container" style="max-width: 1400px; margin: 0 auto; display: flex; gap: 40px;">
+          
+          <!-- Left Timeline Nav -->
+          <div style="width: 280px; flex-shrink: 0; position: sticky; top: 120px; height: fit-content; padding-left: 20px; z-index: 50;">
+             <div id="sd-level-buttons" style="position: relative; z-index: 50;"></div>
+          </div>
+
+          <!-- Right Showcase -->
+          <div style="flex: 1; border-radius: 40px; overflow: hidden; position: relative;">
+            
+            <!-- Dynamic Background -->
+            <div id="sd-level-theatre-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 75% 50%, rgba(16,185,129,0.15) 0%, #F8FAFC 60%); transition: background 0.8s ease;"></div>
+            
+            <div style="position: relative; z-index: 5; padding: 60px; min-height: 800px; display: flex; flex-direction: column;">
+              
+              <div style="text-align: left; margin-bottom: 40px;">
+                 <span id="sd-level-theatre-title-color" style="display: inline-block; font-weight: 900; letter-spacing: 1px; margin-bottom: 12px; font-size: 1.6rem; color: #10B981;">
+                   3. 수단비 컬러 로드맵
+                 </span>
+              </div>
+              
+              <div style="background: #FFFFFF; border-radius: 30px; padding: 50px 60px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.08); position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); flex: 1; display: flex; flex-direction: column;">
+                
+                <!-- Dynamic Accent Line -->
+                <div id="sd-level-accent-line" style="position: absolute; top: 0; left: 0; width: 100%; height: 8px; background: #10B981; transition: background 0.5s;"></div>
+                
+                <!-- Text Container uses all horizontal space -->
+                <div id="sd-level-content-box" style="animation: fadeInUp 0.5s ease-out; z-index: 10; position: relative; pointer-events: auto;">
+                  <div style="margin-bottom: 25px;">
+                     <div id="sd-level-target-badge-container" style="display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap;"></div>
+                     <h3 id="sd-level-title" style="font-size: 3rem; font-weight: 900; color: #0F172A; margin-bottom: 25px; line-height: 1.3; letter-spacing: -1.5px;"></h3>
+                     <p id="sd-level-desc" style="font-size: 1.35rem; color: #475569; line-height: 1.8; word-break: keep-all; font-weight: 500; min-height: 120px;"></p>
+                  </div>
+                </div>
+
+                <!-- Centered Massive Image Showcase -->
+                <div id="sd-level-image-box" style="position: relative; margin-top: 40px; width: 100%; height: 380px; display: flex; align-items: center; justify-content: center; z-index: 2; pointer-events: none;">
+                   <!-- Inject via JS -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- NEW: Sudanbi Interactive Magnifier Guide -->
+      

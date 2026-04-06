@@ -1,0 +1,208 @@
+<section style="padding: 120px 4%; background: #F8FAFC; position: relative; overflow: hidden;">
+        <!-- Dynamic Background -->
+        <div id="level-theatre-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 70% 50%, rgba(14,165,233,0.05) 0%, #F8FAFC 70%); transition: background 0.8s ease;"></div>
+
+        <div class="container" style="max-width: 1300px; margin: 0 auto; position: relative; z-index: 10;">
+          
+          <div style="text-align: center; margin-bottom: 90px;">
+            <span style="display: inline-block; color: #0EA5E9; font-weight: 900; letter-spacing: 1px; margin-bottom: 24px; background: rgba(14,165,233,0.1); padding: 12px 36px; border-radius: 50px; font-size: 1.6rem; border: 2px solid rgba(14,165,233,0.2);">
+              2. 앤솔로지 커리큘럼
+            </span>
+            <h2 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: #0F172A; margin-bottom: 1rem; letter-spacing: -1px;">
+              앤솔로지 <span id="level-theatre-title-color" style="color: #0EA5E9; transition: color 0.5s;">컬러 로드맵</span> (Lv.0 ~ Lv.6)
+            </h2>
+            <p style="color: #64748B; font-size: 1.15rem; font-weight: 600;">초등학교 4학년부터 고등학교 3학년까지. 흔들리지 않는 1등급으로 향하는 가장 완벽한 계단.</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 350px 1fr; gap: 70px; align-items: start;">
+            
+            <!-- Left: Ascending Timeline -->
+            <div style="position: relative; padding-left: 20px;">
+              <!-- The Vertical Track -->
+              <div style="position: absolute; left: 29px; top: 30px; bottom: 30px; width: 4px; background: #E2E8F0; border-radius: 2px; z-index: 1;"></div>
+              
+              <!-- Timeline Current Progress Line -->
+              <div id="timeline-progress-line" style="position: absolute; left: 29px; top: 30px; width: 4px; background: #0EA5E9; border-radius: 2px; z-index: 2; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); height: 0;"></div>
+
+              <div id="level-buttons-container" style="display: flex; flex-direction: column; gap: 0; position: relative; z-index: 50;">
+                <!-- Inject via JS -->
+              </div>
+            </div>
+
+            <!-- Right: Premium Showcase Box -->
+            <div style="position: sticky; top: 100px;">
+              <div style="background: #FFFFFF; border-radius: 30px; padding: 60px 50px; box-shadow: 0 40px 80px -10px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.04); position: relative; overflow: hidden; min-height: 600px; display: flex; flex-direction: column;">
+                
+                <!-- Dynamic Accent Line -->
+                <div id="level-accent-line" style="position: absolute; top: 0; left: 0; width: 100%; height: 8px; background: #0EA5E9; transition: background 0.5s;"></div>
+                
+                <div id="level-content-box" style="animation: fadeInUp 0.5s ease-out; z-index: 10; position: relative; pointer-events: auto;">
+                  
+                  <div style="margin-bottom: 25px;">
+                     <!-- Big Badges (Target) -->
+                     <div id="level-target-badge-container" style="display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap;"></div>
+                     
+                     <!-- Big Title -->
+                     <h3 id="level-title" style="font-size: 2.8rem; font-weight: 900; color: #0F172A; margin-bottom: 25px; line-height: 1.3; letter-spacing: -1.5px;"></h3>
+                     
+                     <!-- Description -->
+                     <p id="level-desc" style="font-size: 1.25rem; color: #475569; line-height: 1.8; word-break: keep-all; font-weight: 500; min-height: 120px;"></p>
+                  </div>
+                </div>
+
+                <!-- Massive Dynamic Image Display (Centered Full Width) -->
+                <div id="level-image-box" style="position: relative; margin-top: 30px; width: 100%; height: 380px; display: flex; align-items: center; justify-content: center; z-index: 2; pointer-events: none;">
+                   <!-- Inject via JS -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- NEW 3.5: Curriculum Architecture 3-Stages -->
+      <section style="padding: 120px 4%; background: #090E17; color: white; position: relative;
+
+<style>
+.dark-card-hover { transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); border: 1px solid rgba(255,255,255,0.05); }
+.dark-card-hover:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 20px rgba(96,165,250,0.15); border-color: rgba(96,165,250,0.3); }
+</style>
+">
+        <div class="container" style="max-width: 1400px; margin: 0 auto;">
+          <div style="text-align: center; margin-bottom: 80px;">
+            <span style="display: inline-block; color: #10B981; font-weight: 900; letter-spacing: 1px; margin-bottom: 24px; background: #ECFDF5; padding: 12px 36px; border-radius: 50px; font-size: 1.6rem; border: 2px solid rgba(16,185,129,0.2);">
+              3. 앤솔로지 교재 설계
+            </span>
+            <h2 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: #FFFFFF; margin-bottom: 1rem; letter-spacing: -1px;">
+              독해 완성을 위한 <span style="color: #10B981;">3단계 아키텍처</span>
+            </h2>
+            <p style="color: #94A3B8; font-size: 1.15rem;">읽기 전, 본문 분석, 읽기 후 과정으로 이어지는 체계적인 교재 구성을 확인하세요.</p>
+          </div>
+
+          
+          <div style="display: flex; flex-direction: column; gap: 140px;">
+            
+            <!-- STAGE 1 -->
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: start;">
+              <!-- Sticky Text Container -->
+              <div style="position: sticky; top: 120px;">
+                <h3 style="font-size: 2.8rem; font-weight: 900; color: #F59E0B; margin-bottom: 40px; letter-spacing: -1px;">01. 읽기 전 활동</h3>
+                
+                <div style="margin-bottom: 60px;">
+                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 16px;">배경지식 & 흥미 유발</h4>
+                  <p style="color: #475569; font-size: 1.15rem; line-height: 1.7; word-break: keep-all;">단원 도입부에서 주제 관련 질문을 던져 인지 에너지를 끌어올리고, 세밀한 학술적 배경지식을 제공해 지문 몰입도를 극대화합니다.</p>
+                </div>
+
+                <div>
+                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 16px;">핵심어휘 & 다의어</h4>
+                  <p style="color: #475569; font-size: 1.15rem; line-height: 1.7; word-break: keep-all;">영영 정의 및 핵심 예문으로 어휘를 분석하고, 1등급을 위한 필수 요소인 다의어를 직관적인 인포그래픽으로 즉각 체화합니다.</p>
+                </div>
+              </div>
+
+              <!-- Scrolling Image Cascade -->
+              <div style="display: flex; flex-direction: column; gap: 120px; padding-top: 20px;">
+                <!-- Group 1 -->
+                <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+                  <img src="images/new_anthology_step_1.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.1); z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                  <img src="images/new_anthology_step_2.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.1); margin-left: -140px; margin-top: 60px; z-index: 1; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='translateX(50px) scale(1.03)'; this.style.zIndex='3';" onmouseout="this.style.transform='translateX(0) scale(1)'; this.style.zIndex='1';">
+                </div>
+                <!-- Group 2 -->
+                <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+                  <img src="images/new_anthology_step_3.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.1); z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                  <img src="images/new_anthology_step_4.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.1); margin-left: -140px; margin-top: 60px; z-index: 1; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='translateX(50px) scale(1.03)'; this.style.zIndex='3';" onmouseout="this.style.transform='translateX(0) scale(1)'; this.style.zIndex='1';">
+                </div>
+              </div>
+            </div>
+
+            <div style="height: 1px; background: rgba(0,0,0,0.06); width: 100%;"></div>
+
+            <!-- STAGE 2 -->
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: start;">
+              <!-- Sticky Text Container -->
+              <div style="position: sticky; top: 120px;">
+                <h3 style="font-size: 2.8rem; font-weight: 900; color: #10B981; margin-bottom: 40px; letter-spacing: -1px;">02. 본문과 분석</h3>
+                
+                <div style="margin-bottom: 60px;">
+                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 16px;">이해도 및 논지 확인</h4>
+                  <p style="color: #475569; font-size: 1.15rem; line-height: 1.7; word-break: keep-all;">지문의 핵심 논지와 저자의 의도를 정확히 타겟팅하는 직관적인 질문을 통해 본문을 거시적으로 이해했는지 점검합니다.</p>
+                </div>
+
+                <div style="margin-bottom: 60px;">
+                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 16px;">구조화 및 심층 분석</h4>
+                  <p style="color: #475569; font-size: 1.15rem; line-height: 1.7; word-break: keep-all;">텍스트를 논증 체계에 따라 도형식 다이어그램으로 구조화하고, 비유와 상징 등 고난도 맥락 추론을 훈련합니다.</p>
+                </div>
+
+                <div>
+                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 16px;">미시적 구문 분석</h4>
+                  <p style="color: #475569; font-size: 1.15rem; line-height: 1.7; word-break: keep-all;">가장 번역이 까다로운 킬러 문장을 발췌해 뼈대를 해체하며 구문 독해의 정확도를 최상위권 수준으로 방어합니다.</p>
+                </div>
+              </div>
+
+              <!-- Scrolling Image Cascade -->
+              <div style="display: flex; flex-direction: column; gap: 120px; padding-top: 20px;">
+                <!-- Group 1 -->
+                <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+                  <img src="images/new_anthology_step_5.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.1); z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
+                <!-- Group 2 -->
+                <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+                  <img src="images/new_anthology_step_6.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.1); z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                  <img src="images/new_anthology_step_8.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.1); margin-left: -140px; margin-top: 60px; z-index: 1; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='translateX(50px) scale(1.03)'; this.style.zIndex='3';" onmouseout="this.style.transform='translateX(0) scale(1)'; this.style.zIndex='1';">
+                </div>
+                <!-- Group 3 -->
+                <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+                  <img src="images/new_anthology_step_7.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.1); z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
+              </div>
+            </div>
+
+            <div style="height: 1px; background: rgba(0,0,0,0.06); width: 100%;"></div>
+
+            <!-- STAGE 3 -->
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: start;">
+              <!-- Sticky Text Container -->
+              <div style="position: sticky; top: 120px;">
+                <h3 style="font-size: 2.8rem; font-weight: 900; color: #8B5CF6; margin-bottom: 40px; letter-spacing: -1px;">03. 연습문제 및 읽기 후</h3>
+                
+                <div style="margin-bottom: 60px;">
+                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 16px;">실전 훈련 및 체크</h4>
+                  <p style="color: #475569; font-size: 1.15rem; line-height: 1.7; word-break: keep-all;">배운 개념을 즉각적으로 적용하여 레벨별로 매칭된 연습문제를 풀며 수능 유형에 대한 실전 감각을 끌어올립니다.</p>
+                </div>
+
+                <div style="margin-bottom: 60px;">
+                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 16px;">내용 체화 및 확장 활동</h4>
+                  <p style="color: #475569; font-size: 1.15rem; line-height: 1.7; word-break: keep-all;">단순 문제 풀이를 넘어, 지문의 내용을 자신의 언어로 요약하고 에세이를 작성하는 확장된 논리 사고력 훈련입니다.</p>
+                </div>
+
+                <div>
+                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 16px;">구문 체화 최종 점검</h4>
+                  <p style="color: #475569; font-size: 1.15rem; line-height: 1.7; word-break: keep-all;">어려웠던 주요 문장을 통문장으로 재발췌하여, 완벽한 해석과 분석 훈련이 이루어졌는지 학생 스스로 입증합니다.</p>
+                </div>
+              </div>
+
+              <!-- Scrolling Image Cascade -->
+              <div style="display: flex; flex-direction: column; gap: 120px; padding-top: 20px;">
+                <!-- Group 1 -->
+                <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+                  <img src="images/new_anthology_step_9.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.1); z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
+                <!-- Group 2 -->
+                <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+                  <img src="images/new_anthology_step_10.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.1); z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
+                <!-- Group 3 -->
+                <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+                  <img src="images/new_anthology_step_11.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.1); z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+<!-- 10-STEP Flow feature replaced by 3-Stage Architecture -->
+
+      
+
+      <!-- NEW 4: SUPPLEMENTAL MATERIALS B2B SHOWCASE -->
+      
