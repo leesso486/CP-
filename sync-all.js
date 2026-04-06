@@ -27,26 +27,39 @@ pages.forEach(page => {
   let mainHTML = mainMatch ? mainMatch[1] : '';
 
   // Convert HTML to JSX
+  mainHTML = mainHTML.replace(/<!--[\s\S]*?-->/g, ''); // Remove HTML comments
   mainHTML = mainHTML.replace(/class=/g, 'className=');
   mainHTML = mainHTML.replace(/<br>/g, '<br/>');
   mainHTML = mainHTML.replace(/<style>[\s\S]*?<\/style>/g, ''); // Remove style blocks
   mainHTML = mainHTML.replace(/<script>[\s\S]*?<\/script>/g, ''); // Remove hardcoded script blocks
 
+  // Fix Event Handlers for React
+  mainHTML = mainHTML.replace(/onmouseover="[^"]*"/gi, '');
+  mainHTML = mainHTML.replace(/onmouseout="[^"]*"/gi, '');
+  mainHTML = mainHTML.replace(/onclick="([^"]*)"/gi, 'onClick={() => { eval(`$1`) }}');
+
   mainHTML = mainHTML.replace(/(['"])images\//g, '$1/images/'); // Convert relative image paths
   // Fix inline styles
   mainHTML = mainHTML.replace(/style="([^"]*)"/g, (match, styleString) => {
     const styleObj = {};
-    styleString.split(';').forEach(s => {
-      if (!s.trim()) return;
-      let sep = s.indexOf(':');
-      if (sep === -1) return;
-      let key = s.substring(0, sep);
-      let value = s.substring(sep + 1);
-      if (!key || !value) return;
-      const camelKey = key.trim().replace(/-([a-z])/g, g => g[1].toUpperCase());
-      styleObj[camelKey] = value.trim();
-    });
-    return `style={${JSON.stringify(styleObj)}}`;
+    const declarations = styleString.split(';');
+    for (let i = 0; i < declarations.length; i++) {
+      let style = declarations[i];
+      if (style.trim() !== '') {
+        const colonIndex = style.indexOf(':');
+        if (colonIndex > -1) {
+          const key = style.slice(0, colonIndex).trim();
+          const value = style.slice(colonIndex + 1).trim();
+          if (key.startsWith('--')) {
+             styleObj[key] = value;
+          } else {
+             const camelKey = key.replace(/-([a-z])/g, g => g[1].toUpperCase());
+             styleObj[camelKey] = value;
+          }
+        }
+      }
+    }
+    return `style={${JSON.stringify(styleObj)} as any}`;
   });
   // Clean up a hrefs for Next.js Link
   mainHTML = mainHTML.replace(/<a href="([^"]+)"([^>]*)>([\s\S]*?)<\/a>/g, '<Link href={"/$1"} $2>$3</Link>');
