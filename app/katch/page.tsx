@@ -3,7 +3,17 @@ import React, { useEffect } from 'react';
 
 export default function KatchPage() {
   useEffect(() => {
-    
+    const reveals = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      const windowHeight = window.innerHeight;
+      reveals.forEach(reveal => {
+        const elementTop = reveal.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 80) reveal.classList.add('active');
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+    return () => window.removeEventListener('scroll', revealOnScroll);
   }, []);
 
   return (

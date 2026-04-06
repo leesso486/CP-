@@ -14,7 +14,19 @@ export default function HomePage() {
     };
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll(); // trigger immediately
-    return () => window.removeEventListener('scroll', revealOnScroll);
+    const orb = document.getElementById('mouseOrb');
+    let moveOrb = (e: any) => {};
+    if (orb) {
+      moveOrb = (e: any) => {
+        orb.style.left = e.clientX + 'px';
+        orb.style.top = e.clientY + 'px';
+      };
+      document.addEventListener('mousemove', moveOrb);
+    }
+    return () => { 
+      window.removeEventListener('scroll', revealOnScroll); 
+      if(orb) document.removeEventListener('mousemove', moveOrb); 
+    };
   }, []);
 
   return (
