@@ -3,7 +3,356 @@ import React, { useEffect } from 'react';
 
 export default function SudanbiPage() {
   useEffect(() => {
+
+    // Unified Sudanbi Levels Data
+    const sdData = [
+      {
+        level: 'STEP 01', color: '#10B981', 
+        shortTarget: '중3~고1',
+        target: '필수편 고등 첫 단추 · 권장: 중3~고1', 
+        title: '필수편',
+        desc: '중학 어휘의 완성, 고1 3월 모의고사 1등급을 향한 가장 확실한 연결고리. 중3 필수 어휘부터 고1 첫 모의고사의 성패를 결정짓는 핵심 어휘까지, 고교 영어의 진입장벽을 낮추는 필수 관문입니다.',
+        cover: 'images/sudanbi_essential.png',
+        inner: 'images/sudanbi_real_1.png'
+      },
+      {
+        level: 'STEP 02', color: '#3B82F6', 
+        shortTarget: '고1~고2',
+        target: '꾸준한 1등급의 핵심 · 권장: 고1~고2', 
+        title: '핵심편',
+        desc: '고1 6월 모의고사 이후, 수능까지 흔들림 없는 1등급의 뼈대를 세웁니다. 고등학교 1학년 6월 이후 처음 나오는 빈출 어휘를 선별했습니다. 수능까지 1등급을 받기 위한 핵심 어휘입니다.',
+        cover: 'images/sudanbi_core.png',
+        inner: 'images/sudanbi_real_3.png' 
+      },
+      {
+        level: 'STEP 03', color: '#8B5CF6', 
+        shortTarget: '고2~고3',
+        target: '수능 만점의 정점 · 권장: 고2~고3', 
+        title: '실력편',
+        desc: '안정적인 최상위권을 위한 수능 기출 최고급 어휘. 만점으로 가는 수능 기출 최고난도 어휘의 묶음입니다.',
+        cover: 'images/sudanbi_advanced.png',
+        inner: 'images/sudanbi_real_4.jpg'
+      }
+    ];
+
+    let sdActiveLevel: any = 0;
     
+    (window as any).setSActiveLevel = function(idx: any) {
+       sdActiveLevel = idx;
+       renderSDLevelTheatre();
+    };
+
+    function renderSDLevelTheatre() {
+      const dataInfo = sdData[sdActiveLevel];
+      
+      // Update Backgrounds & Colors
+      (document.getElementById('sd-level-theatre-bg') as HTMLElement).style.background = `radial-gradient(circle at 75% 50%, ${dataInfo.color}15 0%, #F8FAFC 60%)`;
+      (document.getElementById('sd-level-theatre-title-color') as HTMLElement).style.color = dataInfo.color;
+      (document.getElementById('sd-level-accent-line') as HTMLElement).style.background = dataInfo.color;
+
+      // Update Badges & Text
+      const targetStr = dataInfo.target;
+      let badgeHtml = '';
+      if(targetStr.includes(' · 권장: ')) {
+        const parts = targetStr.split(' · 권장: ');
+        badgeHtml = `
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(15,23,42,0.2);">
+            <span style="opacity: 0.5; margin-right: 12px; font-weight: 600; font-size: 1rem;">학습 타겟</span> ${parts[0]}
+          </span>
+          <span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: ${dataInfo.color}15; color: ${dataInfo.color}; font-weight: 800; font-size: 1.15rem; border: 1px solid ${dataInfo.color}40;">
+            ${parts[1]}
+          </span>
+        `;
+      } else {
+        badgeHtml = `<span style="display: inline-flex; align-items: center; padding: 10px 22px; border-radius: 12px; background: #0F172A; color: white; font-weight: 800; font-size: 1.15rem;">${targetStr}</span>`;
+      }
+
+      (document.getElementById('sd-level-target-badge-container') as HTMLElement).innerHTML = badgeHtml;
+      (document.getElementById('sd-level-title') as HTMLElement).innerText = dataInfo.title;
+      (document.getElementById('sd-level-desc') as HTMLElement).innerText = dataInfo.desc;
+
+      // Restart Content Animation
+      const cb = (document.getElementById('sd-level-content-box') as HTMLElement);
+      cb.style.animation = 'none';
+      void cb.offsetWidth;
+      cb.style.animation = 'fadeInUp 0.5s ease-out';
+
+      // Update Image Showcase (Using the new Anti-Aliased Box-Shadow fix logic)
+      const imgBox = (document.getElementById('sd-level-image-box') as HTMLElement);
+      if(dataInfo.inner) {
+          imgBox.innerHTML = `
+            <div style="position: absolute; width: 275px; z-index: 1; transform-origin: center; transform: translateX(-100px) translateY(-20px) perspective(1200px) rotateY(15deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.inner}" style="width: 100%; border-radius: 12px; border: 1px solid #E2E8F0; object-fit: contain; pointer-events: none; box-shadow: -15px 25px 35px rgba(0,0,0,0.15); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+            <div style="position: absolute; width: 235px; z-index: 2; transform-origin: center; transform: translateX(100px) translateY(20px) perspective(1200px) rotateY(-10deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; border: 1px solid #E2E8F0; box-shadow: 20px 30px 50px rgba(0,0,0,0.25); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      } else {
+         imgBox.innerHTML = `
+            <div style="width: 270px; z-index: 2; transform: perspective(1200px) rotateY(-5deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" style="width: 100%; border-radius: 16px; box-shadow: 10px 40px 60px rgba(0,0,0,0.2); backface-visibility: hidden; transform: translateZ(0); image-rendering: -webkit-optimize-contrast;" />
+            </div>
+          `;
+      }
+
+      // Update Timeline Nodes
+      const btnHtml = sdData.map((data, idx) => {
+        const isActive = sdActiveLevel === idx;
+        const isPassed = idx < sdActiveLevel;
+        
+        return `
+          <div style="display: flex; gap: 24px; min-height: 120px; position: relative;">
+             <!-- Connector Line -->
+             ${idx !== sdData.length - 1 ? 
+               `<div style="position: absolute; left: 19px; top: 40px; bottom: -20px; width: 3px; background: ${isPassed ? '#E2E8F0' : '#F1F5F9'}; z-index: 0;"></div>` 
+               : ''}
+             
+             <!-- Node Marker -->
+             <div style="position: relative; z-index: 2; margin-top: 5px;">
+               <div style="width: 40px; height: 40px; border-radius: 50%; background: ${isActive ? data.color : (isPassed ? '#cbd5e1' : '#FFFFFF')}; border: 4px solid ${isActive ? '#FFFFFF' : (isPassed ? '#cbd5e1' : '#E2E8F0')}; box-shadow: ${isActive ? '0 0 0 5px ' + data.color : 'none'}; display: flex; align-items: center; justify-content: center; transition: all 0.3s;">
+                  ${isActive ? '<div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>' : ''}
+               </div>
+             </div>
+
+             <!-- Button Content -->
+             <div style="flex: 1; padding-bottom: 50px; position: relative; z-index: 50;">
+                <button onclick="setSActiveLevel(${idx})" style="pointer-events: auto; width: 100%; text-align: left; background: ${isActive ? '#FFFFFF' : 'transparent'}; border: ${isActive ? '2px solid ' + data.color + '40' : '2px solid transparent'}; border-radius: 20px; padding: 18px 24px; cursor: pointer; transition: all 0.3s; box-shadow: ${isActive ? '0 15px 30px -5px ' + data.color + '20' : 'none'}; transform: ${isActive ? 'translateX(8px)' : 'none'};">
+                   <div style="font-size: 1rem; font-weight: 800; color: ${isActive ? data.color : '#94A3B8'}; margin-bottom: 6px; letter-spacing: 1px;">
+                     ${data.level}
+                   </div>
+                   <div style="font-size: 1.45rem; font-weight: 900; color: ${isActive ? '#0F172A' : '#64748B'}; margin-bottom: 4px;">
+                     ${data.title}
+                   </div>
+                   <div style="font-size: 1.05rem; font-weight: 600; color: #94A3B8;">
+                     ${data.shortTarget}
+                   </div>
+                </button>
+             </div>
+          </div>
+        `;
+      }).join('');
+      (document.getElementById('sd-level-buttons') as HTMLElement).innerHTML = btnHtml;
+    }
+
+    // --- Magnifier JS Native Logic ---
+    let sdMagImg: any;
+    let sdMagLens: any;
+    let sdMagRadar: any;
+    let sdMagContainer: any;
+    let sdMagMode = 'normal';
+    
+    // Zoom factor
+    const zoomRatio = 2.5;
+
+    function initMagnifier() {
+       sdMagImg = (document.querySelector('#sd-mag-img-container img') as HTMLElement);
+       sdMagLens = (document.getElementById('sd-mag-lens') as HTMLElement);
+       sdMagRadar = (document.getElementById('sd-mag-radar') as HTMLElement);
+       sdMagContainer = (document.getElementById('sd-mag-img-container') as HTMLElement);
+       
+       if(!sdMagImg) return;
+
+       // Set lens background size
+       const setLensSize = () => {
+          sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+       };
+
+       if(sdMagImg.complete) {
+          setLensSize();
+       } else {
+          sdMagImg.onload = setLensSize;
+       }
+       // Window resize listener
+       window.addEventListener('resize', setLensSize);
+
+       // Mouse move over base image
+       sdMagContainer.addEventListener('mousemove', (e: any) => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.opacity = '1';
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+          sdMagRadar.style.opacity = '0'; // Hide radar on manual move
+          
+          const rect = sdMagContainer.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          moveLens(x, y);
+       });
+
+       // Mouse leave base image
+       sdMagContainer.addEventListener('mouseleave', () => {
+          if (sdMagMode !== 'normal') return;
+          sdMagLens.style.transform = 'translate(-50%, -50%) scale(0)';
+          sdMagLens.style.opacity = '0';
+       });
+    }
+
+    function moveLens(x: any, y: any) {
+        if(!sdMagImg || !sdMagLens) return;
+        
+        // Boundaries
+        const w = sdMagContainer.offsetWidth;
+        const h = sdMagContainer.offsetHeight;
+        
+        let cx = x;
+        let cy = y;
+        if(cx > w) cx = w;
+        if(cx < 0) cx = 0;
+        if(cy > h) cy = h;
+        if(cy < 0) cy = 0;
+
+        // Position lens
+        sdMagLens.style.left = cx + 'px';
+        sdMagLens.style.top = cy + 'px';
+
+        // Background calculation
+        // The background position needs to move exactly the opposite way, scaled by zoomRatio.
+        // We know top-left is 0,0. Center of lens must show cx, cy.
+        const lw = sdMagLens.offsetWidth / 2;
+        const lh = sdMagLens.offsetHeight / 2;
+        
+        const bgX = -(cx * zoomRatio - lw);
+        const bgY = -(cy * zoomRatio - lh);
+
+        sdMagLens.style.backgroundPosition = `${bgX}px ${bgY}px`;
+    }
+
+    (window as any).sdFocusMagnifier = function(percentX: any, percentY: any, targetImgSrc: any, targetMode: any) {
+       if(!sdMagImg || !sdMagLens) return;
+       
+       sdMagMode = targetMode || 'normal';
+       sdMagImg.style.transition = "transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)";
+       
+       if (sdMagMode !== 'normal') {
+          sdMagLens.style.display = 'none';
+          sdMagRadar.style.display = 'none';
+          sdMagLens.style.opacity = '0';
+          sdMagRadar.style.opacity = '0';
+          
+          if(sdMagMode === 'crop5') {
+              sdMagContainer.style.aspectRatio = "4/3";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 13%";
+              sdMagImg.style.transform = "none";
+          } else if (sdMagMode === 'crop6') {
+              sdMagContainer.style.aspectRatio = "4/3";
+              sdMagImg.style.height = "100%";
+              sdMagImg.style.objectFit = "cover";
+              sdMagImg.style.objectPosition = "center 63%";
+              sdMagImg.style.transform = "none";
+          } else if (sdMagMode === 'theme7') {
+              sdMagContainer.style.aspectRatio = "auto";
+              sdMagImg.style.height = "auto";
+              sdMagImg.style.objectFit = "contain";
+              sdMagImg.style.objectPosition = "initial";
+              sdMagImg.style.transform = "none";
+          }
+       } else {
+          sdMagLens.style.display = 'block';
+          sdMagRadar.style.display = 'block';
+          sdMagContainer.style.aspectRatio = "auto";
+          sdMagImg.style.height = "auto";
+          sdMagImg.style.objectFit = "contain";
+          sdMagImg.style.objectPosition = "initial";
+          sdMagImg.style.transformOrigin = "center center";
+          sdMagImg.style.transform = "scale(1)";
+       }
+
+       // Change image if different, wait for load to adjust lens
+       if(targetImgSrc && sdMagImg.getAttribute('src') !== targetImgSrc) {
+           sdMagLens.style.opacity = '0';
+           sdMagRadar.style.opacity = '0';
+           
+           sdMagImg.onload = function() {
+              if (sdMagMode === 'normal') {
+                  sdMagLens.style.backgroundImage = `url('${targetImgSrc}')`;
+                  const setLensSize = () => {
+                     sdMagLens.style.backgroundSize = (sdMagImg.width * zoomRatio) + 'px ' + (sdMagImg.height * zoomRatio) + 'px';
+                  };
+                  setLensSize();
+                  
+                  const w = sdMagContainer.offsetWidth;
+                  const h = sdMagContainer.offsetHeight;
+                  
+                  const targetX = w * (percentX / 100);
+                  const targetY = h * (percentY / 100);
+                  
+                  sdMagLens.style.opacity = '1';
+                  sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+                  
+                  sdMagRadar.style.left = targetX + 'px';
+                  sdMagRadar.style.top = targetY + 'px';
+                  sdMagRadar.style.opacity = '1';
+                  
+                  moveLens(targetX, targetY);
+              }
+           };
+           sdMagImg.src = targetImgSrc;
+       } else if (sdMagMode === 'normal') {
+           const w = sdMagContainer.offsetWidth;
+           const h = sdMagContainer.offsetHeight;
+           
+           const targetX = w * (percentX / 100);
+           const targetY = h * (percentY / 100);
+           
+           // Show lens automatically
+           sdMagLens.style.opacity = '1';
+           sdMagLens.style.transform = 'translate(-50%, -50%) scale(1)';
+           
+           // Show radar to draw attention
+           sdMagRadar.style.left = targetX + 'px';
+           sdMagRadar.style.top = targetY + 'px';
+           sdMagRadar.style.opacity = '1';
+           
+           moveLens(targetX, targetY);
+       }
+    };
+
+    // Initialize
+    
+       if((document.getElementById('sd-level-buttons') as HTMLElement)) {
+          renderSDLevelTheatre();
+       }
+       if((document.getElementById('sd-mag-img-container') as HTMLElement)) {
+          setTimeout(initMagnifier, 100); // slight delay to ensure layout painted
+       }
+
+       // Gallery drag to scroll logic
+       const slider = (document.querySelector('.sd-gallery-track') as HTMLElement);
+       if(slider) {
+          let isDown = false;
+          let startX: any;
+          let scrollLeft: any;
+
+          slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+          });
+          slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            slider.style.cursor = 'grab';
+          });
+          slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // scroll-fast
+            slider.scrollLeft = scrollLeft - walk;
+          });
+       }
+    
+
   }, []);
 
   return (

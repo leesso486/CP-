@@ -1,0 +1,9 @@
+app/page.tsx(29,4152): error TS2353: Object literal may only specify known properties, and '"-BaseColor"' does not exist in type 'Properties<string | number, string & {}>'.
+app/page.tsx(29,4586): error TS2353: Object literal may only specify known properties, and '"-BaseColor"' does not exist in type 'Properties<string | number, string & {}>'.
+app/page.tsx(29,4969): error TS2353: Object literal may only specify known properties, and '"-BaseColor"' does not exist in type 'Properties<string | number, string & {}>'.
+app/page.tsx(29,5345): error TS2353: Object literal may only specify known properties, and '"-BaseColor"' does not exist in type 'Properties<string | number, string & {}>'.
+app/page.tsx(29,6476): error TS2353: Object literal may only specify known properties, and '"-TrackColor"' does not exist in type 'Properties<string | number, string & {}>'.
+app/page.tsx(29,7478): error TS2353: Object literal may only specify known properties, and '"-TrackColor"' does not exist in type 'Properties<string | number, string & {}>'.
+app/page.tsx(29,8063): error TS2353: Object literal may only specify known properties, and '"-TrackColor"' does not exist in type 'Properties<string | number, string & {}>'.
+app/page.tsx(29,8565): error TS2353: Object literal may only specify known properties, and '"-TrackColor"' does not exist in type 'Properties<string | number, string & {}>'.
+app/page.tsx(29,9045): error TS2353: Object literal may only specify known properties, and '"-TrackColor"' does not exist in type 'Properties<string | number, string & {}>'.

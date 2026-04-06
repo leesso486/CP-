@@ -3,7 +3,192 @@ import React, { useEffect } from 'react';
 
 export default function AnthologyPage() {
   useEffect(() => {
+
+    // Unified Levels Data
+    const alData = [
+      {
+        level: 'Level 0', color: '#0EA5E9', 
+        shortTarget: '초5하~초4중하',
+        target: '중학교1 [교과서] · 권장: 초5하~초4중하', 
+        title: '수능 유형 Basic 이해',
+        desc: '수능 문제 유형(일치·Main Idea)을 처음 접하는 입문 단계. 읽기 전 어휘 CHECK와 배경지식 질문으로 인지 스키마를 활성화한 후 본문을 읽으며 감각을 키웁니다.',
+        cover: 'images/anthology_lv0_cover.png',
+        inner: 'images/anthology_lv0_inner.png'
+      },
+      {
+        level: 'Level 1', color: '#F59E0B', 
+        shortTarget: '초6하~초4중상',
+        target: '중학교2 [교과서] · 권장: 초6하~초4중상', 
+        title: '세부 정보 파악 훈련',
+        desc: '문장의 수식어구를 걷어내고 핵심 정보만을 빠르고 정확하게 찾아내는 훈련. 긴 호흡의 문장에서도 주제를 놓치지 않는 독해의 기본기를 다지며 디테일 파악의 완성도를 높입니다.',
+        cover: 'images/anthology_lv1_cover.png',
+        inner: 'images/anthology_lv1_inner.png' 
+      },
+      {
+        level: 'Level 2', color: '#10B981', 
+        shortTarget: '중3하~초5상',
+        target: '중학교3 ~ 고1 학평(3월) · 권장: 중3하~초5상', 
+        title: '중심 내용 파악 및 논리적 구조화',
+        desc: '지문의 논리 전개 방식을 파악하여 작가의 의도를 도출해 내는 과정. 글의 흐름을 다이어그램으로 그리며 거시적 독해력을 완성하고 주제 찾기 문항을 마스터합니다.',
+        cover: 'images/anthology_lv2_cover.png',
+        inner: 'images/anthology_lv2_inner.png'
+      },
+      {
+        level: 'Level 3', color: '#8B5CF6', 
+        shortTarget: '중3중상~초5최상',
+        target: '고1 학평(6-11월) · 권장: 중3중상~초5최상', 
+        title: '유추 및 수사법 심층 이해',
+        desc: '비유적 표현과 함축적 의미를 수능 고난도 유형에 맞춰 분석합니다. 단어의 숨은 의도를 파악하고 문맥적 추론 능력을 극대화하여 1등급의 두 번째 발판을 단단히 마련합니다.',
+        cover: 'images/anthology_lv3_cover.png',
+        inner: 'images/anthology_lv3_inner.png'
+      },
+      {
+        level: 'Level 4', color: '#F97316', 
+        shortTarget: '중3상중~중1최상',
+        target: '고1 학평(3-11월) · 권장: 중3상중~중1최상', 
+        title: '기출 원서 + 내신 유형',
+        desc: '고1 평가원 기출 원서 및 내신 혼합 유형으로 구성되어 고난도 빈칸 추론과 순서 배열의 오답률을 현저히 낮춥니다. 팩트 기반 데이터와 논리를 통해 확실한 근거를 찾아냅니다.',
+        cover: 'images/anthology_lv4_cover.png',
+        inner: 'images/anthology_lv4_inner.png'
+      },
+      {
+        level: 'Level 5', color: '#047857', 
+        shortTarget: '중3상~중2최상',
+        target: '고2 학력평가 · 권장: 중3상~중2최상', 
+        title: '기출 원서 + 내신 유형 심화',
+        desc: '복잡한 구문과 철학적/추상적 소재가 결합된 고난도 지문을 돌파하는 집중 훈련. 어휘의 깊이 있는 이해와 작가의 논증 방식을 통해 빈틈없는 고2 모의고사 1등급을 성취합니다.',
+        cover: 'images/anthology_lv5_cover.png',
+        inner: 'images/anthology_lv5_inner.png'
+      },
+      {
+        level: 'Level 6', color: '#1E3A8A', 
+        shortTarget: '중3최상',
+        target: '고3 학력평가 및 모의고사 · 권장: 중3최상', 
+        title: '기출 원서 + 내신 유형 마스터',
+        desc: '역대 평가원 최고 오답률 문항의 논리 패러다임을 철저하게 내면화합니다. 어떤 킬러 지문이 나와도 흔들리지 않는 대치동 최상위권 전용 압도적인 독해 솔루션입니다.',
+        cover: 'images/anthology_lv6_cover.png',
+        inner: 'images/anthology_lv6_inner.png'
+      }
+    ];
+
     
+
+    
+    
+    
+    let activeLevel = 0;
+    
+    // THE MISSING FUNCTION!
+    (window as any).setActiveLevel = function(idx: any) {
+       activeLevel = idx;
+       renderLevelTheatre();
+    };
+
+    function renderLevelTheatre() {
+
+      const dataInfo = alData[activeLevel];
+      
+      // Update Backgrounds & Colors
+      (document.getElementById('level-theatre-bg') as HTMLElement).style.background = `radial-gradient(circle at 75% 50%, ${dataInfo.color}15 0%, #F8FAFC 60%)`;
+      (document.getElementById('level-theatre-title-color') as HTMLElement).style.color = dataInfo.color;
+      (document.getElementById('level-accent-line') as HTMLElement).style.background = dataInfo.color;
+
+      // Update Badges & Text (Bigger, more premium)
+      const targetStr = dataInfo.target;
+      let badgeHtml = '';
+      if(targetStr.includes(' · 권장: ')) {
+        const parts = targetStr.split(' · 권장: ');
+        badgeHtml = `
+          <span style="display: inline-flex; align-items: center; padding: 8px 18px; border-radius: 8px; background: #0F172A; color: white; font-weight: 800; font-size: 1.05rem; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(15,23,42,0.2);">
+            <span style="opacity: 0.5; margin-right: 10px; font-weight: 600; font-size: 0.9rem;">학습 타겟</span> ${parts[0]}
+          </span>
+          <span style="display: inline-flex; align-items: center; padding: 8px 18px; border-radius: 8px; background: ${dataInfo.color}15; color: ${dataInfo.color}; font-weight: 800; font-size: 1.05rem; border: 1px solid ${dataInfo.color}40;">
+            <span style="opacity: 0.7; margin-right: 10px; font-weight: 700; font-size: 0.9rem;">권장 학년</span> ${parts[1]}
+          </span>
+        `;
+      } else {
+        badgeHtml = `<span style="display: inline-block; padding: 8px 18px; border-radius: 8px; background: ${dataInfo.color}15; color: ${dataInfo.color}; font-weight: 800; font-size: 1.05rem; border: 1px solid ${dataInfo.color}40;">${targetStr}</span>`;
+      }
+      
+      (document.getElementById('level-target-badge-container') as HTMLElement).innerHTML = badgeHtml;
+      (document.getElementById('level-title') as HTMLElement).innerText = dataInfo.title;
+      (document.getElementById('level-desc') as HTMLElement).innerText = dataInfo.desc;
+
+      // Restart Content Animation
+      const cb = (document.getElementById('level-content-box') as HTMLElement);
+      cb.style.animation = 'none';
+      void cb.offsetWidth;
+      cb.style.animation = 'fadeInUp 0.5s ease-out';
+
+      // Update Image Showcase (Massive, depth-heavy rendering)
+      const imgBox = (document.getElementById('level-image-box') as HTMLElement);
+      if(dataInfo.inner) {
+          imgBox.innerHTML = `
+            <div style="position: absolute; width: 275px; z-index: 1; transform-origin: center; transform: translateX(-100px) translateY(-20px) perspective(1200px) rotateY(15deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.inner}" alt="Inner" style="width: 100%; border-radius: 12px; border: 1px solid #E2E8F0; object-fit: contain; pointer-events: none;" />
+            </div>
+            <div style="position: absolute; width: 235px; z-index: 2; transform-origin: center; transform: translateX(100px) translateY(20px) perspective(1200px) rotateY(-10deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" alt="Cover" style="width: 100%; border-radius: 16px; border: 1px solid #E2E8F0;" />
+            </div>
+          `;
+      } else {
+         imgBox.innerHTML = `
+            <div style="width: 270px; z-index: 2; transform: perspective(1200px) rotateY(-5deg) rotateX(5deg); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);">
+              <img src="${dataInfo.cover}" alt="Cover" style="width: 100%; border-radius: 16px;" />
+            </div>
+          `;
+      }
+
+      // Update Timeline Nodes
+      const btnHtml = alData.map((data, idx) => {
+        const isActive = activeLevel === idx;
+        const isPassed = idx < activeLevel;
+        
+        let nodeColor = isActive ? data.color : (isPassed ? '#94A3B8' : '#CBD5E1');
+        let dotStyle = isActive
+          ? `background: ${data.color}; border: 4px solid #FFFFFF; box-shadow: 0 0 0 3px ${data.color}, 0 10px 20px ${data.color}60;`
+          : `background: #FFFFFF; border: 3px solid ${nodeColor};`;
+          
+        return `
+          <button onclick="setActiveLevel(${idx})" style="
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 24px 30px 24px 45px; margin: 5px 0; border: none; cursor: pointer; pointer-events: auto;
+            background: ${isActive ? '#FFFFFF' : 'transparent'};
+            border-radius: 16px;
+            color: ${isActive ? '#0F172A' : '#64748B'};
+            box-shadow: ${isActive ? '0 20px 40px rgba(0,0,0,0.06)' : 'none'};
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            transform: ${isActive ? 'scale(1.02) translateX(10px)' : 'scale(1) translateX(0)'};
+          ">
+            <!-- Timeline Dot -->
+            <div style="position: absolute; left: 1px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; border-radius: 50%; ${dotStyle} z-index: 10; transition: all 0.4s;"></div>
+            
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <span style="font-size: ${isActive ? '1.8rem' : '1.5rem'}; font-weight: ${isActive ? '900' : '700'}; letter-spacing: -0.5px; margin-bottom: 4px; color: ${isActive ? data.color : 'inherit'}; transition: all 0.3s;">${data.level}</span>
+                <span style="opacity: ${isActive ? 1 : 0.6}; font-weight: ${isActive ? '800' : '600'}; font-size: 1.05rem; color: ${isActive ? '#475569' : 'inherit'};">${data.shortTarget}</span>
+            </div>
+            
+            ${isActive ? `<div style="font-size: 1.5rem; color: ${data.color}; font-weight: 900; opacity: 0.5;">➝</div>` : ''}
+          </button>
+        `;
+      }).join('');
+      
+      (document.getElementById('level-buttons-container') as HTMLElement).innerHTML = btnHtml;
+
+      // Move Progress Line
+      const activeNodeHeight = 98; // Approx height with margins
+      const progressHeight = (activeLevel * activeNodeHeight) + (activeNodeHeight / 2) + 15;
+      (document.getElementById('timeline-progress-line') as HTMLElement).style.height = `${progressHeight}px`;
+      (document.getElementById('timeline-progress-line') as HTMLElement).style.background = dataInfo.color;
+    }
+
+    // Initial Render
+    
+      renderLevelTheatre();
+      
+    
+
   }, []);
 
   return (
