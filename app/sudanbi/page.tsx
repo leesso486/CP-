@@ -12,8 +12,8 @@ export default function SudanbiPage() {
         target: '필수편 고등 첫 단추 · 권장: 중3~고1', 
         title: '필수편',
         desc: '중학 어휘의 완성, 고1 3월 모의고사 1등급을 향한 가장 확실한 연결고리. 중3 필수 어휘부터 고1 첫 모의고사의 성패를 결정짓는 핵심 어휘까지, 고교 영어의 진입장벽을 낮추는 필수 관문입니다.',
-        cover: 'images/sudanbi_essential.png',
-        inner: 'images/sudanbi_real_1.png'
+        cover: '/images/sudanbi_essential.png',
+        inner: '/images/sudanbi_real_1.png'
       },
       {
         level: 'STEP 02', color: '#3B82F6', 
@@ -21,8 +21,8 @@ export default function SudanbiPage() {
         target: '꾸준한 1등급의 핵심 · 권장: 고1~고2', 
         title: '핵심편',
         desc: '고1 6월 모의고사 이후, 수능까지 흔들림 없는 1등급의 뼈대를 세웁니다. 고등학교 1학년 6월 이후 처음 나오는 빈출 어휘를 선별했습니다. 수능까지 1등급을 받기 위한 핵심 어휘입니다.',
-        cover: 'images/sudanbi_core.png',
-        inner: 'images/sudanbi_real_3.png' 
+        cover: '/images/sudanbi_core.png',
+        inner: '/images/sudanbi_real_3.png' 
       },
       {
         level: 'STEP 03', color: '#8B5CF6', 
@@ -30,8 +30,8 @@ export default function SudanbiPage() {
         target: '수능 만점의 정점 · 권장: 고2~고3', 
         title: '실력편',
         desc: '안정적인 최상위권을 위한 수능 기출 최고급 어휘. 만점으로 가는 수능 기출 최고난도 어휘의 묶음입니다.',
-        cover: 'images/sudanbi_advanced.png',
-        inner: 'images/sudanbi_real_4.jpg'
+        cover: '/images/sudanbi_advanced.png',
+        inner: '/images/sudanbi_real_4.jpg'
       }
     ];
 
@@ -415,17 +415,17 @@ export default function SudanbiPage() {
                 
                 <!-- Book 3: Advanced (Purple, Left Back) -->
                 <div style="position: absolute; width: 230px; z-index: 1; transform: perspective(1200px) rotateY(15deg) translateX(-120px) translateY(-20px) scale(0.85); transition: all 0.5s ease; filter: drop-shadow(-20px 20px 30px rgba(0,0,0,0.15));">
-                   <img src="images/sudanbi_advanced.png" style="width: 100%; border-radius: 14px; border: 1px solid rgba(0,0,0,0.05);" />
+                   <img src="/images/sudanbi_advanced.png" style="width: 100%; border-radius: 14px; border: 1px solid rgba(0,0,0,0.05);" />
                 </div>
                 
                 <!-- Book 1: Essential (Green, Right Back) -->
                 <div style="position: absolute; width: 230px; z-index: 2; transform: perspective(1200px) rotateY(-15deg) translateX(120px) translateY(20px) scale(0.85); transition: all 0.5s ease; filter: drop-shadow(20px 20px 30px rgba(0,0,0,0.15));">
-                   <img src="images/sudanbi_essential.png" style="width: 100%; border-radius: 14px; border: 1px solid rgba(0,0,0,0.05);" />
+                   <img src="/images/sudanbi_essential.png" style="width: 100%; border-radius: 14px; border: 1px solid rgba(0,0,0,0.05);" />
                 </div>
                 
                 <!-- Book 2: Core (Blue, Center Front) -->
                 <div style="position: absolute; width: 250px; z-index: 3; transform: perspective(1200px) rotateY(0deg) translateZ(40px) scale(1); transition: all 0.5s ease; filter: drop-shadow(0 30px 50px rgba(0,0,0,0.25)); pointer-events: auto;" onmouseover="this.style.transform='perspective(1200px) rotateY(0deg) translateZ(60px) scale(1.03)'" onmouseout="this.style.transform='perspective(1200px) rotateY(0deg) translateZ(40px) scale(1)'">
-                   <img src="images/sudanbi_core.png" style="width: 100%; border-radius: 16px; border: 1px solid rgba(0,0,0,0.08);" />
+                   <img src="/images/sudanbi_core.png" style="width: 100%; border-radius: 16px; border: 1px solid rgba(0,0,0,0.08);" />
                 </div>
              </div>
           </div>
@@ -633,10 +633,10 @@ export default function SudanbiPage() {
                
                <div id="sd-mag-img-container" style="position: relative; width: 100%; max-width: 550px; border-radius: 12px; overflow: hidden; cursor: crosshair;">
                  <!-- Base Image -->
-                 <img id="sd-mag-base-img" src="images/sudanbi_guide_clean.png" style="width: 100%; display: block;" />
+                 <img id="sd-mag-base-img" src="/images/sudanbi_guide_clean.png" style="width: 100%; display: block;" />
                  
                  <!-- The Lens -->
-                 <div id="sd-mag-lens" style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; border-radius: 50%; border: 4px solid #10B981; background-color: #fff; background-image: url('images/sudanbi_guide_clean.png'); background-repeat: no-repeat; box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 5px 20px rgba(0,0,0,0.1); transform: translate(-50%, -50%) scale(0); opacity: 0; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); pointer-events: none; z-index: 10;">
+                 <div id="sd-mag-lens" style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; border-radius: 50%; border: 4px solid #10B981; background-color: #fff; background-image: url('/images/sudanbi_guide_clean.png'); background-repeat: no-repeat; box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 5px 20px rgba(0,0,0,0.1); transform: translate(-50%, -50%) scale(0); opacity: 0; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); pointer-events: none; z-index: 10;">
                  </div>
                  
                  <!-- Radar blip overlay -->
@@ -652,7 +652,7 @@ export default function SudanbiPage() {
             <!-- Focus Content Right Zone -->
             <div style="display: flex; flex-direction: column; gap: 24px;">
               <!-- Point 1: Year -->
-              <div class="sd-mag-btn" onclick="sdFocusMagnifier(65, 12, 'images/sudanbi_guide_clean.png')" onmouseover="sdFocusMagnifier(65, 12, 'images/sudanbi_guide_clean.png')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
+              <div class="sd-mag-btn" onclick="sdFocusMagnifier(65, 12, '/images/sudanbi_guide_clean.png')" onmouseover="sdFocusMagnifier(65, 12, '/images/sudanbi_guide_clean.png')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #0F172A; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                    <span style="background: #F1F5F9; color: #64748B; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">1</span>
                    단어의 첫 출제 연도 파악
@@ -663,7 +663,7 @@ export default function SudanbiPage() {
               </div>
 
               <!-- Point 2: Frequency -->
-              <div class="sd-mag-btn" onclick="sdFocusMagnifier(20, 12, 'images/sudanbi_guide_clean.png')" onmouseover="sdFocusMagnifier(20, 12, 'images/sudanbi_guide_clean.png')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
+              <div class="sd-mag-btn" onclick="sdFocusMagnifier(20, 12, '/images/sudanbi_guide_clean.png')" onmouseover="sdFocusMagnifier(20, 12, '/images/sudanbi_guide_clean.png')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #0F172A; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                    <span style="background: #F1F5F9; color: #64748B; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">2</span>
                    객관적인 출제 횟수 데이터
@@ -674,7 +674,7 @@ export default function SudanbiPage() {
               </div>
 
               <!-- Point 3: Synonyms -->
-              <div class="sd-mag-btn" onclick="sdFocusMagnifier(15, 23, 'images/sudanbi_guide_clean.png')" onmouseover="sdFocusMagnifier(15, 23, 'images/sudanbi_guide_clean.png')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
+              <div class="sd-mag-btn" onclick="sdFocusMagnifier(15, 23, '/images/sudanbi_guide_clean.png')" onmouseover="sdFocusMagnifier(15, 23, '/images/sudanbi_guide_clean.png')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #0F172A; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                    <span style="background: #F1F5F9; color: #64748B; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">3</span>
                    유의어/반의어의 입체적 확장
@@ -685,7 +685,7 @@ export default function SudanbiPage() {
               </div>
               
               <!-- Point 4: Part of Speech -->
-              <div class="sd-mag-btn" onclick="sdFocusMagnifier(45, 23, 'images/sudanbi_guide_clean.png')" onmouseover="sdFocusMagnifier(45, 23, 'images/sudanbi_guide_clean.png')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
+              <div class="sd-mag-btn" onclick="sdFocusMagnifier(45, 23, '/images/sudanbi_guide_clean.png')" onmouseover="sdFocusMagnifier(45, 23, '/images/sudanbi_guide_clean.png')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #0F172A; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                    <span style="background: #F1F5F9; color: #64748B; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">4</span>
                    타동사 / 자동사 구분을 통한 어법 체화
@@ -696,7 +696,7 @@ export default function SudanbiPage() {
               </div>
 
               <!-- Point 5: Analogy Test -->
-              <div class="sd-mag-btn" onclick="sdFocusMagnifier(0, 0, 'images/sudanbi_test_page.png', 'crop5')" onmouseover="sdFocusMagnifier(0, 0, 'images/sudanbi_test_page.png', 'crop5')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
+              <div class="sd-mag-btn" onclick="sdFocusMagnifier(0, 0, '/images/sudanbi_test_page.png', 'crop5')" onmouseover="sdFocusMagnifier(0, 0, '/images/sudanbi_test_page.png', 'crop5')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #3B82F6; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                    <span style="background: #EFF6FF; color: #3B82F6; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">5</span>
                    어휘의 확장성 (유추 훈련)
@@ -707,7 +707,7 @@ export default function SudanbiPage() {
               </div>
 
               <!-- Point 6: Blank Test -->
-              <div class="sd-mag-btn" onclick="sdFocusMagnifier(0, 0, 'images/sudanbi_test_page.png', 'crop6')" onmouseover="sdFocusMagnifier(0, 0, 'images/sudanbi_test_page.png', 'crop6')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
+              <div class="sd-mag-btn" onclick="sdFocusMagnifier(0, 0, '/images/sudanbi_test_page.png', 'crop6')" onmouseover="sdFocusMagnifier(0, 0, '/images/sudanbi_test_page.png', 'crop6')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #3B82F6; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                    <span style="background: #EFF6FF; color: #3B82F6; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">6</span>
                    문맥 적합성 (빈칸 훈련)
@@ -718,7 +718,7 @@ export default function SudanbiPage() {
               </div>
 
               <!-- Point 7: Various Themes -->
-              <div class="sd-mag-btn" onclick="sdFocusMagnifier(0, 0, 'images/sudanbi_theme_table.png', 'theme7')" onmouseover="sdFocusMagnifier(0, 0, 'images/sudanbi_theme_table.png', 'theme7')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
+              <div class="sd-mag-btn" onclick="sdFocusMagnifier(0, 0, '/images/sudanbi_theme_table.png', 'theme7')" onmouseover="sdFocusMagnifier(0, 0, '/images/sudanbi_theme_table.png', 'theme7')" style="background: #FFFFFF; border: 2px solid #E2E8F0; padding: 30px; border-radius: 16px; cursor: pointer; transition: all 0.3s;">
                  <h4 style="font-size: 1.5rem; font-weight: 800; color: #8B5CF6; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                    <span style="background: #F5F3FF; color: #8B5CF6; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">7</span>
                    다양한 테마 (별책 부록)
@@ -744,16 +744,16 @@ export default function SudanbiPage() {
             <div class="sd-gallery-track" style="display: flex; justify-content: center; gap: 30px; overflow-x: auto; padding-bottom: 40px; scroll-snap-type: x mandatory; padding-left: 20px; padding-right: 20px;">
               <!-- Cards -->
               <div style="flex: 0 0 auto; width: clamp(280px, 80vw, 450px); scroll-snap-align: center; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid #E2E8F0; background: #FFF; cursor: grab; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                 <img src="images/guide_system_1.png" style="width: 100%; display: block;" draggable="false" />
+                 <img src="/images/guide_system_1.png" style="width: 100%; display: block;" draggable="false" />
               </div>
               <div style="flex: 0 0 auto; width: clamp(280px, 80vw, 450px); scroll-snap-align: center; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid #E2E8F0; background: #FFF; cursor: grab; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                 <img src="images/guide_system_2.png" style="width: 100%; display: block;" draggable="false" />
+                 <img src="/images/guide_system_2.png" style="width: 100%; display: block;" draggable="false" />
               </div>
               <div style="flex: 0 0 auto; width: clamp(280px, 80vw, 450px); scroll-snap-align: center; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid #E2E8F0; background: #FFF; cursor: grab; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                 <img src="images/guide_system_3.png" style="width: 100%; display: block;" draggable="false" />
+                 <img src="/images/guide_system_3.png" style="width: 100%; display: block;" draggable="false" />
               </div>
               <div style="flex: 0 0 auto; width: clamp(280px, 80vw, 450px); scroll-snap-align: center; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid #E2E8F0; background: #FFF; cursor: grab; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                 <img src="images/guide_system_4.png" style="width: 100%; display: block;" draggable="false" />
+                 <img src="/images/guide_system_4.png" style="width: 100%; display: block;" draggable="false" />
               </div>
             </div>
           </div>

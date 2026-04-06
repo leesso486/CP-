@@ -12,8 +12,8 @@ export default function AnthologyPage() {
         target: '중학교1 [교과서] · 권장: 초5하~초4중하', 
         title: '수능 유형 Basic 이해',
         desc: '수능 문제 유형(일치·Main Idea)을 처음 접하는 입문 단계. 읽기 전 어휘 CHECK와 배경지식 질문으로 인지 스키마를 활성화한 후 본문을 읽으며 감각을 키웁니다.',
-        cover: 'images/anthology_lv0_cover.png',
-        inner: 'images/anthology_lv0_inner.png'
+        cover: '/images/anthology_lv0_cover.png',
+        inner: '/images/anthology_lv0_inner.png'
       },
       {
         level: 'Level 1', color: '#F59E0B', 
@@ -21,8 +21,8 @@ export default function AnthologyPage() {
         target: '중학교2 [교과서] · 권장: 초6하~초4중상', 
         title: '세부 정보 파악 훈련',
         desc: '문장의 수식어구를 걷어내고 핵심 정보만을 빠르고 정확하게 찾아내는 훈련. 긴 호흡의 문장에서도 주제를 놓치지 않는 독해의 기본기를 다지며 디테일 파악의 완성도를 높입니다.',
-        cover: 'images/anthology_lv1_cover.png',
-        inner: 'images/anthology_lv1_inner.png' 
+        cover: '/images/anthology_lv1_cover.png',
+        inner: '/images/anthology_lv1_inner.png' 
       },
       {
         level: 'Level 2', color: '#10B981', 
@@ -30,8 +30,8 @@ export default function AnthologyPage() {
         target: '중학교3 ~ 고1 학평(3월) · 권장: 중3하~초5상', 
         title: '중심 내용 파악 및 논리적 구조화',
         desc: '지문의 논리 전개 방식을 파악하여 작가의 의도를 도출해 내는 과정. 글의 흐름을 다이어그램으로 그리며 거시적 독해력을 완성하고 주제 찾기 문항을 마스터합니다.',
-        cover: 'images/anthology_lv2_cover.png',
-        inner: 'images/anthology_lv2_inner.png'
+        cover: '/images/anthology_lv2_cover.png',
+        inner: '/images/anthology_lv2_inner.png'
       },
       {
         level: 'Level 3', color: '#8B5CF6', 
@@ -39,8 +39,8 @@ export default function AnthologyPage() {
         target: '고1 학평(6-11월) · 권장: 중3중상~초5최상', 
         title: '유추 및 수사법 심층 이해',
         desc: '비유적 표현과 함축적 의미를 수능 고난도 유형에 맞춰 분석합니다. 단어의 숨은 의도를 파악하고 문맥적 추론 능력을 극대화하여 1등급의 두 번째 발판을 단단히 마련합니다.',
-        cover: 'images/anthology_lv3_cover.png',
-        inner: 'images/anthology_lv3_inner.png'
+        cover: '/images/anthology_lv3_cover.png',
+        inner: '/images/anthology_lv3_inner.png'
       },
       {
         level: 'Level 4', color: '#F97316', 
@@ -48,8 +48,8 @@ export default function AnthologyPage() {
         target: '고1 학평(3-11월) · 권장: 중3상중~중1최상', 
         title: '기출 원서 + 내신 유형',
         desc: '고1 평가원 기출 원서 및 내신 혼합 유형으로 구성되어 고난도 빈칸 추론과 순서 배열의 오답률을 현저히 낮춥니다. 팩트 기반 데이터와 논리를 통해 확실한 근거를 찾아냅니다.',
-        cover: 'images/anthology_lv4_cover.png',
-        inner: 'images/anthology_lv4_inner.png'
+        cover: '/images/anthology_lv4_cover.png',
+        inner: '/images/anthology_lv4_inner.png'
       },
       {
         level: 'Level 5', color: '#047857', 
@@ -57,8 +57,8 @@ export default function AnthologyPage() {
         target: '고2 학력평가 · 권장: 중3상~중2최상', 
         title: '기출 원서 + 내신 유형 심화',
         desc: '복잡한 구문과 철학적/추상적 소재가 결합된 고난도 지문을 돌파하는 집중 훈련. 어휘의 깊이 있는 이해와 작가의 논증 방식을 통해 빈틈없는 고2 모의고사 1등급을 성취합니다.',
-        cover: 'images/anthology_lv5_cover.png',
-        inner: 'images/anthology_lv5_inner.png'
+        cover: '/images/anthology_lv5_cover.png',
+        inner: '/images/anthology_lv5_inner.png'
       },
       {
         level: 'Level 6', color: '#1E3A8A', 
@@ -66,8 +66,8 @@ export default function AnthologyPage() {
         target: '고3 학력평가 및 모의고사 · 권장: 중3최상', 
         title: '기출 원서 + 내신 유형 마스터',
         desc: '역대 평가원 최고 오답률 문항의 논리 패러다임을 철저하게 내면화합니다. 어떤 킬러 지문이 나와도 흔들리지 않는 대치동 최상위권 전용 압도적인 독해 솔루션입니다.',
-        cover: 'images/anthology_lv6_cover.png',
-        inner: 'images/anthology_lv6_inner.png'
+        cover: '/images/anthology_lv6_cover.png',
+        inner: '/images/anthology_lv6_inner.png'
       }
     ];
 
@@ -251,7 +251,7 @@ export default function AnthologyPage() {
              <div style="position: relative; z-index: 2; width: 340px;">
                 <!-- Glowing Aura -->
                 <div style="position: absolute; top: 10%; left: 0%; width: 120%; height: 80%; background: #0EA5E9; filter: blur(80px); opacity: 0.25; border-radius: 50%;"></div>
-                <img src="images/anthology_lv6_cover.png" style="width: 100%; border-radius: 16px; border: 1px solid #E2E8F0; filter: drop-shadow(0 40px 60px rgba(0,0,0,0.15)); transform: perspective(1000px) rotateY(-8deg) rotateX(4deg); transition: transform 0.4s ease;" onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.05)'" onmouseout="this.style.transform='perspective(1000px) rotateY(-8deg) rotateX(4deg)'"/>
+                <img src="/images/anthology_lv6_cover.png" style="width: 100%; border-radius: 16px; border: 1px solid #E2E8F0; filter: drop-shadow(0 40px 60px rgba(0,0,0,0.15)); transform: perspective(1000px) rotateY(-8deg) rotateX(4deg); transition: transform 0.4s ease;" onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.05)'" onmouseout="this.style.transform='perspective(1000px) rotateY(-8deg) rotateX(4deg)'"/>
              </div>
           </div>
         </div>
@@ -550,13 +550,13 @@ export default function AnthologyPage() {
               <div style="display: flex; flex-direction: column; gap: 120px; padding-top: 20px;">
                 <!-- Group 1 -->
                 <div style="position: relative; width: 100%; display: flex; justify-content: center;">
-                  <img src="images/new_anthology_step_1.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                  <img src="images/new_anthology_step_2.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #E2E8F0; margin-left: -140px; margin-top: 60px; z-index: 1; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='translateX(50px) scale(1.03)'; this.style.zIndex='3';" onmouseout="this.style.transform='translateX(0) scale(1)'; this.style.zIndex='1';">
+                  <img src="/images/new_anthology_step_1.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                  <img src="/images/new_anthology_step_2.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #E2E8F0; margin-left: -140px; margin-top: 60px; z-index: 1; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='translateX(50px) scale(1.03)'; this.style.zIndex='3';" onmouseout="this.style.transform='translateX(0) scale(1)'; this.style.zIndex='1';">
                 </div>
                 <!-- Group 2 -->
                 <div style="position: relative; width: 100%; display: flex; justify-content: center;">
-                  <img src="images/new_anthology_step_3.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                  <img src="images/new_anthology_step_4.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #E2E8F0; margin-left: -140px; margin-top: 60px; z-index: 1; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='translateX(50px) scale(1.03)'; this.style.zIndex='3';" onmouseout="this.style.transform='translateX(0) scale(1)'; this.style.zIndex='1';">
+                  <img src="/images/new_anthology_step_3.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                  <img src="/images/new_anthology_step_4.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #E2E8F0; margin-left: -140px; margin-top: 60px; z-index: 1; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='translateX(50px) scale(1.03)'; this.style.zIndex='3';" onmouseout="this.style.transform='translateX(0) scale(1)'; this.style.zIndex='1';">
                 </div>
               </div>
             </div>
@@ -589,16 +589,16 @@ export default function AnthologyPage() {
               <div style="display: flex; flex-direction: column; gap: 120px; padding-top: 20px;">
                 <!-- Group 1 -->
                 <div style="position: relative; width: 100%; display: flex; justify-content: center;">
-                  <img src="images/new_anthology_step_5.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                  <img src="/images/new_anthology_step_5.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
                 <!-- Group 2 -->
                 <div style="position: relative; width: 100%; display: flex; justify-content: center;">
-                  <img src="images/new_anthology_step_6.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                  <img src="images/new_anthology_step_8.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #E2E8F0; margin-left: -140px; margin-top: 60px; z-index: 1; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='translateX(50px) scale(1.03)'; this.style.zIndex='3';" onmouseout="this.style.transform='translateX(0) scale(1)'; this.style.zIndex='1';">
+                  <img src="/images/new_anthology_step_6.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                  <img src="/images/new_anthology_step_8.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #E2E8F0; margin-left: -140px; margin-top: 60px; z-index: 1; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='translateX(50px) scale(1.03)'; this.style.zIndex='3';" onmouseout="this.style.transform='translateX(0) scale(1)'; this.style.zIndex='1';">
                 </div>
                 <!-- Group 3 -->
                 <div style="position: relative; width: 100%; display: flex; justify-content: center;">
-                  <img src="images/new_anthology_step_7.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                  <img src="/images/new_anthology_step_7.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
               </div>
             </div>
@@ -631,15 +631,15 @@ export default function AnthologyPage() {
               <div style="display: flex; flex-direction: column; gap: 120px; padding-top: 20px;">
                 <!-- Group 1 -->
                 <div style="position: relative; width: 100%; display: flex; justify-content: center;">
-                  <img src="images/new_anthology_step_9.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                  <img src="/images/new_anthology_step_9.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
                 <!-- Group 2 -->
                 <div style="position: relative; width: 100%; display: flex; justify-content: center;">
-                  <img src="images/new_anthology_step_10.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                  <img src="/images/new_anthology_step_10.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
                 <!-- Group 3 -->
                 <div style="position: relative; width: 100%; display: flex; justify-content: center;">
-                  <img src="images/new_anthology_step_11.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                  <img src="/images/new_anthology_step_11.png" style="height: 480px; width: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid #E2E8F0; z-index: 2; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
               </div>
             </div>
@@ -672,7 +672,7 @@ export default function AnthologyPage() {
             <div style="background: #FFFFFF; border-radius: 24px; border: 1px solid #E2E8F0; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='none'">
                <!-- Image Container (Uncropped) -->
                <div style="background: #F1F5F9; height: 350px; display: flex; align-items: center; justify-content: center; padding: 30px;">
-                   <img src="images/antho_sup_guide.png" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid #E2E8F0;" alt="교사용 가이드 미리보기" onerror="this.src='https://placehold.co/800x600/F1F5F9/94A3B8?text=Teacher+Guide+Image'"/>
+                   <img src="/images/antho_sup_guide.png" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid #E2E8F0;" alt="교사용 가이드 미리보기" onerror="this.src='https://placehold.co/800x600/F1F5F9/94A3B8?text=Teacher+Guide+Image'"/>
                </div>
                <!-- Text Info -->
                <div style="padding: 40px;">
@@ -700,7 +700,7 @@ export default function AnthologyPage() {
             <div style="background: #FFFFFF; border-radius: 24px; border: 1px solid #E2E8F0; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='none'">
                <!-- Image Container (Uncropped) -->
                <div style="background: #F1F5F9; height: 350px; display: flex; align-items: center; justify-content: center; padding: 30px;">
-                   <img src="images/antho_sup_review.png" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid #E2E8F0;" alt="리뷰 테스트 미리보기" onerror="this.src='https://placehold.co/800x600/F1F5F9/94A3B8?text=Review+Test+Image'"/>
+                   <img src="/images/antho_sup_review.png" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid #E2E8F0;" alt="리뷰 테스트 미리보기" onerror="this.src='https://placehold.co/800x600/F1F5F9/94A3B8?text=Review+Test+Image'"/>
                </div>
                <!-- Text Info -->
                <div style="padding: 40px;">
@@ -725,7 +725,7 @@ export default function AnthologyPage() {
             <div style="background: #FFFFFF; border-radius: 24px; border: 1px solid #E2E8F0; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='none'">
                <!-- Image Container (Uncropped) -->
                <div style="background: #F1F5F9; height: 350px; display: flex; align-items: center; justify-content: center; padding: 30px;">
-                   <img src="images/antho_sup_mini.png" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid #E2E8F0;" alt="미니 테스트 미리보기" onerror="this.src='https://placehold.co/800x600/F1F5F9/94A3B8?text=Mini+Test+Image'"/>
+                   <img src="/images/antho_sup_mini.png" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid #E2E8F0;" alt="미니 테스트 미리보기" onerror="this.src='https://placehold.co/800x600/F1F5F9/94A3B8?text=Mini+Test+Image'"/>
                </div>
                <!-- Text Info -->
                <div style="padding: 40px;">
@@ -750,7 +750,7 @@ export default function AnthologyPage() {
             <div style="background: #FFFFFF; border-radius: 24px; border: 1px solid #E2E8F0; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='none'">
                <!-- Image Container (Uncropped) -->
                <div style="background: #F1F5F9; height: 350px; display: flex; align-items: center; justify-content: center; padding: 30px;">
-                   <img src="images/antho_sup_level.png" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid #E2E8F0;" alt="레벨 테스트 미리보기" onerror="this.src='https://placehold.co/800x600/F1F5F9/94A3B8?text=Level+Test+Image'"/>
+                   <img src="/images/antho_sup_level.png" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid #E2E8F0;" alt="레벨 테스트 미리보기" onerror="this.src='https://placehold.co/800x600/F1F5F9/94A3B8?text=Level+Test+Image'"/>
                </div>
                <!-- Text Info -->
                <div style="padding: 40px;">
