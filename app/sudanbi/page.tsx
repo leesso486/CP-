@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from 'react';
+import LevelTestGame from './LevelTestGame';
 
 export default function SudanbiPage() {
   useEffect(() => {
@@ -356,6 +357,7 @@ export default function SudanbiPage() {
   }, []);
 
   return (
+    <>
     <div dangerouslySetInnerHTML={{ __html: `
     <div style="background: #F8FAFC; min-height: 100vh; padding-top: 80px; padding-bottom: 0;">
       
@@ -791,6 +793,10 @@ export default function SudanbiPage() {
          }
       </style>
 
+    </div>
+` }} />
+      <LevelTestGame />
+      <div dangerouslySetInnerHTML={{ __html: `
       <!-- Footer CTA -->
       <section style="background: #0F172A; color: white; padding: 100px 4%; text-align: center;">
         <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 20px;">수단비 정규 교보재 검토를 희망하십니까?</h2>
@@ -801,5 +807,6 @@ export default function SudanbiPage() {
 
     </div>
 ` }} />
+    </>
   );
 }
