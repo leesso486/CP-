@@ -88,6 +88,7 @@ ${scriptImport}
 
   return (
     <main>
+      <style dangerouslySetInnerHTML={{ __html: ${JSON.stringify(globalCSS)} }} />
 ${mainHTML}
     </main>
   );
